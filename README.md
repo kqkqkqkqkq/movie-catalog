@@ -1,7 +1,7 @@
 
 ### Technologies
 
-- Retrofit - HTTP requests
+- [X] Retrofit - HTTP requests
 - DataStore Preferences - Save local configurations
 - Cicerone - Navigation
 - JUnit 6 - Testing
