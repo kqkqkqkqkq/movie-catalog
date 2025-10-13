@@ -1,0 +1,18 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+dimen fab_margin
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable icon_app
+id compose_view
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.Moviecatalog
+style Theme.AnimatedSplash.MovieCatalogSplash
+style Theme.Moviecatalog
+xml backup_rules
+xml data_extraction_rules

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="fab_margin">16dp</dimen>
+    <string name="app_name">Movie Catalog</string>
+    <style name="Base.Theme.Moviecatalog" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.AnimatedSplash.MovieCatalogSplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="postSplashScreenTheme">@style/Theme.Moviecatalog</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_app</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+    </style>
+    <style name="Theme.Moviecatalog" parent="Base.Theme.Moviecatalog"/>
+</resources>

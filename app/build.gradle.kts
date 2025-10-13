@@ -60,4 +60,6 @@ dependencies {
     implementation(libs.kotlinx.serealization.json)
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
+    // Splash Screen
+    implementation(libs.androidx.core.splashscreen)
 }
