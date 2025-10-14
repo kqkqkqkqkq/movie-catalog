@@ -1,6 +1,12 @@
 package k.movie_catalog.api
 
+import k.movie_catalog.api.routes.Routes
+import k.movie_catalog.api.schemas.MovieDetailsDto
+import k.movie_catalog.api.schemas.MoviesPagedListDto
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
+import java.util.UUID
 
 
 /**
@@ -8,6 +14,13 @@ import retrofit2.http.GET
  */
 interface MovieApi {
 
-    @GET
-    suspend fun getMovies()
+    @GET(Routes.MOVIES)
+    suspend fun getMovies(
+        @Path("page") page: Int = 1,
+    ): Response<MoviesPagedListDto>
+
+    @GET(Routes.MOVIE_DETAILS)
+    suspend fun getMovieDetails(
+        @Path("id") id: UUID,
+    ): Response<MovieDetailsDto>
 }
