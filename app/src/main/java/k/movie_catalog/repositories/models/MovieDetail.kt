@@ -1,12 +1,10 @@
-package k.movie_catalog.api.schemas
+package k.movie_catalog.repositories.models
 
-import k.movie_catalog.utils.serializer.UUIDSerializer
-import kotlinx.serialization.Serializable
+import k.movie_catalog.api.schemas.GenreDto
+import k.movie_catalog.api.schemas.ReviewDto
 import java.util.UUID
 
-@Serializable
-data class MovieDetailsDto(
-    @Serializable(with = UUIDSerializer::class)
+data class MovieDetail(
     val id: UUID,
     val name: String?,
     val poster: String?,

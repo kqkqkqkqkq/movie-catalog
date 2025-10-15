@@ -19,10 +19,10 @@ jvmTarget = "11"
 
 kotlin-serialization = "2.2.20"
 kotlin-serialization-json = "1.9.0"
+retrofit = "3.0.0"
+retrofit2KotlinxSerializationConverter = "1.0.0"
 
 kotlinx-coroutines = "1.10.2"
-
-retrofit = "3.0.0"
 
 activityCompose = "1.11.0"
 composeBom = "2025.09.01"
@@ -48,9 +48,9 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines"}
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines"}
 
-kotlinx-serealization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization-json"}
-
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit"}
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization-json"}
+kotlinx-serialization-json-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 
 # Compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }

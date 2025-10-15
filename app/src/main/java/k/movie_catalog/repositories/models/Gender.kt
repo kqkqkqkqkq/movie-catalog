@@ -1,4 +1,4 @@
-package k.movie_catalog.api.schemas
+package k.movie_catalog.repositories.models
 
 enum class Gender {
     MALE,

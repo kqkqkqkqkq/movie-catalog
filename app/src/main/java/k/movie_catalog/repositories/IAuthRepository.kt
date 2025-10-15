@@ -1,0 +1,14 @@
+package k.movie_catalog.repositories
+
+import k.movie_catalog.repositories.models.Auth
+import k.movie_catalog.repositories.models.LoginCredential
+import k.movie_catalog.repositories.models.Profile
+import k.movie_catalog.repositories.models.UserRegister
+
+interface IAuthRepository {
+    suspend fun register(userRegister: UserRegister): Result<Auth>
+    suspend fun login(loginCredential: LoginCredential)
+    suspend fun logout()
+    suspend fun getProfile(): Result<Profile>
+    suspend fun updateProfile(profile: Profile)
+}

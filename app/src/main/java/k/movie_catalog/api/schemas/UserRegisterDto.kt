@@ -1,7 +1,8 @@
 package k.movie_catalog.api.schemas
 
+import k.movie_catalog.utils.serializer.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
-import java.util.Date
+import java.time.LocalDateTime
 
 @Serializable
 data class UserRegisterDto(
@@ -9,6 +10,7 @@ data class UserRegisterDto(
     val name: String,
     val password: String,
     val email: String,
-    val birthDate: Date,
-    val gender: Gender,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val birthDate: LocalDateTime,
+    val genderDto: GenderDto,
 )

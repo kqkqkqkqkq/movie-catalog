@@ -1,4 +1,4 @@
-package k.movie_catalog.api
+package k.movie_catalog.api.api
 
 import k.movie_catalog.api.routes.Routes
 import k.movie_catalog.api.schemas.ReviewModifyDto

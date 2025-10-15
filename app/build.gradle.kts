@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id("org.jlleitschuh.gradle.ktlint") version "13.1.0"
-    id("io.gitlab.arturbosch.detekt") version "1.23.8"
+    alias(libs.plugins.kotlin.serialization)
+    id("org.jlleitschuh.gradle.ktlint") version "13.1.0" // TODO("move to version catalog")
+    id("io.gitlab.arturbosch.detekt") version "1.23.8" // TODO("move to version catalog")
 }
 
 android {
@@ -57,9 +58,12 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     // Retrofit
     implementation(libs.retrofit)
-    implementation(libs.kotlinx.serealization.json)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.json.converter)
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
     // Splash Screen
     implementation(libs.androidx.core.splashscreen)
+    // Cicerone
+    implementation(libs.cicerone)
 }
