@@ -1,10 +1,20 @@
 
 - [X] Setup compose
-- [ ] Add ktlint and detekt to project and configure linting and formatting
-- [ ] Create basic navigation
-- [ ] Create basic project structure
-- [ ] Create api endpoints
-- [ ] Create screen layouts
-- [ ] Clear dependencies
 - [ ] Add DataStore
-- [ ] Create manual DI for manage dependencies in project
+- [X] Create basic navigation
+- [X] Create basic project structure
+- [X] Create api endpoints / schemas
+- [ ] Bottom navigation bar
+- [ ] Create screen layouts
+  - [ ] Login
+  - [ ] Register
+  - [ ] Main
+  - [ ] Movie Detail
+  - [ ] Profile
+  - [ ] Collections
+  - [ ] Collection Detail
+- [X] Create manual DI for manage dependencies in project
+- [ ] Add ktlint and detekt to project and configure linting and formatting
+- [ ] Create States for screen and MVI 
+- [ ] Add animations and transitions between screens
+- 

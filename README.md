@@ -2,11 +2,9 @@
 ### Technologies
 
 - [X] Retrofit - HTTP requests
-- DataStore Preferences - Save local configurations
-- Cicerone - Navigation
-- JUnit 6 - Testing
-- Compose - Build UI
-- KtLint + Detekt - Linting
-- Manual DI - Handmade dependency injection
-- View Binding
-- Fragment
+- [X] Cicerone - Navigation
+- [X] Manual DI - Handmade dependency injection
+- [ ] DataStore Preferences - Save local configurations and tokens
+- [ ] Compose + Fragments - UI
+- [ ] KtLint + Detekt - Linting
+- [ ] JUnit 6 + Mockito - Testing
