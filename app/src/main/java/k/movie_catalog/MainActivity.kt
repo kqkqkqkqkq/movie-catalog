@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) { // TODO("Check Shared Preferences")
-            App.INSTANCE.router.newRootScreen(Screens.Register())
+            App.INSTANCE.router.newRootScreen(Screens.Login())
         }
     }
 

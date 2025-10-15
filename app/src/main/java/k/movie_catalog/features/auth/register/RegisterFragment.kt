@@ -39,6 +39,10 @@ class RegisterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupButtons()
+    }
+
+    private fun setupButtons() {
         binding.btnRegister.setOnClickListener {
             authComponent.viewModel.testRegister()
         }

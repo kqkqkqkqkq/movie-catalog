@@ -23,8 +23,12 @@ class AuthRepository(
         }
     }
 
-    override suspend fun login(loginCredential: LoginCredential) {
-        authApi.login(loginCredential.toLoginCredentialDto())
+    override suspend fun login(loginCredential: LoginCredential): Result<Auth> {
+        return handleApiCall {
+            authApi.login(loginCredential.toLoginCredentialDto())
+        }.map {
+            it.toAuth()
+        }
     }
 
     override suspend fun logout() {

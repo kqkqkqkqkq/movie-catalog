@@ -4,9 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.terrakok.cicerone.Router
 import k.movie_catalog.Screens
+import k.movie_catalog.features.auth.login.LoginState
+import k.movie_catalog.features.auth.register.RegisterState
 import k.movie_catalog.repositories.IAuthRepository
 import k.movie_catalog.repositories.models.Gender
 import k.movie_catalog.repositories.models.UserRegister
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -15,6 +19,15 @@ class AuthViewModel(
     private val authRepository: IAuthRepository,
 ) : ViewModel() {
 
+    private val _loginState = MutableStateFlow<LoginState?>(null)
+    val loginState = _loginState.asStateFlow()
+
+    private val _registerState = MutableStateFlow<RegisterState?>(null)
+    val registerState = _loginState.asStateFlow()
+
+    fun updateLoginState(newState: LoginState) {
+        _loginState.value = newState
+    }
     fun onOpenRegister() {
         router.navigateTo(Screens.Register())
     }
@@ -25,6 +38,14 @@ class AuthViewModel(
 
     fun onBackPressed() {
         router.exit()
+    }
+
+    fun login() {
+        viewModelScope.launch {
+            val userLogin = loginState.value?.loginCredential ?: return@launch
+            val result = authRepository.login(userLogin)
+            println(result)
+        }
     }
 
     fun testRegister() {

@@ -7,7 +7,7 @@ import k.movie_catalog.repositories.models.UserRegister
 
 interface IAuthRepository {
     suspend fun register(userRegister: UserRegister): Result<Auth>
-    suspend fun login(loginCredential: LoginCredential)
+    suspend fun login(loginCredential: LoginCredential): Result<Auth>
     suspend fun logout()
     suspend fun getProfile(): Result<Profile>
     suspend fun updateProfile(profile: Profile)
