@@ -1,6 +1,6 @@
 package k.movie_catalog.api.schemas
 
-import k.movie_catalog.utils.serializer.GenderDtoSerializer
+import k.movie_catalog.api.serializer.GenderDtoSerializer
 import kotlinx.serialization.Serializable
 
 @Serializable(with = GenderDtoSerializer::class)

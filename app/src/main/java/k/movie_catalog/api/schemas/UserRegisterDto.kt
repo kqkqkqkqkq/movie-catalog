@@ -1,6 +1,6 @@
 package k.movie_catalog.api.schemas
 
-import k.movie_catalog.utils.serializer.LocalDateTimeSerializer
+import k.movie_catalog.api.serializer.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 

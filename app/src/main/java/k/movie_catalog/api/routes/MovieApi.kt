@@ -1,6 +1,5 @@
-package k.movie_catalog.api.api
+package k.movie_catalog.api.routes
 
-import k.movie_catalog.api.routes.Routes
 import k.movie_catalog.api.schemas.MovieDetailsDto
 import k.movie_catalog.api.schemas.MoviesPagedListDto
 import retrofit2.Response

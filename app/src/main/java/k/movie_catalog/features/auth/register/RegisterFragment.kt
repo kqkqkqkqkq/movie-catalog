@@ -4,29 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.terrakok.cicerone.Router
-import k.movie_catalog.BaseFragment
-import k.movie_catalog.api.api.AuthApi
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import k.movie_catalog.App
 import k.movie_catalog.databinding.FragmentRegisterBinding
-import k.movie_catalog.features.auth.AuthViewModel
-import k.movie_catalog.features.auth.di.AuthComponent
-import k.movie_catalog.features.auth.di.IAuthComponentDependencies
+import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.features.auth.login.LoginViewModel
+import kotlin.getValue
 
-class RegisterFragment : BaseFragment() {
+class RegisterFragment : Fragment() {
+
+    private val viewModel: RegisterViewModel by viewModels {
+        viewModelFactory {
+            RegisterViewModel(authRepository = App.appComponent.authRepository)
+        }
+    }
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val authComponent by lazy {
-        val dependencies = object : IAuthComponentDependencies {
-            override val authApi: AuthApi = appComponent.authApi
-            override val router: Router = appComponent.router
-        }
-        AuthComponent(dependencies)
-    }
-
-    private val viewModel by lazy {
-        getViewModel<AuthViewModel>(authComponent.viewModelFactory)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,10 +39,10 @@ class RegisterFragment : BaseFragment() {
 
     private fun setupButtons() {
         binding.btnRegister.setOnClickListener {
-            authComponent.viewModel.testRegister()
+//            authComponent.viewModel.testRegister() TODO("")
         }
         binding.btnLogin.setOnClickListener {
-            authComponent.viewModel.onOpenLogin()
+//            authComponent.viewModel.onOpenLogin() TODO("")
         }
     }
 

@@ -1,4 +1,4 @@
-package k.movie_catalog.utils.serializer
+package k.movie_catalog.api.serializer
 
 import k.movie_catalog.api.schemas.GenderDto
 import k.movie_catalog.api.schemas.GenderDto.Companion.toInt

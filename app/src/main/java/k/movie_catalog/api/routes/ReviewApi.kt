@@ -1,6 +1,5 @@
-package k.movie_catalog.api.api
+package k.movie_catalog.api.routes
 
-import k.movie_catalog.api.routes.Routes
 import k.movie_catalog.api.schemas.ReviewModifyDto
 import retrofit2.Response
 import retrofit2.http.POST

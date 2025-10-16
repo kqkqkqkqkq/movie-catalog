@@ -65,5 +65,5 @@ dependencies {
     // Splash Screen
     implementation(libs.androidx.core.splashscreen)
     // Cicerone
-    implementation(libs.cicerone)
+//    implementation(libs.cicerone)
 }

@@ -1,6 +1,5 @@
-package k.movie_catalog.api.api
+package k.movie_catalog.api.routes
 
-import k.movie_catalog.api.routes.Routes
 import k.movie_catalog.api.schemas.AuthResponseDto
 import k.movie_catalog.api.schemas.LoginCredentialDto
 import k.movie_catalog.api.schemas.ProfileDto
