@@ -1,13 +1,7 @@
 package k.movie_catalog.features.auth.register
 
 import androidx.lifecycle.ViewModel
-import k.movie_catalog.repositories.AuthRepository
-import k.movie_catalog.repositories.IAuthRepository
-import k.movie_catalog.repositories.models.Gender
-import k.movie_catalog.repositories.models.UserRegister
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import java.time.LocalDateTime
+import k.movie_catalog.repositories.auth.IAuthRepository
 
 class RegisterViewModel(
     private val authRepository: IAuthRepository,

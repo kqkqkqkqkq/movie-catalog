@@ -1,4 +1,4 @@
-package k.movie_catalog.repositories
+package k.movie_catalog.repositories.auth
 
 import k.movie_catalog.repositories.models.Auth
 import k.movie_catalog.repositories.models.LoginCredential

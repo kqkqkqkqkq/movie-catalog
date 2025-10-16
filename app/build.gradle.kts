@@ -64,6 +64,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     // Splash Screen
     implementation(libs.androidx.core.splashscreen)
-    // Cicerone
-//    implementation(libs.cicerone)
+    // DataStore
+    implementation(libs.datastore.preferences)
 }

@@ -1,7 +1,7 @@
 package k.movie_catalog.features.auth.login
 
 import androidx.lifecycle.ViewModel
-import k.movie_catalog.repositories.IAuthRepository
+import k.movie_catalog.repositories.auth.IAuthRepository
 import k.movie_catalog.repositories.models.LoginCredential
 import k.movie_catalog.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
