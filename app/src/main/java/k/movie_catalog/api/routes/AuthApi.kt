@@ -7,6 +7,7 @@ import k.movie_catalog.api.schemas.UserRegisterDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -26,10 +27,13 @@ interface AuthApi {
     suspend fun logout()
 
     @GET(Routes.PROFILE)
-    suspend fun getProfile(): Response<ProfileDto>
+    suspend fun getProfile(
+        @Header("Bearer") token: String,
+    ): Response<ProfileDto>
 
     @PUT(Routes.UPDATE_PROFILE)
     suspend fun updateProfile(
+        @Header("Bearer") token: String,
         @Body profileUpdate: ProfileDto
     )
 }

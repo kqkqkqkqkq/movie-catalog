@@ -13,4 +13,8 @@
     <string name="already_have_account">I already have an account</string>
 
     <string name="description_movie_catalog_logo">Movie Catalog Logo</string>
+    
+    <string name="navigation_main">Main</string>
+    <string name="navigation_collections">Collections</string>
+    <string name="navigation_profile">Profile</string>
 </resources>

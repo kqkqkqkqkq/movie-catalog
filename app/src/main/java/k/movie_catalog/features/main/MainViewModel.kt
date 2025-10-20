@@ -1,4 +1,10 @@
 package k.movie_catalog.features.main
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+
+class MainViewModel(
+
+) : ViewModel() {
+
+
 }

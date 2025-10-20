@@ -25,8 +25,8 @@ fun UserRegisterDto.toUserRegister() = UserRegister(
 )
 
 fun LoginCredentialDto.toLoginCredential() = LoginCredential(
-    userName = this.userName,
-    password = this.password,
+    username = this.userName ?: "",
+    password = this.password ?: "",
 )
 
 fun ProfileDto.toProfile() = Profile(
@@ -65,7 +65,7 @@ fun UserRegister.toUserRegisterDto() = UserRegisterDto(
 )
 
 fun LoginCredential.toLoginCredentialDto() = LoginCredentialDto(
-    userName = this.userName,
+    userName = this.username,
     password = this.password,
 )
 

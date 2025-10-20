@@ -4,17 +4,18 @@ import android.content.Context
 import k.movie_catalog.api.RetrofitClient
 import k.movie_catalog.api.config.RetrofitConfig
 import k.movie_catalog.api.routes.AuthApi
+import k.movie_catalog.api.routes.MovieApi
 import k.movie_catalog.api.routes.Routes
-import k.movie_catalog.data.getDataStore
+import k.movie_catalog.data.getMovieCatalogStore
 import k.movie_catalog.repositories.auth.AuthRepository
 import k.movie_catalog.repositories.auth.IAuthRepository
-import k.movie_catalog.repositories.auth.ITokenRepository
-import k.movie_catalog.repositories.auth.TokenRepository
+import k.movie_catalog.repositories.token.ITokenRepository
+import k.movie_catalog.repositories.token.TokenRepository
 
 class AppComponent(
     private val context: Context,
 ) : IAppComponent {
-    private val datastore by lazy { getDataStore(context) }
+    private val datastore by lazy { getMovieCatalogStore(context) }
     private val retrofitConfig by lazy { RetrofitConfig() }
     private val retrofitClient: RetrofitClient by lazy {
         RetrofitClient(
@@ -25,6 +26,9 @@ class AppComponent(
     }
     override val authApi: AuthApi by lazy {
         retrofitClient.authApi
+    }
+    override val movieApi: MovieApi by lazy {
+        retrofitClient.movieApi
     }
     override val authRepository: IAuthRepository by lazy {
         AuthRepository(authApi)

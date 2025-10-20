@@ -8,6 +8,9 @@
         <item name="colorSurface">@color/surfaceLight</item>
         <item name="colorOnSurface">@color/onSurfaceLight</item>
 
+        <item name="colorError">@color/errorLight</item>
+        <item name="colorOnError">@color/onErrorLight</item>
+
         <item name="android:statusBarColor" >@color/primaryLight</item>
         <item name="android:windowLightStatusBar" >true</item>
     </style>

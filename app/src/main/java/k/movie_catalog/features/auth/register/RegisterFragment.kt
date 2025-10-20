@@ -6,17 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import k.movie_catalog.App
+import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentRegisterBinding
 import k.movie_catalog.di.viewModelFactory
-import k.movie_catalog.features.auth.login.LoginViewModel
-import kotlin.getValue
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private val viewModel: RegisterViewModel by viewModels {
         viewModelFactory {
-            RegisterViewModel(authRepository = App.appComponent.authRepository)
+            RegisterViewModel(
+                authRepository = App.appComponent.authRepository,
+                tokenRepository = App.appComponent.tokenRepository,
+            )
         }
     }
     private var _binding: FragmentRegisterBinding? = null
@@ -42,7 +45,7 @@ class RegisterFragment : Fragment() {
 //            authComponent.viewModel.testRegister() TODO("")
         }
         binding.btnLogin.setOnClickListener {
-//            authComponent.viewModel.onOpenLogin() TODO("")
+            findNavController().navigate(R.id.action_register_to_login)
         }
     }
 
@@ -50,9 +53,5 @@ class RegisterFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() = RegisterFragment()
     }
 }

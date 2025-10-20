@@ -1,73 +1,111 @@
 package k.movie_catalog.features.auth.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import k.movie_catalog.App
+import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentLoginBinding
 import k.movie_catalog.di.viewModelFactory
+import kotlinx.coroutines.launch
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModels {
         viewModelFactory {
-            LoginViewModel(authRepository = App.appComponent.authRepository)
+            LoginViewModel(
+                authRepository = App.appComponent.authRepository,
+                tokenRepository = App.appComponent.tokenRepository,
+            )
         }
     }
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: LoginBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val loginBinding = FragmentLoginBinding.bind(view)
+        _binding = LoginBinding(loginBinding)
+        observeViewModel()
         setupButtons()
         setupTextFields()
     }
 
-
-    private fun setupButtons() {
-        binding.btnLogin.setOnClickListener {
-//            viewModel.login()
-        }
-        binding.btnRegister.setOnClickListener {
-//            viewModel.onOpenRegister()
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.loginState.collect { state ->
+                updateUI(state)
+            }
         }
     }
 
-    private fun setupTextFields() {
-        binding.etUsername.doOnTextChanged { text, _, _, _ ->
-//            val currentState = viewModel.loginState.value ?: LoginState(LoginCredential("", ""))
-//            viewModel.updateLoginState(
-//                currentState.copy(
-//                    loginCredential = currentState.loginCredential.copy(
-//                        userName = text?.toString() ?: ""
-//                    )
-//                )
-//            )
-        }
 
-        binding.etPassword.doOnTextChanged { text, _, _, _ ->
-//            val currentState = viewModel.loginState.value ?: LoginState(LoginCredential("", ""))
-//            viewModel.updateLoginState(
-//                currentState.copy(
-//                    loginCredential = currentState.loginCredential.copy(
-//                        password = text?.toString() ?: ""
-//                    )
-//                )
-//            )
+    private fun setupButtons() {
+        binding.loginButton.setOnClickListener {
+            viewModel.login()
         }
+        binding.registerButton.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_register)
+        }
+    }
+
+
+    private fun setupTextFields() {
+        binding.usernameEditText.doOnTextChanged { username, _, _, _ ->
+            viewModel.updateUsername(username.toString())
+        }
+        binding.passwordEditText.doOnTextChanged { password, _, _, _ ->
+            viewModel.updatePassword(password.toString())
+        }
+    }
+
+
+    private fun updateUI(state: LoginUiState) {
+        updateLoginButton(state)
+        updateErrorState(state)
+        updateLoadingState(state)
+    }
+
+
+    private fun updateLoginButton(state: LoginUiState) {
+        val isFormValid = state.loginCredential.username.isNotBlank() &&
+                state.loginCredential.password.isNotBlank()
+
+        val isEnabledButton = isFormValid && !state.isLoading
+        binding.loginButton.isEnabled = isEnabledButton
+
+        if (isEnabledButton) {
+            binding.loginButton.setTextColor(androidx.appcompat.R.attr.colorPrimary)
+        } else {
+            binding.loginButton.setBackgroundColor(androidx.appcompat.R.attr.colorPrimary)
+//            binding.loginButton.setTextColor(disabledTextColor)
+        }
+    }
+
+    private fun updateErrorState(state: LoginUiState) {
+
+    }
+
+    private fun updateLoadingState(state: LoginUiState) {
+        binding.progressBar.isVisible = state.isLoading
+
+        if (state.isLoading) {
+            binding.loginButton.text = "Loading..."
+            binding.loginButton.isEnabled = false
+        } else {
+            binding.loginButton.text = "Login"
+        }
+    }
+
+    private fun resetFormOnError() {
+        binding.passwordEditText.text?.clear()
+        viewModel.updatePassword("")
     }
 
     override fun onDestroyView() {

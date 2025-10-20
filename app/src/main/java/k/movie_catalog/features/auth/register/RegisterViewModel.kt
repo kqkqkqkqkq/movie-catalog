@@ -2,10 +2,12 @@ package k.movie_catalog.features.auth.register
 
 import androidx.lifecycle.ViewModel
 import k.movie_catalog.repositories.auth.IAuthRepository
+import k.movie_catalog.repositories.token.ITokenRepository
 
 class RegisterViewModel(
     private val authRepository: IAuthRepository,
-): ViewModel() {
+    private val tokenRepository: ITokenRepository,
+) : ViewModel() {
 
 //    private val _registerState = MutableStateFlow<RegisterState?>(null)
 //    val registerState = _registerState.asStateFlow()

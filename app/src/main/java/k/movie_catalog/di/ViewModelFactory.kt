@@ -6,6 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 fun <VM : ViewModel> viewModelFactory(vm: () -> VM) = object : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return vm as T
+        return vm() as T
     }
 }

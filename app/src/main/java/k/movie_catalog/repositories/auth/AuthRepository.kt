@@ -1,15 +1,13 @@
 package k.movie_catalog.repositories.auth
 
 import k.movie_catalog.api.routes.AuthApi
+import k.movie_catalog.api.utils.handleApiCall
 import k.movie_catalog.repositories.models.Auth
 import k.movie_catalog.repositories.models.LoginCredential
 import k.movie_catalog.repositories.models.Profile
 import k.movie_catalog.repositories.models.UserRegister
-import k.movie_catalog.api.utils.handleApiCall
 import k.movie_catalog.utils.mapper.toAuth
 import k.movie_catalog.utils.mapper.toLoginCredentialDto
-import k.movie_catalog.utils.mapper.toProfile
-import k.movie_catalog.utils.mapper.toProfileDto
 import k.movie_catalog.utils.mapper.toUserRegisterDto
 
 class AuthRepository(
@@ -36,14 +34,15 @@ class AuthRepository(
     }
 
     override suspend fun getProfile(): Result<Profile> {
-        return handleApiCall {
-            authApi.getProfile()
-        }.map {
-            it.toProfile()
-        }
+        TODO("add token")
+//        return handleApiCall {
+//            authApi.getProfile()
+//        }.map {
+//            it.toProfile()
+//        }
     }
 
     override suspend fun updateProfile(profile: Profile) {
-        authApi.updateProfile(profile.toProfileDto())
+//        authApi.updateProfile(profile.toProfileDto()) TODO("add token")
     }
 }
