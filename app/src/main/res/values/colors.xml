@@ -20,4 +20,7 @@
     <color name="onSurfaceLight">#1C1A19</color>
     <color name="errorLight">#EA0F0F</color>
     <color name="onErrorLight">#EDE1E1</color>
+
+    <color name="bottom_nav_icon_color">@color/bottom_nav_colors</color>
+    <color name="bottom_nav_text_color">@color/bottom_nav_colors</color>
 </resources>

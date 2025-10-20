@@ -36,9 +36,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setupClickListeners() {
-        binding.testButton.setOnClickListener {
-            TODO("")
-        }
+
     }
 
 

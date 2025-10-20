@@ -11,6 +11,8 @@ import k.movie_catalog.repositories.auth.AuthRepository
 import k.movie_catalog.repositories.auth.IAuthRepository
 import k.movie_catalog.repositories.token.ITokenRepository
 import k.movie_catalog.repositories.token.TokenRepository
+import k.movie_catalog.utils.dispatcher.DispatcherProvider
+import k.movie_catalog.utils.dispatcher.MovieCatalogDispatcherProvider
 
 class AppComponent(
     private val context: Context,
@@ -23,6 +25,9 @@ class AppComponent(
             okHttpClient = retrofitConfig.buildOkHttpClient(),
             json = retrofitConfig.buildJson(),
         )
+    }
+    override val dispatcherProvider: DispatcherProvider by lazy {
+        MovieCatalogDispatcherProvider()
     }
     override val authApi: AuthApi by lazy {
         retrofitClient.authApi
