@@ -85,16 +85,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             binding.loginButton.setTextColor(androidx.appcompat.R.attr.colorPrimary)
         } else {
             binding.loginButton.setBackgroundColor(androidx.appcompat.R.attr.colorPrimary)
-//            binding.loginButton.setTextColor(disabledTextColor)
+//            binding.loginButton.setTextColor(disabledTextColor) // TODO("Colorize login button and fix position")
         }
     }
 
     private fun updateErrorState(state: LoginUiState) {
-        val error = state.error
-        println("DEBUG: Error state = $error")
-        if (error != null) {
+        if (state.error != null) {
             binding.errorTextView.visibility = View.VISIBLE
-            binding.errorTextView.text = error
+            binding.errorTextView.text = state.error
         } else {
             binding.errorTextView.visibility = View.INVISIBLE
         }
@@ -104,10 +102,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.progressBar.isVisible = state.isLoading
 
         if (state.isLoading) {
-            binding.loginButton.text = "Loading..."
+            binding.loginButton.text = getString(R.string.loading)
             binding.loginButton.isEnabled = false
         } else {
-            binding.loginButton.text = "Login"
+            binding.loginButton.text = getString(R.string.login)
         }
     }
 

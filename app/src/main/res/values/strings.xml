@@ -11,6 +11,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="logout">Logout</string>
+    <string name="loading">Loading...</string>
     <string name="already_have_account">I already have an account</string>
 
     <string name="description_movie_catalog_logo">Movie Catalog Logo</string>
