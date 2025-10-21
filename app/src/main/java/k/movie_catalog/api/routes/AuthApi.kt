@@ -28,12 +28,6 @@ interface AuthApi {
 
     @GET(Routes.PROFILE)
     suspend fun getProfile(
-        @Header("Bearer") token: String,
+        @Header("Authorization") token: String,
     ): Response<ProfileDto>
-
-    @PUT(Routes.UPDATE_PROFILE)
-    suspend fun updateProfile(
-        @Header("Bearer") token: String,
-        @Body profileUpdate: ProfileDto
-    )
 }

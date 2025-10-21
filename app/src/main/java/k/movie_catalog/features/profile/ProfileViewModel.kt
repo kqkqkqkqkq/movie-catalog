@@ -41,11 +41,14 @@ class ProfileViewModel(
         }
     }
 
-    fun getProfile() {
+    private fun getProfile() {
         viewModelScope.launch(dispatcherProvider.io) {
             _profileState.update { it.copy(isLoading = true) }
             try {
-                val result = authRepository.getProfile()
+                val token = requireNotNull(tokenRepository.getToken())
+                val result = authRepository.getProfile(token)
+                println(result)
+                println(token)
                 if (result.isSuccess) {
                     _profileState.update {
                         _profileState.value.copy(

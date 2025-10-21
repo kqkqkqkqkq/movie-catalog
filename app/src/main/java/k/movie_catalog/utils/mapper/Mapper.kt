@@ -39,16 +39,18 @@ fun ProfileDto.toProfile() = Profile(
     gender = genderMapperDto(this.genderDto),
 )
 
-private fun genderMapperDto(genderDto: GenderDto): Gender =
+private fun genderMapperDto(genderDto: GenderDto?): Gender =
     when (genderDto) {
         GenderDto.MALE -> Gender.MALE
         GenderDto.FEMALE -> Gender.FEMALE
+        null -> Gender.UNKNOW
     }
 
-private fun genderMapper(gender: Gender): GenderDto =
+private fun genderMapper(gender: Gender): GenderDto? =
     when (gender) {
         Gender.MALE -> GenderDto.MALE
         Gender.FEMALE -> GenderDto.FEMALE
+        Gender.UNKNOW -> null
     }
 
 fun Auth.toAuthDto() = AuthResponseDto(

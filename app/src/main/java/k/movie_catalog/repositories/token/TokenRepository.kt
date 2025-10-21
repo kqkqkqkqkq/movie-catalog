@@ -26,4 +26,8 @@ class TokenRepository(
             preferences.remove(PreferencesKeys.TOKEN)
         }
     }
+
+    override suspend fun getToken(): String? {
+        return dataStore.data.first()[PreferencesKeys.TOKEN]
+    }
 }

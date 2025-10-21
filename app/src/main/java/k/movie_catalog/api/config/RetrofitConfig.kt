@@ -17,5 +17,7 @@ class RetrofitConfig {
         ignoreUnknownKeys = true
         isLenient = true
         encodeDefaults = true
+        explicitNulls = false
+        coerceInputValues = true
     }
 }

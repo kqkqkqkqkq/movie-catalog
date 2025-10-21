@@ -7,4 +7,9 @@ class ProfileBinding(
 ) {
     val root = profileBinding.root
     val logoutButton = profileBinding.logOutButton
+    val username = profileBinding.tvUsername
+    val email = profileBinding.email
+    val name = profileBinding.name
+    val progressBar = profileBinding.progressBar
+    val error = profileBinding.tvError
 }

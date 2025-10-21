@@ -8,6 +8,7 @@ import k.movie_catalog.repositories.models.Profile
 import k.movie_catalog.repositories.models.UserRegister
 import k.movie_catalog.utils.mapper.toAuth
 import k.movie_catalog.utils.mapper.toLoginCredentialDto
+import k.movie_catalog.utils.mapper.toProfile
 import k.movie_catalog.utils.mapper.toUserRegisterDto
 
 class AuthRepository(
@@ -33,16 +34,11 @@ class AuthRepository(
         authApi.logout()
     }
 
-    override suspend fun getProfile(): Result<Profile> {
-        TODO("add token")
-//        return handleApiCall {
-//            authApi.getProfile()
-//        }.map {
-//            it.toProfile()
-//        }
-    }
-
-    override suspend fun updateProfile(profile: Profile) {
-//        authApi.updateProfile(profile.toProfileDto()) TODO("add token")
+    override suspend fun getProfile(token: String): Result<Profile> {
+        return handleApiCall {
+            authApi.getProfile("Bearer $token")
+        }.map {
+            it.toProfile()
+        }
     }
 }
