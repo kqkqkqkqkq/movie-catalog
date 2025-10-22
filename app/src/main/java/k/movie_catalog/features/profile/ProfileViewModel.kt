@@ -25,11 +25,11 @@ class ProfileViewModel(
 
     fun logout() {
         viewModelScope.launch(dispatcherProvider.io) {
-            _profileState.update { _profileState.value.copy(isLoading = true) }
+            _profileState.update { it.copy(isLoading = true) }
             try {
                 authRepository.logout()
                 tokenRepository.clearToken()
-                _profileState.update { _profileState.value.copy(isLoading = false) }
+                _profileState.update { it.copy(isLoading = false) }
             } catch (e: Exception) {
                 _profileState.update {
                     it.copy(
@@ -47,11 +47,9 @@ class ProfileViewModel(
             try {
                 val token = requireNotNull(tokenRepository.getToken())
                 val result = authRepository.getProfile(token)
-                println(result)
-                println(token)
                 if (result.isSuccess) {
                     _profileState.update {
-                        _profileState.value.copy(
+                        it.copy(
                             profile = result.getOrNull(),
                             isLoading = false,
                         )
@@ -64,7 +62,7 @@ class ProfileViewModel(
                         )
                     }
                 }
-                _profileState.update { _profileState.value.copy(isLoading = false) }
+                _profileState.update { it.copy(isLoading = false) }
             } catch (e: Exception) {
                 _profileState.update {
                     it.copy(

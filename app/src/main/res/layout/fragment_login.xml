@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logo_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -15,44 +15,42 @@
         android:contentDescription="@string/description_movie_catalog_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/username_til"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUserName"
+        android:id="@+id/username_til"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="48dp"
         android:paddingHorizontal="16dp"
-        app:errorEnabled="true"
+        android:paddingTop="48dp"
         app:boxCornerRadiusTopStart="@dimen/medium"
         app:boxCornerRadiusTopEnd="@dimen/medium"
         app:boxCornerRadiusBottomStart="@dimen/medium"
         app:boxCornerRadiusBottomEnd="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo">
+        app:layout_constraintTop_toBottomOf="@+id/logo_image">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsername"
-            android:textSize="14sp"
-            android:textColor="?attr/colorOnSurface"
-            app:boxStrokeColor="?attr/colorOnSurface"
+            android:id="@+id/username_et"
+            style="@style/DefaultEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
+            app:boxStrokeColor="?attr/colorOnSurface"
             android:hint="@string/hint_login"
             android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:singleLine="true" />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+        android:id="@+id/password_til"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
         android:paddingHorizontal="16dp"
-        app:errorEnabled="true"
+        android:paddingTop="14dp"
         app:boxCornerRadiusTopStart="@dimen/medium"
         app:boxCornerRadiusTopEnd="@dimen/medium"
         app:boxCornerRadiusBottomStart="@dimen/medium"
@@ -60,61 +58,52 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilUserName">
+        app:layout_constraintTop_toBottomOf="@+id/username_til">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
-            android:textSize="14sp"
-            android:textColor="?attr/colorOnSurface"
-            app:boxStrokeColor="?attr/colorOnSurface"
+            android:id="@+id/password_et"
+            style="@style/DefaultEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
+            app:boxStrokeColor="?attr/colorOnSurface"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true" />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        android:id="@+id/progress"
+        style="@style/Progress"
+        app:layout_constraintBottom_toTopOf="@+id/register_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tilPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/password_til" />
 
     <Space
         android:id="@+id/space"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvError"
+        app:layout_constraintBottom_toTopOf="@+id/error"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/password_til" />
 
     <TextView
-        android:id="@+id/tvError"
+        android:id="@+id/error"
+        style="@style/Error"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:maxLines="1"
-        android:paddingVertical="8dp"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="?attr/colorError"
-        android:textSize="14sp"
+        android:layout_margin="16dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/space"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@+id/login_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/login_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -124,20 +113,20 @@
         android:textColor="?attr/colorOnPrimary"
         app:backgroundTint="?attr/colorPrimary"
         app:cornerRadius="@dimen/medium"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        app:layout_constraintBottom_toTopOf="@+id/register_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
+        android:id="@+id/register_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="24dp"
         android:text="@string/register"
         android:textSize="16sp"
-        app:backgroundTint="@android:color/transparent"
         android:textColor="?attr/colorPrimary"
+        app:backgroundTint="@android:color/transparent"
         app:cornerRadius="@dimen/medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

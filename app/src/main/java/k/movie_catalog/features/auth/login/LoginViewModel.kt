@@ -34,10 +34,12 @@ class LoginViewModel(
                 } else {
                     _loginState.update { it.copy(error = null) }
                     val result = authRepository.login(_loginState.value.loginCredential)
-
                     if (result.isFailure) {
                         _loginState.update {
                             it.copy(
+                                loginCredential = it.loginCredential.copy(
+                                    password = "",
+                                ),
                                 isLoading = false,
                                 error = result.exceptionOrNull()?.message ?: "Login failed",
                             )
@@ -47,9 +49,6 @@ class LoginViewModel(
                         tokenRepository.setToken(token.token)
                         _loginState.update {
                             it.copy(
-                                loginCredential = it.loginCredential.copy(
-                                    password = "",
-                                ),
                                 isLoading = false,
                                 error = null,
                             )
@@ -59,6 +58,9 @@ class LoginViewModel(
             } catch (e: Exception) {
                 _loginState.update {
                     it.copy(
+                        loginCredential = it.loginCredential.copy(
+                            password = "",
+                        ),
                         isLoading = false,
                         error = e.message ?: "Unknown error",
                     )
@@ -70,8 +72,8 @@ class LoginViewModel(
     fun updateUsername(username: String) {
         viewModelScope.launch(dispatcherProvider.default) {
             _loginState.update {
-                _loginState.value.copy(
-                    loginCredential = _loginState.value.loginCredential.copy(
+                it.copy(
+                    loginCredential = it.loginCredential.copy(
                         username = username,
                     ),
                 )
@@ -82,8 +84,8 @@ class LoginViewModel(
     fun updatePassword(password: String) {
         viewModelScope.launch(dispatcherProvider.default) {
             _loginState.update {
-                _loginState.value.copy(
-                    loginCredential = _loginState.value.loginCredential.copy(
+                it.copy(
+                    loginCredential = it.loginCredential.copy(
                         password = password,
                     ),
                 )

@@ -6,10 +6,17 @@ class ProfileBinding(
     profileBinding: FragmentProfileBinding,
 ) {
     val root = profileBinding.root
-    val logoutButton = profileBinding.logOutButton
-    val username = profileBinding.tvUsername
+    val avatar = profileBinding.avatar
+    val username = profileBinding.usernameTv
+    val emailText = profileBinding.emailTv
     val email = profileBinding.email
+    val nameText = profileBinding.nameTv
     val name = profileBinding.name
-    val progressBar = profileBinding.progressBar
-    val error = profileBinding.tvError
+    val birthDateText = profileBinding.birthDateTv
+    val birthDate = profileBinding.birthDate
+    val genderText = profileBinding.genderTv
+    val gender = profileBinding.genderToggle
+    val progress = profileBinding.progress
+    val error = profileBinding.error
+    val logoutButton = profileBinding.logoutBtn
 }

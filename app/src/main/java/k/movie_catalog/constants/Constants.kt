@@ -6,4 +6,5 @@ object Constants {
     const val WRITE_TIMEOUT = 30L
     const val TOKEN_KEY = "token"
     const val MOVIE_CATALOG_PREFERENCES_NAME = "movie_catalog"
+    const val DATE_PATTERN = "dd.MM.yyyy"
 }

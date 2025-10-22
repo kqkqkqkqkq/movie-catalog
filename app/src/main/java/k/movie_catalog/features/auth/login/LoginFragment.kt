@@ -91,15 +91,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun updateErrorState(state: LoginUiState) {
         if (state.error != null) {
-            binding.errorTextView.visibility = View.VISIBLE
-            binding.errorTextView.text = state.error
+            binding.errorText.visibility = View.VISIBLE
+            binding.errorText.text = state.error
         } else {
-            binding.errorTextView.visibility = View.INVISIBLE
+            binding.errorText.visibility = View.INVISIBLE
         }
     }
 
     private fun updateLoadingState(state: LoginUiState) {
-        binding.progressBar.isVisible = state.isLoading
+        binding.progress.isVisible = state.isLoading
 
         if (state.isLoading) {
             binding.loginButton.text = getString(R.string.loading)
@@ -112,9 +112,5 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() = LoginFragment()
     }
 }
