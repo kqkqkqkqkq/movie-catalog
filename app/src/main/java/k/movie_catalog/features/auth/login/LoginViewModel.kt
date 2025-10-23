@@ -3,6 +3,7 @@ package k.movie_catalog.features.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import k.movie_catalog.repositories.auth.IAuthRepository
+import k.movie_catalog.repositories.models.LoginCredential
 import k.movie_catalog.repositories.token.ITokenRepository
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,79 +23,44 @@ class LoginViewModel(
     fun login() {
         viewModelScope.launch(dispatcherProvider.io) {
             _loginState.update { it.copy(isLoading = true) }
-            try {
-                val validationResult = validateForm()
-                if (!validationResult) {
+            if (validateForm()) {
+                _loginState.update { it.copy(error = null) }
+                authRepository.login(_loginState.value.loginCredential).onSuccess { token ->
+                    tokenRepository.setToken(token.token)
                     _loginState.update {
                         it.copy(
                             isLoading = false,
-                            error = "Password is incorrect",
+                            error = null,
                         )
                     }
-                } else {
-                    _loginState.update { it.copy(error = null) }
-                    val result = authRepository.login(_loginState.value.loginCredential)
-                    if (result.isFailure) {
-                        _loginState.update {
-                            it.copy(
-                                loginCredential = it.loginCredential.copy(
-                                    password = "",
-                                ),
-                                isLoading = false,
-                                error = result.exceptionOrNull()?.message ?: "Login failed",
-                            )
-                        }
-                    } else {
-                        val token = result.getOrThrow()
-                        tokenRepository.setToken(token.token)
-                        _loginState.update {
-                            it.copy(
-                                isLoading = false,
-                                error = null,
-                            )
-                        }
+                }.onFailure { e ->
+                    _loginState.update {
+                        it.copy(
+                            isLoading = false,
+                            error = e.message,
+                        )
                     }
                 }
-            } catch (e: Exception) {
+            } else {
                 _loginState.update {
                     it.copy(
-                        loginCredential = it.loginCredential.copy(
-                            password = "",
-                        ),
                         isLoading = false,
-                        error = e.message ?: "Unknown error",
+                        error = "Password is incorrect",
                     )
                 }
             }
         }
     }
 
-    fun updateUsername(username: String) {
+    fun updateLoginState(loginCredential: LoginCredential) {
         viewModelScope.launch(dispatcherProvider.default) {
             _loginState.update {
-                it.copy(
-                    loginCredential = it.loginCredential.copy(
-                        username = username,
-                    ),
-                )
+                it.copy(loginCredential = loginCredential)
             }
         }
     }
 
-    fun updatePassword(password: String) {
-        viewModelScope.launch(dispatcherProvider.default) {
-            _loginState.update {
-                it.copy(
-                    loginCredential = it.loginCredential.copy(
-                        password = password,
-                    ),
-                )
-            }
-        }
-    }
-
-
-    private fun validateForm(): Boolean {
+    fun validateForm(): Boolean {
         val state = _loginState.value.loginCredential
         return state.username.isNotBlank() && state.password.isNotBlank()
     }

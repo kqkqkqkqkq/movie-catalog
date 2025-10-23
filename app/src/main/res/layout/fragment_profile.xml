@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/android:colorBackground"
     android:paddingBottom="68dp"
     tools:context=".features.profile.ProfileFragment">
 
-    <LinearLayout
-        android:id="@+id/header_section"
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/description_movie_catalog_logo"
+        android:src="@drawable/pic_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/email_tv"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:paddingVertical="8dp"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/description_movie_catalog_logo"
-            android:src="@drawable/pic_profile"
-            />
-
-        <TextView
-            android:id="@+id/username_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="3"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:paddingVertical="8dp"
-            android:textAlignment="textStart"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="24sp"
-            />
-
-    </LinearLayout>
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar" />
 
     <TextView
         android:id="@+id/email_tv"
@@ -52,7 +44,7 @@
         android:text="@string/hint_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_section" />
+        app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
     <TextView
         android:id="@+id/email"
@@ -116,36 +108,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:singleSelection="true"
-        app:selectionRequired="true"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_tv">
+        app:layout_constraintTop_toBottomOf="@+id/gender_tv"
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/male_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/toggle_gender"
             android:text="@string/male"
             android:textColor="@color/toggle_gender_text"
             app:cornerRadius="@dimen/medium"
             app:strokeColor="?attr/colorOnSurface"
-            app:strokeWidth="1dp"
-            android:backgroundTint="@color/toggle_gender" />
+            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/female_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:strokeColor="?attr/colorOnSurface"
-            app:strokeWidth="1dp"
+            android:backgroundTint="@color/toggle_gender"
             android:text="@string/female"
             android:textColor="@color/toggle_gender_text"
             app:cornerRadius="@dimen/medium"
-            android:backgroundTint="@color/toggle_gender" />
+            app:strokeColor="?attr/colorOnSurface"
+            app:strokeWidth="1dp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -173,10 +165,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/space"
         app:layout_constraintBottom_toTopOf="@+id/logout_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logout_btn"
@@ -185,9 +177,9 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="24dp"
         android:text="@string/logout"
+        android:textColor="?attr/colorPrimary"
         android:textSize="16sp"
         app:backgroundTint="@android:color/transparent"
-        android:textColor="?attr/colorPrimary"
         app:cornerRadius="@dimen/medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

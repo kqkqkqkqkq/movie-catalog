@@ -16,7 +16,7 @@ fun AuthResponseDto.toAuth() = Auth(
 )
 
 fun UserRegisterDto.toUserRegister() = UserRegister(
-    userName = this.userName,
+    username = this.userName,
     name = this.name,
     password = this.password,
     email = this.email,
@@ -58,7 +58,7 @@ fun Auth.toAuthDto() = AuthResponseDto(
 )
 
 fun UserRegister.toUserRegisterDto() = UserRegisterDto(
-    userName = this.userName,
+    userName = this.username,
     name = this.name,
     password = this.password,
     email = this.email,

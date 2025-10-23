@@ -2,11 +2,14 @@ package k.movie_catalog.features.auth.login
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import k.movie_catalog.App
 import k.movie_catalog.R
@@ -25,47 +28,53 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    private var _binding: LoginBinding? = null
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val loginBinding = FragmentLoginBinding.bind(view)
-        _binding = LoginBinding(loginBinding)
+        _binding = FragmentLoginBinding.bind(view)
         observeViewModel()
         setupButtons()
         setupTextFields()
     }
 
     private fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loginState.collect { state ->
-                updateUI(state)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loginState.collect { state ->
+                    updateUI(state)
+                }
             }
         }
     }
 
-
     private fun setupButtons() {
-        binding.loginButton.setOnClickListener {
+        binding.loginBtn.setOnClickListener {
             viewModel.login()
         }
-        binding.registerButton.setOnClickListener {
+        binding.registerBtn.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_register)
         }
     }
 
-
     private fun setupTextFields() {
-        binding.usernameEditText.doOnTextChanged { username, _, _, _ ->
-            viewModel.updateUsername(username.toString())
+        binding.usernameEt.doOnTextChanged { username, _, _, _ ->
+            viewModel.updateLoginState(
+                viewModel.loginState.value.loginCredential.copy(
+                    username = username.toString()
+                )
+            )
         }
-        binding.passwordEditText.doOnTextChanged { password, _, _, _ ->
-            viewModel.updatePassword(password.toString())
+        binding.passwordEt.doOnTextChanged { password, _, _, _ ->
+            viewModel.updateLoginState(
+                viewModel.loginState.value.loginCredential.copy(
+                    password = password.toString()
+                )
+            )
         }
     }
-
 
     private fun updateUI(state: LoginUiState) {
         updateLoginButton(state)
@@ -73,28 +82,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         updateLoadingState(state)
     }
 
-
     private fun updateLoginButton(state: LoginUiState) {
-        val isFormValid = state.loginCredential.username.isNotBlank() &&
-                state.loginCredential.password.isNotBlank()
-
+        val isFormValid = viewModel.validateForm()
         val isEnabledButton = isFormValid && !state.isLoading
-        binding.loginButton.isEnabled = isEnabledButton
-
-        if (isEnabledButton) {
-            binding.loginButton.setTextColor(androidx.appcompat.R.attr.colorPrimary)
-        } else {
-            binding.loginButton.setBackgroundColor(androidx.appcompat.R.attr.colorPrimary)
-//            binding.loginButton.setTextColor(disabledTextColor) // TODO("Colorize login button and fix position")
-        }
+        binding.loginBtn.isEnabled = isEnabledButton
     }
 
     private fun updateErrorState(state: LoginUiState) {
-        if (state.error != null) {
-            binding.errorText.visibility = View.VISIBLE
-            binding.errorText.text = state.error
-        } else {
-            binding.errorText.visibility = View.INVISIBLE
+        binding.error.isVisible = state.error != null
+        state.error.let {
+            binding.error.text = it
         }
     }
 
@@ -102,10 +99,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.progress.isVisible = state.isLoading
 
         if (state.isLoading) {
-            binding.loginButton.text = getString(R.string.loading)
-            binding.loginButton.isEnabled = false
+            binding.loginBtn.text = getString(R.string.loading)
+            binding.loginBtn.isEnabled = false
         } else {
-            binding.loginButton.text = getString(R.string.login)
+            binding.loginBtn.text = getString(R.string.login)
         }
     }
 
