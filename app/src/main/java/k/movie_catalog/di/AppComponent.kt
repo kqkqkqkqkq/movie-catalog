@@ -6,7 +6,7 @@ import k.movie_catalog.api.config.RetrofitConfig
 import k.movie_catalog.api.routes.AuthApi
 import k.movie_catalog.api.routes.MovieApi
 import k.movie_catalog.api.routes.Routes
-import k.movie_catalog.data.MovieCatalogStore
+import k.movie_catalog.data.token.TokenStore
 import k.movie_catalog.repositories.auth.AuthRepository
 import k.movie_catalog.repositories.auth.IAuthRepository
 import k.movie_catalog.repositories.token.ITokenRepository
@@ -17,7 +17,7 @@ import k.movie_catalog.utils.dispatcher.MovieCatalogDispatcherProvider
 class AppComponent(
     private val context: Context,
 ) : IAppComponent {
-    private val datastore by lazy { MovieCatalogStore(context) }
+    private val datastore by lazy { TokenStore(context) }
     private val retrofitConfig by lazy { RetrofitConfig() }
     private val retrofitClient: RetrofitClient by lazy {
         RetrofitClient(

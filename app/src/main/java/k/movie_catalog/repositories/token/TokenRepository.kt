@@ -1,32 +1,29 @@
 package k.movie_catalog.repositories.token
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import k.movie_catalog.data.PreferencesKeys
+import k.movie_catalog.data.token.TokenPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class TokenRepository(
-    private val dataStore: DataStore<Preferences>,
+    private val dataStore: DataStore<TokenPreferences>,
 ) : ITokenRepository {
-    override val token: Flow<String?> = dataStore.data
-        .map { preferences -> preferences[PreferencesKeys.TOKEN] }
+    override val token: Flow<String?> = dataStore.data.map { it.token }
 
     override suspend fun setToken(token: String) {
-        dataStore.edit { preferences ->
-            preferences[PreferencesKeys.TOKEN] = token
+        dataStore.updateData {
+            TokenPreferences(token = token)
         }
     }
 
     override suspend fun clearToken() {
-        dataStore.edit { preferences ->
-            preferences.remove(PreferencesKeys.TOKEN)
+        dataStore.updateData {
+            TokenPreferences(token = null)
         }
     }
 
     override suspend fun getToken(): String? {
-        return dataStore.data.first()[PreferencesKeys.TOKEN]
+        return dataStore.data.first().token
     }
 }

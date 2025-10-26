@@ -31,6 +31,7 @@ class ProfileViewModel(
                 tokenRepository.clearToken()
                 _profileState.update { it.copy(isLoading = false) }
             } catch (e: Exception) {
+                e.printStackTrace()
                 _profileState.update {
                     it.copy(
                         isLoading = false,

@@ -1,5 +1,6 @@
 package k.movie_catalog.repositories.token
 
+import k.movie_catalog.data.token.TokenPreferences
 import kotlinx.coroutines.flow.Flow
 
 interface ITokenRepository {
