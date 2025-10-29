@@ -1,7 +1,8 @@
 package k.movie_catalog.api.serializer
 
 import k.movie_catalog.api.schemas.GenderDto
-import k.movie_catalog.api.schemas.GenderDto.Companion.toInt
+import k.movie_catalog.api.schemas.GenderDto.FEMALE
+import k.movie_catalog.api.schemas.GenderDto.MALE
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -17,16 +18,21 @@ object GenderDtoSerializer : KSerializer<GenderDto?> {
         if (value == null) {
             encoder.encodeNull()
         } else {
-            encoder.encodeInt(value.toInt())
+            val num = when (value) {
+                MALE -> 0
+                FEMALE -> 1
+            }
+            encoder.encodeInt(num)
         }
     }
 
     override fun deserialize(decoder: Decoder): GenderDto? {
-        return try {
-            val intValue = decoder.decodeInt()
-            GenderDto.fromInt(intValue)
-        } catch (e: Exception) {
-            null
+        val intValue = decoder.decodeInt()
+        println("DESERIALIZE: $intValue")
+        return when (intValue) {
+            0 -> MALE
+            1 -> FEMALE
+            else -> null
         }
     }
 }

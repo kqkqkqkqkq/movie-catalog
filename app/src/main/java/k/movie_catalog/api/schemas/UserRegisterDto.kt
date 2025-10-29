@@ -14,5 +14,5 @@ data class UserRegisterDto(
     @Serializable(with = LocalDateTimeSerializer::class)
     val birthDate: LocalDateTime,
     @Serializable(with = GenderDtoSerializer::class)
-    val genderDto: GenderDto?,
+    val gender: GenderDto?,
 )

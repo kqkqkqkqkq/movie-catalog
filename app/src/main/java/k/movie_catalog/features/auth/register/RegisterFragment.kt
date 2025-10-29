@@ -19,8 +19,11 @@ import k.movie_catalog.features.auth.login.LoginUiState
 import k.movie_catalog.repositories.models.Gender
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
+import kotlin.time.ExperimentalTime
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
@@ -58,11 +61,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private fun updateUI(state: RegisterUiState) {
         updateRegisterButton(state)
         updateErrorState(state)
-//        updateLoadingState(state)
+        updateLoadingState(state)
     }
 
     private fun updateRegisterButton(state: RegisterUiState) {
-        val isEnabledButton = state.isLoading
+        val isEnabledButton = !state.isLoading && viewModel.validateRegisterForm()
         binding.registerBtn.isEnabled = isEnabledButton
     }
 
@@ -70,6 +73,17 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         binding.error.isVisible = state.error != null
         state.error.let {
             binding.error.text = it
+        }
+    }
+
+    private fun updateLoadingState(state: RegisterUiState) {
+        binding.progress.isVisible = state.isLoading
+
+        if (state.isLoading) {
+            binding.registerBtn.text = getString(R.string.loading)
+            binding.registerBtn.isEnabled = false
+        } else {
+            binding.registerBtn.text = getString(R.string.register)
         }
     }
 
@@ -132,13 +146,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 )
             )
         }
-        binding.birthDateEt.doOnTextChanged { birthDate, _, _, _ ->
-            viewModel.updateUserState(
-                viewModel.registerState.value.user.copy(
-                    birthDate = birthDate.toString()
-                )
-            )
-        }
         binding.birthDateEt.setOnClickListener {
             showDatePicker()
         }
@@ -151,10 +158,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
             binding.birthDateEt.setText(formatDate(selection))
-
+            val localDate = Instant.ofEpochMilli(selection)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
             viewModel.updateUserState(
                 viewModel.registerState.value.user.copy(
-                    birthDate = formatDate(selection)
+                    birthDate = localDate
                 )
             )
         }
@@ -163,7 +172,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun formatDate(timestamp: Long): String {
-        val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         return dateFormatter.format(Date(timestamp))
     }
 

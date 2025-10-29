@@ -21,7 +21,7 @@ fun UserRegisterDto.toUserRegister() = UserRegister(
     password = this.password,
     email = this.email,
     birthDate = this.birthDate,
-    gender = genderMapperDto(this.genderDto),
+    gender = genderMapperDto(this.gender),
 )
 
 fun LoginCredentialDto.toLoginCredential() = LoginCredential(
@@ -36,7 +36,7 @@ fun ProfileDto.toProfile() = Profile(
     avatarLink = this.avatarLink,
     name = this.name,
     birthDate = this.birthDate,
-    gender = genderMapperDto(this.genderDto),
+    gender = genderMapperDto(this.gender),
 )
 
 private fun genderMapperDto(genderDto: GenderDto?): Gender =
@@ -63,7 +63,7 @@ fun UserRegister.toUserRegisterDto() = UserRegisterDto(
     password = this.password,
     email = this.email,
     birthDate = this.birthDate,
-    genderDto = genderMapper(this.gender),
+    gender = genderMapper(this.gender),
 )
 
 fun LoginCredential.toLoginCredentialDto() = LoginCredentialDto(
@@ -78,5 +78,5 @@ fun Profile.toProfileDto() = ProfileDto(
     avatarLink = this.avatarLink,
     name = this.name,
     birthDate = this.birthDate,
-    genderDto = genderMapper(this.gender),
+    gender = genderMapper(this.gender),
 )

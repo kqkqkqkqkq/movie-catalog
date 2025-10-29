@@ -181,7 +181,7 @@
                     app:boxStrokeColor="?attr/colorOnSurface"
                     android:hint="@string/hint_date_of_birth"
                     android:focusable="false"
-                    android:clickable="true"
+                    android:cursorVisible="false"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>

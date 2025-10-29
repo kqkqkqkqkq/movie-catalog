@@ -10,17 +10,7 @@ import k.movie_catalog.R
 
 class CollectionsFragment : Fragment(R.layout.fragment_collections) {
 
-    companion object {
-        fun newInstance() = CollectionsFragment()
-    }
-
     private val viewModel: CollectionsViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
