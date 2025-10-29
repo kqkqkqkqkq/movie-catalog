@@ -75,4 +75,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             viewModel.logout()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

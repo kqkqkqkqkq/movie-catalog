@@ -1,6 +1,7 @@
 package k.movie_catalog.data.token
 
 import androidx.datastore.core.Serializer
+import k.movie_catalog.data.token.models.TokenPreferences
 import k.movie_catalog.security.Crypto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

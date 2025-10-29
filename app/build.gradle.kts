@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.androidx.navigation.safeargs)
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
 }

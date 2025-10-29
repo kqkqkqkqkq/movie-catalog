@@ -7,18 +7,29 @@
     <string name="hint_name">First Name</string>
     <string name="hint_date_of_birth">Date of birth</string>
     <string name="hint_gender">Gender</string>
+    <string name="hint_title">Title</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="logout">Logout</string>
     <string name="loading">Loading...</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
     <string name="unknown_username">*Unknown username*</string>
     <string name="already_have_account">I already have an account</string>
 
     <string name="description_movie_catalog_logo">Movie Catalog Logo</string>
+    <string name="description_add_icon">Add icon</string>
+    <string name="description_navigate_to_collection_detail">Navigate to collection detail</string>
+    <string name="description_collection_icon">Icon collection</string>
     
     <string name="navigation_main">Main</string>
     <string name="navigation_collections">Collections</string>
     <string name="navigation_profile">Profile</string>
+
+    <string name="collections">Collections</string>
+    <string name="create_collection">Create collection</string>
+    <string name="edit_collection">Edit collection</string>
+    <string name="choose_icon">Choose an icon</string>
 </resources>

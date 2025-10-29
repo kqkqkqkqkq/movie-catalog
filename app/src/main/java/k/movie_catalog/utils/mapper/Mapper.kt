@@ -5,7 +5,11 @@ import k.movie_catalog.api.schemas.GenderDto
 import k.movie_catalog.api.schemas.LoginCredentialDto
 import k.movie_catalog.api.schemas.ProfileDto
 import k.movie_catalog.api.schemas.UserRegisterDto
+import k.movie_catalog.data.collections.models.CollectionPreferences
+import k.movie_catalog.data.collections.models.MoviePreferences
 import k.movie_catalog.repositories.models.Auth
+import k.movie_catalog.repositories.models.Collection
+import k.movie_catalog.repositories.models.CollectionMovie
 import k.movie_catalog.repositories.models.Gender
 import k.movie_catalog.repositories.models.LoginCredential
 import k.movie_catalog.repositories.models.Profile
@@ -79,4 +83,26 @@ fun Profile.toProfileDto() = ProfileDto(
     name = this.name,
     birthDate = this.birthDate,
     gender = genderMapper(this.gender),
+)
+
+fun CollectionPreferences.toCollection() = Collection(
+    title = this.title ?: "",
+    movies = this.movies?.map { it.toCollectionMovie() }
+)
+
+fun MoviePreferences.toCollectionMovie() = CollectionMovie(
+    title = this.title,
+    description = this.description,
+    movieId = this.movieId,
+)
+
+fun Collection.toCollectionPreferences() = CollectionPreferences(
+    title = this.title,
+    movies = this.movies?.map { it.toMoviePreferences() }
+)
+
+fun CollectionMovie.toMoviePreferences() = MoviePreferences(
+    title = this.title,
+    description = this.description,
+    movieId = this.movieId,
 )

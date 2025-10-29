@@ -1,4 +1,4 @@
-package k.movie_catalog.data.token
+package k.movie_catalog.data.token.models
 
 import kotlinx.serialization.Serializable
 

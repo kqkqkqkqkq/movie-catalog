@@ -1,13 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/android:colorBackground"
+    android:paddingBottom="68dp"
     tools:context=".features.collections.CollectionsFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Collections" />
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/collections"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/add_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_btn"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:padding="2dp"
+        app:backgroundTint="@android:color/transparent"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/icon_add"
+        app:iconTint="?attr/colorOnBackground"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/collections_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="36dp"
+        android:paddingHorizontal="16dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:listitem="@layout/item_collection" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Progress"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/collections_recycler"
+        app:layout_constraintEnd_toEndOf="@id/collections_recycler"
+        app:layout_constraintStart_toStartOf="@id/collections_recycler"
+        app:layout_constraintTop_toTopOf="@id/collections_recycler" />
+
+    <TextView
+        android:id="@+id/error"
+        style="@style/Error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/collections_recycler"
+        app:layout_constraintEnd_toEndOf="@id/collections_recycler"
+        app:layout_constraintStart_toStartOf="@id/collections_recycler"
+        app:layout_constraintTop_toTopOf="@id/collections_recycler" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

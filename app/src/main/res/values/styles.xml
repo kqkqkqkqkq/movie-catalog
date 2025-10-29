@@ -3,7 +3,6 @@
     <style name="DefaultEditText">
         <item name="android:textSize">14sp</item>
         <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
     </style>
 
     <style name="Error">
@@ -24,7 +23,6 @@
     <style name="ProfileCaption">
         <item name="android:layout_margin">16dp</item>
         <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
@@ -35,10 +33,45 @@
         <item name="android:paddingHorizontal">16dp</item>
         <item name="android:paddingVertical">12dp</item>
         <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/tv_border</item>
         <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="PrimaryButton">
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="FilledButton" parent="Widget.Material3.Button">
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="cornerRadius">@dimen/medium</item>
+    </style>
+
+    <style name="OutlinedButton" parent="Widget.Material3.Button">
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="cornerRadius">@dimen/medium</item>
+        <item name="strokeColor">?attr/colorOnSurface</item>
+        <item name="strokeWidth">1dp</item>
     </style>
 </resources>

@@ -4,15 +4,16 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import k.movie_catalog.constants.DataStoreConstants
+import k.movie_catalog.data.token.models.TokenPreferences
 
 class TokenStore(
     private val context: Context,
 ) {
 
-    private val Context.dataStore by dataStore(
-        fileName = DataStoreConstants.MOVIE_CATALOG_PREFERENCES_NAME,
+    private val Context.tokenStore by dataStore(
+        fileName = DataStoreConstants.TOKEN_PREFERENCES_STORE,
         serializer = TokenPreferencesSerializer,
     )
 
-    fun getMovieCatalogStore(): DataStore<TokenPreferences> = context.dataStore
+    fun getTokenStore(): DataStore<TokenPreferences> = context.tokenStore
 }
