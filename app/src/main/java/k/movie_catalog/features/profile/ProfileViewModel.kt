@@ -31,7 +31,6 @@ class ProfileViewModel(
                 tokenRepository.clearToken()
                 _profileState.update { it.copy(isLoading = false) }
             } catch (e: Exception) {
-                e.printStackTrace()
                 _profileState.update {
                     it.copy(
                         isLoading = false,
@@ -46,24 +45,21 @@ class ProfileViewModel(
         viewModelScope.launch(dispatcherProvider.io) {
             _profileState.update { it.copy(isLoading = true) }
             try {
-                val token = requireNotNull(tokenRepository.getToken())
-                val result = authRepository.getProfile(token)
-                if (result.isSuccess) {
+                authRepository.getProfile().onSuccess { profile ->
                     _profileState.update {
                         it.copy(
-                            profile = result.getOrNull(),
+                            profile = profile,
                             isLoading = false,
                         )
                     }
-                } else {
+                }.onFailure { e ->
                     _profileState.update {
                         it.copy(
                             isLoading = false,
-                            error = result.exceptionOrNull()?.message ?: "Something went wrong",
+                            error = e.message,
                         )
                     }
                 }
-                _profileState.update { it.copy(isLoading = false) }
             } catch (e: Exception) {
                 _profileState.update {
                     it.copy(

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground"
     android:fitsSystemWindows="true"
-    android:paddingBottom="68dp"
+    android:layout_marginBottom="48dp"
     tools:context=".features.profile.ProfileFragment">
 
     <ImageView

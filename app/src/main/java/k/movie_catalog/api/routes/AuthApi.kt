@@ -15,18 +15,16 @@ interface AuthApi {
     @POST(Routes.REGISTER)
     suspend fun register(
         @Body userRegister: UserRegisterDto,
-    ): Response<AuthResponseDto>
+    ): AuthResponseDto
 
     @POST(Routes.LOGIN)
     suspend fun login(
         @Body userLogin: LoginCredentialDto,
-    ): Response<AuthResponseDto>
+    ): AuthResponseDto
 
     @POST(Routes.LOGOUT)
     suspend fun logout()
 
     @GET(Routes.PROFILE)
-    suspend fun getProfile(
-        @Header("Authorization") token: String,
-    ): Response<ProfileDto>
+    suspend fun getProfile(): ProfileDto
 }

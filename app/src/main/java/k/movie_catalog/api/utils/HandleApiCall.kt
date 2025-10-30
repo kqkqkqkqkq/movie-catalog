@@ -1,13 +1,13 @@
 package k.movie_catalog.api.utils
 
-import retrofit2.Response
+import kotlin.coroutines.cancellation.CancellationException
 
-suspend fun <T> handleApiCall(apiCall: suspend () -> Response<T>) = runCatching {
-    val response = apiCall()
-    if (response.isSuccessful) {
-        val body = response.body()
-        body ?: throw Exception("Response body is null")
-    } else {
-        throw Exception("HTTP ${response.code()}: ${response.message()}")
+suspend fun <T> handleApiCall(apiCall: suspend () -> T): Result<T> {
+    return try {
+        Result.success(apiCall())
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Result.failure(e)
     }
 }

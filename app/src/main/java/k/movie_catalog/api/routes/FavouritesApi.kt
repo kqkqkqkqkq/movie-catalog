@@ -12,19 +12,15 @@ import java.util.UUID
 interface FavouritesApi {
 
     @GET(Routes.FAVOURITES)
-    suspend fun getFavourites(
-        @Header("Bearer") token: String,
-    ): Response<MoviesListDto>
+    suspend fun getFavourites(): MoviesListDto
 
     @POST(Routes.ADD_FAVOURITE)
     suspend fun addFavourite(
-        @Header("Bearer") token: String,
         @Path("id") id: UUID,
     )
 
     @DELETE(Routes.DELETE_FAVOURITE)
     suspend fun deleteFavourite(
-        @Header("Bearer") token: String,
         @Path("id") id: UUID,
     )
 }

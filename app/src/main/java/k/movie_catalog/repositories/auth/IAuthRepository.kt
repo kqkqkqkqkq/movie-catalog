@@ -9,5 +9,5 @@ interface IAuthRepository {
     suspend fun register(userRegister: UserRegister): Result<Auth>
     suspend fun login(loginCredential: LoginCredential): Result<Auth>
     suspend fun logout()
-    suspend fun getProfile(token: String): Result<Profile>
+    suspend fun getProfile(): Result<Profile>
 }

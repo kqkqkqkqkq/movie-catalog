@@ -12,13 +12,13 @@ interface ReviewApi {
     @POST(Routes.ADD_REVIEW)
     suspend fun addReview(
         @Path("movieId") movieId: UUID,
-    ): Response<ReviewModifyDto>
+    ): ReviewModifyDto
 
     @PUT(Routes.UPDATE_REVIEW)
     suspend fun updateReview(
         @Path("movieId") movieId: UUID,
         @Path("id") id: UUID,
-    ): Response<ReviewModifyDto>
+    ): ReviewModifyDto
 
     @PUT(Routes.DELETE_REVIEW)
     suspend fun deleteReview(

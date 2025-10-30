@@ -16,10 +16,10 @@ interface MovieApi {
     @GET(Routes.MOVIES)
     suspend fun getMovies(
         @Path("page") page: Int = 1,
-    ): Response<MoviesPagedListDto>
+    ): MoviesPagedListDto
 
     @GET(Routes.MOVIE_DETAILS)
     suspend fun getMovieDetails(
         @Path("id") id: UUID,
-    ): Response<MovieDetailsDto>
+    ): MovieDetailsDto
 }

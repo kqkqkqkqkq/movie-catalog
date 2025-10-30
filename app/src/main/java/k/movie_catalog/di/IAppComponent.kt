@@ -1,5 +1,7 @@
 package k.movie_catalog.di
 
+import k.movie_catalog.api.interceptors.AuthTokenInterceptor
+import k.movie_catalog.api.interceptors.UnauthorizedInterceptor
 import k.movie_catalog.api.routes.AuthApi
 import k.movie_catalog.api.routes.MovieApi
 import k.movie_catalog.repositories.auth.IAuthRepository
@@ -14,4 +16,6 @@ interface IAppComponent {
     val authRepository: IAuthRepository
     val tokenRepository: ITokenRepository
     val collectionsRepository: ICollectionsRepository
+    val authTokenInterceptor: AuthTokenInterceptor
+    val unauthorizedInterceptor: UnauthorizedInterceptor
 }
