@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground"
+    android:fitsSystemWindows="true"
     android:paddingBottom="68dp"
     tools:context=".features.collections.CollectionsFragment">
 
@@ -41,7 +42,8 @@
         android:id="@+id/collections_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="20dp"
         android:paddingHorizontal="16dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

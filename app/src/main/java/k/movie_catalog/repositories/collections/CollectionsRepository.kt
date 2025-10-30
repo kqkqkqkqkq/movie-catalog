@@ -22,7 +22,20 @@ class CollectionsRepository(
             ?.map { it.toCollection() }
     }
 
+    override suspend fun createCollection(collection: Collection) {
+        collectionsStore.updateData { currentPreferences ->
+            val currentCollections =
+                currentPreferences.collections?.toMutableList() ?: mutableListOf()
+            val index = currentCollections.indexOfFirst { it.title == collection.title }
+            if (index == -1) {
+                currentCollections.add(collection.toCollectionPreferences())
+            }
+            currentPreferences.copy(collections = currentCollections)
+        }
+    }
+
     override suspend fun removeCollection(collection: Collection) {
+        println(collection)
         collectionsStore.updateData { currentPreferences ->
             val currentCollections =
                 currentPreferences.collections?.toMutableList() ?: mutableListOf()
@@ -31,15 +44,13 @@ class CollectionsRepository(
         }
     }
 
-    override suspend fun updateCollection(collection: Collection) {
+    override suspend fun updateCollection(collectionName: String, collection: Collection) {
         collectionsStore.updateData { currentPreferences ->
             val currentCollections =
                 currentPreferences.collections?.toMutableList() ?: mutableListOf()
-            val index = currentCollections.indexOfFirst { it.title == collection.title }
+            val index = currentCollections.indexOfFirst { it.title == collectionName }
             if (index != -1) {
                 currentCollections[index] = collection.toCollectionPreferences()
-            } else {
-                currentCollections.add(collection.toCollectionPreferences())
             }
             currentPreferences.copy(collections = currentCollections)
         }

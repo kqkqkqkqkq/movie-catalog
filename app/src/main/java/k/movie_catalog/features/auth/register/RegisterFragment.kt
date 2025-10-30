@@ -15,7 +15,6 @@ import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentRegisterBinding
 import k.movie_catalog.di.viewModelFactory
-import k.movie_catalog.features.auth.login.LoginUiState
 import k.movie_catalog.repositories.models.Gender
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -23,7 +22,6 @@ import java.time.Instant
 import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
-import kotlin.time.ExperimentalTime
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 

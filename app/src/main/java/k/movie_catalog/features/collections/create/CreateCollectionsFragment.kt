@@ -14,6 +14,7 @@ import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentCollectionsCreateBinding
 import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.features.collections.icons.IconBottomSheetFragment
 import kotlinx.coroutines.launch
 
 class CreateCollectionsFragment : Fragment(R.layout.fragment_collections_create) {
@@ -54,6 +55,11 @@ class CreateCollectionsFragment : Fragment(R.layout.fragment_collections_create)
             binding.error.text = it
         }
         binding.progress.isVisible = state.isLoading
+
+        val iconResId = viewModel.collectionsState.value.collection.icon
+        if (iconResId != null) {
+            binding.icon.setImageResource(iconResId)
+        }
     }
 
     private fun setupTextFields() {
@@ -75,6 +81,21 @@ class CreateCollectionsFragment : Fragment(R.layout.fragment_collections_create)
                 findNavController().navigateUp()
             }
         }
+        binding.chooseIconBtn.setOnClickListener {
+            showIconPickerBottomSheet()
+        }
+    }
+
+    private fun showIconPickerBottomSheet() {
+        val bottomSheet = IconBottomSheetFragment()
+        bottomSheet.setOnIconSelectedListener { icon ->
+            viewModel.updateCollection(
+                viewModel.collectionsState.value.collection.copy(
+                    icon = icon.icon,
+                )
+            )
+        }
+        bottomSheet.show(parentFragmentManager, "IconBottomSheet")
     }
 
     override fun onDestroyView() {

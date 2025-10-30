@@ -2,7 +2,6 @@ package k.movie_catalog.features.auth.register
 
 import k.movie_catalog.repositories.models.Gender
 import k.movie_catalog.repositories.models.UserRegister
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class UserRegisterUi(

@@ -3,23 +3,10 @@ package k.movie_catalog.features.collections.details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import k.movie_catalog.App
 import k.movie_catalog.R
-import k.movie_catalog.databinding.FragmentCollectionsBinding
-import k.movie_catalog.databinding.FragmentCollectionsCreateBinding
 import k.movie_catalog.databinding.FragmentCollectionsDetailsBinding
-import k.movie_catalog.di.viewModelFactory
-import k.movie_catalog.features.collections.CollectionsAdapter
-import k.movie_catalog.features.collections.CollectionsViewModel
-import k.movie_catalog.repositories.models.Collection
-import kotlinx.coroutines.launch
 
 class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_details) {
 

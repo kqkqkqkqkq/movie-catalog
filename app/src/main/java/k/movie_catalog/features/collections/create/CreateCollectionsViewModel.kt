@@ -20,24 +20,7 @@ class CreateCollectionsViewModel(
     val collectionsState = _collectionsState.asStateFlow()
 
     fun updateCollection(collection: Collection) {
-        viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _collectionsState.update { it.copy(isLoading = true) }
-                _collectionsState.update {
-                    it.copy(
-                        collection = collection,
-                        isLoading = false,
-                    )
-                }
-            } catch (e: Exception) {
-                _collectionsState.update {
-                    it.copy(
-                        error = e.message,
-                        isLoading = false,
-                    )
-                }
-            }
-        }
+        _collectionsState.update { it.copy(collection = collection) }
     }
 
 
@@ -49,7 +32,7 @@ class CreateCollectionsViewModel(
                 if (collection.title.isBlank()) {
                     throw IllegalArgumentException("Title cannot be empty")
                 }
-                collectionsRepository.updateCollection(collection)
+                collectionsRepository.createCollection(collection)
                 _collectionsState.update { it.copy(isLoading = false) }
                 withContext(dispatcherProvider.main) {
                     onCreateCollection()

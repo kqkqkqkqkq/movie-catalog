@@ -86,6 +86,7 @@ fun Profile.toProfileDto() = ProfileDto(
 )
 
 fun CollectionPreferences.toCollection() = Collection(
+    icon = this.icon,
     title = this.title ?: "",
     movies = this.movies?.map { it.toCollectionMovie() }
 )
@@ -97,6 +98,7 @@ fun MoviePreferences.toCollectionMovie() = CollectionMovie(
 )
 
 fun Collection.toCollectionPreferences() = CollectionPreferences(
+    icon = this.icon,
     title = this.title,
     movies = this.movies?.map { it.toMoviePreferences() }
 )
