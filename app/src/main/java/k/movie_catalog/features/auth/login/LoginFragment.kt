@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import k.movie_catalog.App
 import k.movie_catalog.R
@@ -54,7 +55,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.login()
         }
         binding.registerBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_register)
+            val extras = FragmentNavigatorExtras(
+                binding.logoImage to "logo_transition"
+            )
+            findNavController().navigate(R.id.action_login_to_register, null, null, extras)
         }
     }
 

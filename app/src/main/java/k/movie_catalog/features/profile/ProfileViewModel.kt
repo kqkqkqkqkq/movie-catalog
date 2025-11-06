@@ -44,27 +44,18 @@ class ProfileViewModel(
     private fun getProfile() {
         viewModelScope.launch(dispatcherProvider.io) {
             _profileState.update { it.copy(isLoading = true) }
-            try {
-                authRepository.getProfile().onSuccess { profile ->
-                    _profileState.update {
-                        it.copy(
-                            profile = profile,
-                            isLoading = false,
-                        )
-                    }
-                }.onFailure { e ->
-                    _profileState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = e.message,
-                        )
-                    }
+            authRepository.getProfile().onSuccess { profile ->
+                _profileState.update {
+                    it.copy(
+                        profile = profile,
+                        isLoading = false,
+                    )
                 }
-            } catch (e: Exception) {
+            }.onFailure { e ->
                 _profileState.update {
                     it.copy(
                         isLoading = false,
-                        error = e.message ?: "Unknow error",
+                        error = e.message,
                     )
                 }
             }

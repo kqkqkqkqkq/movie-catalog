@@ -1,5 +1,6 @@
 package k.movie_catalog.features.auth.register
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -9,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.transition.MaterialContainerTransform
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentRegisterBinding
@@ -37,6 +40,21 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host_fragment_activity_main
+            duration = 500
+            scrimColor = Color.TRANSPARENT
+            fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+        }
+        sharedElementReturnTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host_fragment_activity_main
+            duration = 500
+            scrimColor = Color.TRANSPARENT
+            fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,7 +108,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             viewModel.register()
         }
         binding.loginBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_register_to_login)
+            val extras = FragmentNavigatorExtras(
+                binding.logo to "logo_transition"
+            )
+            findNavController().navigate(R.id.action_register_to_login, null, null, extras)
         }
         binding.maleBtn.setOnClickListener {
             viewModel.updateUserState(
