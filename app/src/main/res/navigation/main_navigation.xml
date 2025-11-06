@@ -8,7 +8,25 @@
     <fragment
         android:id="@+id/navigation_main"
         android:name="k.movie_catalog.features.main.MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_movie_details"
+            app:destination="@id/navigation_movie_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_movie_details"
+        android:name="k.movie_catalog.features.main.details.MovieDetailsFragment"
+        tools:layout="@layout/fragment_main">
+        <argument
+            android:name="movie_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_movie_details_to_main"
+            app:destination="@id/navigation_main"
+            app:popUpTo="@id/navigation_main"
+            app:popUpToInclusive="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -49,7 +67,7 @@
             android:id="@+id/action_back_edit"
             app:destination="@id/navigation_collections_details"
             app:popUpTo="@id/navigation_collections_details"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -63,12 +81,12 @@
             android:id="@+id/action_back_details"
             app:destination="@id/navigation_collections"
             app:popUpTo="@id/navigation_collections"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_collections_details_to_edit"
             app:destination="@id/navigation_collections_edit"
             app:popUpTo="@id/navigation_collections"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false" />
     </fragment>
 
 </navigation>

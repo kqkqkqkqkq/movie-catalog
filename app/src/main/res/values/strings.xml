@@ -21,6 +21,7 @@
 
     <string name="description_movie_catalog_logo">Movie Catalog Logo</string>
     <string name="description_add_icon">Add icon</string>
+    <string name="description_poster">Poster</string>
     <string name="description_navigate_to_collection_detail">Navigate to collection detail</string>
     <string name="description_collection_icon">Icon collection</string>
     
@@ -33,4 +34,8 @@
     <string name="create_collection">Create collection</string>
     <string name="edit_collection">Edit collection</string>
     <string name="choose_icon">Choose an icon</string>
+
+    <string name="watch">Watch</string>
+    <string name="gallery">Gallery</string>
+    <string name="text_separator">•</string>
 </resources>

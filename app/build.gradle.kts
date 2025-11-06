@@ -53,8 +53,6 @@ dependencies {
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.material3)
-//    implementation(libs.androidx.legacy.support.v4)
-//    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     // Junit
@@ -71,4 +69,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     // DataStore
     implementation(libs.datastore.preferences)
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.network.okhttp)
 }

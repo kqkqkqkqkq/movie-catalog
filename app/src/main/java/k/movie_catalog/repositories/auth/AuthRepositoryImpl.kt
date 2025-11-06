@@ -14,16 +14,12 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
     override suspend fun register(userRegister: UserRegister) = handleApiCall {
-        authApi.register(userRegister.toUserRegisterDto())
-    }.map {
-        it.toAuth()
+        authApi.register(userRegister.toUserRegisterDto()).toAuth()
     }
 
 
     override suspend fun login(loginCredential: LoginCredential) = handleApiCall {
-        authApi.login(loginCredential.toLoginCredentialDto())
-    }.map {
-        it.toAuth()
+        authApi.login(loginCredential.toLoginCredentialDto()).toAuth()
     }
 
     override suspend fun logout() {
@@ -31,8 +27,6 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun getProfile() = handleApiCall {
-        authApi.getProfile()
-    }.map {
-        it.toProfile()
+        authApi.getProfile().toProfile()
     }
 }

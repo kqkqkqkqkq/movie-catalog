@@ -1,17 +1,16 @@
 package k.movie_catalog.repositories.models
 
-import k.movie_catalog.api.schemas.GenreDto
-import k.movie_catalog.api.schemas.ReviewDto
+import java.io.Serializable
 import java.util.UUID
 
-data class MovieDetail(
+data class MovieDetails(
     val id: UUID,
     val name: String?,
     val poster: String?,
     val year: Int,
     val country: String?,
-    val genres: List<GenreDto>,
-    val reviews: List<ReviewDto>,
+    val genres: List<Genre>,
+    val reviews: List<Review>,
     val time: Int,
     val tagline: String?,
     val description: String?,
@@ -19,4 +18,4 @@ data class MovieDetail(
     val budget: Int?,
     val fees: Int?,
     val ageLimit: Int,
-)
+) : Serializable

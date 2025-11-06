@@ -6,20 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentMainBinding
 import k.movie_catalog.di.AppComponentImpl
+import k.movie_catalog.repositories.models.MovieElement
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
-            MainViewModel()
+            MainViewModel(
+                moviesRepository = App.app.moviesRepository,
+                favouritesRepository = App.app.favouritesRepository,
+                dispatcherProvider = App.app.dispatcherProvider,
+            )
         }
     }
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var favouritesAdapter: FavouritesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +48,63 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupClickListeners()
+        setupButtons()
+        setupRecyclerView()
+        observeViewModel()
     }
 
-    private fun setupClickListeners() {
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.mainState.collect { state ->
+                    state.movies?.let { movies ->
+                        moviesAdapter.submitList(movies.movies)
+                    }
+                    favouritesAdapter.submitList(state.favourites)
+                }
+            }
+        }
+    }
 
+    private fun setupRecyclerView() {
+        moviesAdapter = MoviesAdapter { movie ->
+            onMovieClicked(movie)
+        }
+        favouritesAdapter = FavouritesAdapter { movie ->
+            onMovieClicked(movie)
+        }
+
+        val movieLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
+        val favouriteLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.movieRecycler.layoutManager = movieLayoutManager
+        binding.movieRecycler.adapter = moviesAdapter
+
+        binding.favouriteRecycler.layoutManager = favouriteLayoutManager
+        binding.favouriteRecycler.adapter = favouritesAdapter
+
+        binding.movieRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val totalItemCount = movieLayoutManager.itemCount
+                val lastVisibleItem = movieLayoutManager.findLastVisibleItemPosition()
+
+                if (lastVisibleItem >= totalItemCount - 5) {
+                    viewModel.loadNextPage()
+                }
+            }
+        })
+    }
+
+    private fun setupButtons() {
+
+    }
+
+    private fun onMovieClicked(movie: MovieElement) {
+        val action = MainFragmentDirections
+            .actionMainToMovieDetails(movie.id.toString())
+        findNavController().navigate(action)
     }
 
 

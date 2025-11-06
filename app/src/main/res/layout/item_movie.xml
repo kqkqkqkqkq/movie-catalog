@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_movie"
+    android:layout_width="match_parent"
+    android:layout_height="144dp"
+    android:layout_marginBottom="16dp">
+
+    <ImageView
+        android:id="@+id/movie_poster"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/description_poster"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="14sp"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster"
+        />
+
+    <TextView
+        android:id="@+id/separator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/text_separator"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="14sp"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/year"
+        />
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="14sp"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/separator"
+        />
+
+    <TextView
+        android:id="@+id/genres"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="14sp"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@+id/year"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster"
+        />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        app:textStartPadding="16dp"
+        app:textEndPadding="16dp"
+        app:chipStrokeWidth="0dp"
+        app:chipStrokeColor="@android:color/transparent"
+        app:chipCornerRadius="@dimen/large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
