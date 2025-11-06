@@ -13,17 +13,17 @@ import androidx.navigation.fragment.findNavController
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentCollectionsCreateBinding
-import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.features.collections.icons.IconBottomSheetFragment
 import kotlinx.coroutines.launch
 
 class CreateCollectionsFragment : Fragment(R.layout.fragment_collections_create) {
 
     private val viewModel: CreateCollectionsViewModel by viewModels {
-        viewModelFactory {
+        AppComponentImpl.viewModelFactory {
             CreateCollectionsViewModel(
-                collectionsRepository = App.appComponent.collectionsRepository,
-                dispatcherProvider = App.appComponent.dispatcherProvider,
+                collectionsRepository = App.app.collectionsRepository,
+                dispatcherProvider = App.app.dispatcherProvider,
             )
         }
     }

@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentCollectionsBinding
-import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.repositories.models.Collection
 import kotlinx.coroutines.launch
 
 class CollectionsFragment : Fragment(R.layout.fragment_collections) {
 
     private val viewModel: CollectionsViewModel by viewModels {
-        viewModelFactory {
+        AppComponentImpl.viewModelFactory {
             CollectionsViewModel(
-                collectionsRepository = App.appComponent.collectionsRepository,
-                dispatcherProvider = App.appComponent.dispatcherProvider,
+                collectionsRepository = App.app.collectionsRepository,
+                dispatcherProvider = App.app.dispatcherProvider,
             )
         }
     }

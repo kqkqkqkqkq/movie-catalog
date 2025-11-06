@@ -28,6 +28,7 @@
     <string name="navigation_collections">Collections</string>
     <string name="navigation_profile">Profile</string>
 
+    <string name="favourites">Favourites</string>
     <string name="collections">Collections</string>
     <string name="create_collection">Create collection</string>
     <string name="edit_collection">Edit collection</string>

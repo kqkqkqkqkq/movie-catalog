@@ -2,7 +2,7 @@ package k.movie_catalog.features.collections.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import k.movie_catalog.repositories.collections.ICollectionsRepository
+import k.movie_catalog.repositories.collections.CollectionsRepository
 import k.movie_catalog.repositories.models.Collection
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CreateCollectionsViewModel(
-    private val collectionsRepository: ICollectionsRepository,
+    private val collectionsRepository: CollectionsRepository,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 

@@ -2,9 +2,9 @@ package k.movie_catalog.features.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import k.movie_catalog.repositories.auth.IAuthRepository
+import k.movie_catalog.repositories.auth.AuthRepository
 import k.movie_catalog.repositories.models.LoginCredential
-import k.movie_catalog.repositories.token.ITokenRepository
+import k.movie_catalog.repositories.token.TokenRepository
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val authRepository: IAuthRepository,
-    private val tokenRepository: ITokenRepository,
+    private val authRepository: AuthRepository,
+    private val tokenRepository: TokenRepository,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 

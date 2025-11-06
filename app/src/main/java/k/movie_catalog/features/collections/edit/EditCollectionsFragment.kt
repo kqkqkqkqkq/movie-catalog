@@ -14,7 +14,7 @@ import androidx.navigation.fragment.navArgs
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentCollectionsEditBinding
-import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.features.collections.icons.IconBottomSheetFragment
 import kotlinx.coroutines.launch
 
@@ -23,10 +23,10 @@ class EditCollectionsFragment : Fragment(R.layout.fragment_collections_edit) {
     private val args: EditCollectionsFragmentArgs by navArgs()
 
     private val viewModel: EditCollectionsViewModel by viewModels {
-        viewModelFactory {
+        AppComponentImpl.viewModelFactory {
             EditCollectionsViewModel(
-                collectionsRepository = App.appComponent.collectionsRepository,
-                dispatcherProvider = App.appComponent.dispatcherProvider,
+                collectionsRepository = App.app.collectionsRepository,
+                dispatcherProvider = App.app.dispatcherProvider,
             )
         }
     }

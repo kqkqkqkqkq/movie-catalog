@@ -2,7 +2,7 @@ package k.movie_catalog.features.collections
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import k.movie_catalog.repositories.collections.ICollectionsRepository
+import k.movie_catalog.repositories.collections.CollectionsRepository
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CollectionsViewModel(
-    private val collectionsRepository: ICollectionsRepository,
+    private val collectionsRepository: CollectionsRepository,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 

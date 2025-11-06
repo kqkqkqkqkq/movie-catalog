@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentMainBinding
-import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.di.AppComponentImpl
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels {
-        viewModelFactory {
+        AppComponentImpl.viewModelFactory {
             MainViewModel()
         }
     }

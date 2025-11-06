@@ -4,10 +4,8 @@ import k.movie_catalog.api.schemas.AuthResponseDto
 import k.movie_catalog.api.schemas.LoginCredentialDto
 import k.movie_catalog.api.schemas.ProfileDto
 import k.movie_catalog.api.schemas.UserRegisterDto
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthApi {

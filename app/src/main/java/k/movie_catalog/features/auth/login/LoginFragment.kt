@@ -14,16 +14,16 @@ import androidx.navigation.fragment.findNavController
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentLoginBinding
-import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.di.AppComponentImpl
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModels {
-        viewModelFactory {
+        AppComponentImpl.viewModelFactory {
             LoginViewModel(
-                authRepository = App.appComponent.authRepository,
-                tokenRepository = App.appComponent.tokenRepository,
-                dispatcherProvider = App.appComponent.dispatcherProvider,
+                authRepository = App.app.authRepository,
+                tokenRepository = App.app.tokenRepository,
+                dispatcherProvider = App.app.dispatcherProvider,
             )
         }
     }

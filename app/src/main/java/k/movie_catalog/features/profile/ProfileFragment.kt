@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentProfileBinding
-import k.movie_catalog.di.viewModelFactory
+import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.repositories.models.Gender
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
@@ -19,11 +19,11 @@ import java.time.format.DateTimeFormatter
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModels {
-        viewModelFactory {
+        AppComponentImpl.viewModelFactory {
             ProfileViewModel(
-                authRepository = App.appComponent.authRepository,
-                tokenRepository = App.appComponent.tokenRepository,
-                dispatcherProvider = App.appComponent.dispatcherProvider,
+                authRepository = App.app.authRepository,
+                tokenRepository = App.app.tokenRepository,
+                dispatcherProvider = App.app.dispatcherProvider,
             )
         }
     }
