@@ -9,12 +9,13 @@ import k.movie_catalog.repositories.models.MovieElement
 
 class FavouritesAdapter(
     private val onFavouriteClick: (MovieElement) -> Unit,
+    private val onDeleteCLick: (MovieElement) -> Unit,
 ) : ListAdapter<MovieElement, FavouritesViewHolder>(DIFF) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
-        return FavouritesViewHolder(view, onFavouriteClick)
+            .inflate(R.layout.item_favourites, parent, false)
+        return FavouritesViewHolder(view, onFavouriteClick, onDeleteCLick)
     }
 
     override fun onBindViewHolder(holder: FavouritesViewHolder, position: Int) {
@@ -28,7 +29,6 @@ class FavouritesAdapter(
 
             override fun areContentsTheSame(oldItem: MovieElement, newItem: MovieElement) =
                 oldItem == newItem
-
         }
     }
 }

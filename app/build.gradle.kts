@@ -31,8 +31,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = libs.versions.jvmTarget.get()
+    kotlin {
+        jvmToolchain(11)
     }
     buildFeatures {
         viewBinding = true
@@ -72,4 +72,13 @@ dependencies {
     // Coil
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.compose)
+
+    detektPlugins(libs.detekt.formatting)
+    detekt(libs.detekt.cli)
+}
+
+detekt {
+    autoCorrect = true
+    config.setFrom("../config/detekt/detekt.yml")
 }

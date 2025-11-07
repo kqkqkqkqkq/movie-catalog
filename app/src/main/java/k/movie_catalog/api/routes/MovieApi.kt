@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.UUID
 
-
 /**
  * [API Documentation](https://react-midterm.kreosoft.space/swagger/index.html)
  */

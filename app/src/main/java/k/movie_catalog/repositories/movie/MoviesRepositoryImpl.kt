@@ -14,7 +14,6 @@ class MoviesRepositoryImpl(
         movieApi.getMovies(page).toMoviesPagedList()
     }
 
-
     override suspend fun getMovieDetails(id: UUID) = handleApiCall {
         movieApi.getMovieDetails(id).toMovieDetails()
     }

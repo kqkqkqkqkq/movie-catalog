@@ -17,7 +17,6 @@ class AuthRepositoryImpl(
         authApi.register(userRegister.toUserRegisterDto()).toAuth()
     }
 
-
     override suspend fun login(loginCredential: LoginCredential) = handleApiCall {
         authApi.login(loginCredential.toLoginCredentialDto()).toAuth()
     }

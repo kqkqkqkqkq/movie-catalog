@@ -10,10 +10,10 @@ class CollectionsStore(
     private val context: Context,
 ) {
 
-    private val Context.collectionsStore by dataStore(
+    private val Context.collectionsStoreFile by dataStore(
         fileName = DataStoreConstants.COLLECTIONS_PREFERENCES_STORE,
         serializer = CollectionsPreferencesSerializer,
     )
 
-    fun getCollectionsStore(): DataStore<CollectionsPreferences> = context.collectionsStore
+    fun getCollectionsStore(): DataStore<CollectionsPreferences> = context.collectionsStoreFile
 }

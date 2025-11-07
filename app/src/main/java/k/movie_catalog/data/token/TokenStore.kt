@@ -10,10 +10,10 @@ class TokenStore(
     private val context: Context,
 ) {
 
-    private val Context.tokenStore by dataStore(
+    private val Context.tokenStoreFile by dataStore(
         fileName = DataStoreConstants.TOKEN_PREFERENCES_STORE,
         serializer = TokenPreferencesSerializer,
     )
 
-    fun getTokenStore(): DataStore<TokenPreferences> = context.tokenStore
+    fun getTokenStore(): DataStore<TokenPreferences> = context.tokenStoreFile
 }

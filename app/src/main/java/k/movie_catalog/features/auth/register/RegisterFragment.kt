@@ -31,9 +31,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private val viewModel: RegisterViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
             RegisterViewModel(
-                authRepository = App.app.authRepository,
-                tokenRepository = App.app.tokenRepository,
-                dispatcherProvider = App.app.dispatcherProvider,
+                authRepository = App.instance.authRepository,
+                tokenRepository = App.instance.tokenRepository,
+                dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
     }

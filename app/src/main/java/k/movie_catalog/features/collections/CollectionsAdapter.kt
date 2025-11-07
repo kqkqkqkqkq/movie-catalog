@@ -28,7 +28,6 @@ class CollectionsAdapter(
 
             override fun areContentsTheSame(oldItem: Collection, newItem: Collection) =
                 oldItem == newItem
-
         }
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -28,9 +29,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val viewModel: MainViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
             MainViewModel(
-                moviesRepository = App.app.moviesRepository,
-                favouritesRepository = App.app.favouritesRepository,
-                dispatcherProvider = App.app.dispatcherProvider,
+                moviesRepository = App.instance.moviesRepository,
+                favouritesRepository = App.instance.favouritesRepository,
+                dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
     }
@@ -61,7 +62,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.mainState.collect { state ->
                     state.movies?.let { movies ->
-                        moviesAdapter.submitList(movies.movies)
+                        moviesAdapter.submitList(movies.movies - movies.movies.first())
                     }
                     favouritesAdapter.submitList(state.favourites)
                     val mainMovie = state.movies?.movies?.first()
@@ -69,6 +70,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         setupImages(mainMovie)
                         setupButtons(mainMovie)
                     }
+                    binding.favouriteRecycler.isVisible = state.favourites.isNotEmpty()
+                    binding.favouritesLabel.isVisible = state.favourites.isNotEmpty()
                 }
             }
         }
@@ -78,9 +81,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         moviesAdapter = MoviesAdapter { movie ->
             onMovieClicked(movie)
         }
-        favouritesAdapter = FavouritesAdapter { movie ->
-            onMovieClicked(movie)
-        }
+        favouritesAdapter = FavouritesAdapter(
+            onFavouriteClick = { movie ->
+                onMovieClicked(movie)
+            },
+            onDeleteCLick = { movie ->
+                onFavouriteDelete(movie)
+            }
+        )
 
         val movieLayoutManager =
             LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
@@ -127,6 +135,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         findNavController().navigate(action)
     }
 
+    private fun onFavouriteDelete(movie: MovieElement) {
+        viewModel.deleteFavourite(movie)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

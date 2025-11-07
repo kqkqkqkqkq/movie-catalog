@@ -21,9 +21,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
             ProfileViewModel(
-                authRepository = App.app.authRepository,
-                tokenRepository = App.app.tokenRepository,
-                dispatcherProvider = App.app.dispatcherProvider,
+                authRepository = App.instance.authRepository,
+                tokenRepository = App.instance.tokenRepository,
+                dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
     }

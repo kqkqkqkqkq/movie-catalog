@@ -21,8 +21,8 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
     private val viewModel: CollectionsViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
             CollectionsViewModel(
-                collectionsRepository = App.app.collectionsRepository,
-                dispatcherProvider = App.app.dispatcherProvider,
+                collectionsRepository = App.instance.collectionsRepository,
+                dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
     }

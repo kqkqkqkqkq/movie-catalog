@@ -21,16 +21,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
             LoginViewModel(
-                authRepository = App.app.authRepository,
-                tokenRepository = App.app.tokenRepository,
-                dispatcherProvider = App.app.dispatcherProvider,
+                authRepository = App.instance.authRepository,
+                tokenRepository = App.instance.tokenRepository,
+                dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
     }
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

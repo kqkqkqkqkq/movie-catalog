@@ -5,7 +5,7 @@ object Routes {
     const val API_VERSION = "api/"
 
     private const val AUTH_ROUTE = "account"
-    private const val FAVOURITE_ROUTE = "favourites"
+    private const val FAVOURITE_ROUTE = "favorites"
     private const val MOVIES_ROUTE = "movies"
     private const val MOVIE_ROUTE = "movie"
     private const val REVIEW_ROUTE = "review"

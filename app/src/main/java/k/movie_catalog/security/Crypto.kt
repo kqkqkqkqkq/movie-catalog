@@ -40,7 +40,6 @@ object Crypto {
                 )
             }
             .generateKey()
-
     }
 
     fun encrypt(bytes: ByteArray): ByteArray {

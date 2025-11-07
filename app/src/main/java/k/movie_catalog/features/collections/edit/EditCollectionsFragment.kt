@@ -25,8 +25,8 @@ class EditCollectionsFragment : Fragment(R.layout.fragment_collections_edit) {
     private val viewModel: EditCollectionsViewModel by viewModels {
         AppComponentImpl.viewModelFactory {
             EditCollectionsViewModel(
-                collectionsRepository = App.app.collectionsRepository,
-                dispatcherProvider = App.app.dispatcherProvider,
+                collectionsRepository = App.instance.collectionsRepository,
+                dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
     }

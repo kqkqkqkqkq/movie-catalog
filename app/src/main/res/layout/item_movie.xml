@@ -86,6 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:textColor="?attr/colorOnPrimary"
         app:textStartPadding="16dp"
         app:textEndPadding="16dp"
         app:chipStrokeWidth="0dp"

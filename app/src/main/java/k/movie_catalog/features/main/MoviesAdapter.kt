@@ -27,7 +27,6 @@ class MoviesAdapter(
 
             override fun areContentsTheSame(oldItem: MovieElement, newItem: MovieElement) =
                 oldItem == newItem
-
         }
     }
 }

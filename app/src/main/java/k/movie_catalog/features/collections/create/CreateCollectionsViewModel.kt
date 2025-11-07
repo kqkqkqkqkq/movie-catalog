@@ -23,15 +23,12 @@ class CreateCollectionsViewModel(
         _collectionsState.update { it.copy(collection = collection) }
     }
 
-
     fun createCollection(onCreateCollection: () -> Unit) {
         viewModelScope.launch(dispatcherProvider.io) {
             try {
                 _collectionsState.update { it.copy(isLoading = true) }
                 val collection = _collectionsState.value.collection
-                if (collection.title.isBlank()) {
-                    throw IllegalArgumentException("Title cannot be empty")
-                }
+                require(collection.title.isNotBlank()) { "Title cannot be empty" }
                 collectionsRepository.createCollection(collection)
                 _collectionsState.update { it.copy(isLoading = false) }
                 withContext(dispatcherProvider.main) {

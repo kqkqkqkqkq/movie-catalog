@@ -27,7 +27,6 @@ class IconAdapter(
 
             override fun areContentsTheSame(oldItem: CollectionIcon, newItem: CollectionIcon) =
                 oldItem == newItem
-
         }
     }
 }

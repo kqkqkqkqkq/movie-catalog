@@ -7,10 +7,10 @@ import k.movie_catalog.di.AppComponentImpl
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        app = AppComponentImpl(this)
+        instance = AppComponentImpl(this)
     }
 
     companion object {
-        lateinit var app: AppComponent
+        lateinit var instance: AppComponent
     }
 }

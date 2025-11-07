@@ -52,6 +52,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:fillViewport="true"
         android:orientation="vertical"
         android:paddingTop="16dp"
@@ -61,35 +62,36 @@
             android:id="@+id/favourites_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:paddingStart="16dp"
             android:text="@string/favourites"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="24sp" />
+            android:textColor="?attr/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favourite_recycler"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
+            android:visibility="gone"
             tools:listitem="@layout/item_favourites" />
 
         <TextView
             android:id="@+id/movies_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:paddingStart="16dp"
             android:text="@string/gallery"
-            android:textColor="?attr/colorOnBackground"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             tools:listitem="@layout/item_movie" />
 
     </LinearLayout>

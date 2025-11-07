@@ -3,6 +3,7 @@ package k.movie_catalog.features.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import k.movie_catalog.repositories.favourites.FavouritesRepository
+import k.movie_catalog.repositories.models.MovieElement
 import k.movie_catalog.repositories.movie.MoviesRepository
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,11 +61,28 @@ class MainViewModel(
         viewModelScope.launch(dispatcherProvider.io) {
             _mainState.update { it.copy(isLoading = true) }
             favouritesRepository.getFavourites().onSuccess { favourites ->
-                _mainState.update { it.copy(
-                    favourites = favourites,
-                ) }
+                _mainState.update {
+                    it.copy(
+                        favourites = favourites,
+                    )
+                }
             }.onFailure { e ->
                 _mainState.update { it.copy(error = e.message) }
+            }
+            _mainState.update { it.copy(isLoading = false) }
+        }
+    }
+
+    fun deleteFavourite(movie: MovieElement) {
+        viewModelScope.launch(dispatcherProvider.io) {
+            _mainState.update { it.copy(isLoading = true) }
+            favouritesRepository.deleteFavourite(movie.id)
+            _mainState.update {
+                it.copy(
+                    favourites = _mainState.value.favourites.filterNot { m ->
+                        m.id == movie.id
+                    }
+                )
             }
             _mainState.update { it.copy(isLoading = false) }
         }

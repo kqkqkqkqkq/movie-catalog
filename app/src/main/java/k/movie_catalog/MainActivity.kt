@@ -32,10 +32,9 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
     }
 
-
     private fun setupNavigation() {
-        lifecycleScope.launch(App.app.dispatcherProvider.main) {
-            App.app.tokenRepository.token.collect { token ->
+        lifecycleScope.launch(App.instance.dispatcherProvider.main) {
+            App.instance.tokenRepository.token.collect { token ->
                 if (token != null) {
                     navController.setGraph(R.navigation.main_navigation)
                     setupBottomNavigationWithNavController()

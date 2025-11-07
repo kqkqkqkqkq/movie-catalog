@@ -21,14 +21,12 @@ class RegisterViewModel(
     private val _registerState = MutableStateFlow(RegisterUiState())
     val registerState = _registerState.asStateFlow()
 
-
     fun updateUserState(user: UserRegisterUi) {
         viewModelScope.launch(dispatcherProvider.default) {
             _registerState.update {
                 it.copy(user = user)
             }
         }
-        println(_registerState.value.user)
     }
 
     fun register() {
@@ -66,16 +64,16 @@ class RegisterViewModel(
 
     fun validateRegisterForm(): Boolean {
         val user = _registerState.value.user
-        return user.name.isNotBlank()
-                && user.username.isNotBlank()
-                && user.email.isNotBlank()
-                && user.password.isNotBlank()
-                && user.passwordRepeat.isNotBlank()
-                && user.birthDate != null
-                && user.gender != Gender.UNKNOW
-                && user.password == user.passwordRepeat
-                && user.password.length >= 6
-                && Patterns.EMAIL_ADDRESS.matcher(user.email).matches()
-
+        val minPasswordLength = 6
+        return user.name.isNotBlank() &&
+                user.username.isNotBlank() &&
+                user.email.isNotBlank() &&
+                user.password.isNotBlank() &&
+                user.passwordRepeat.isNotBlank() &&
+                user.birthDate != null &&
+                user.gender != Gender.UNKNOW &&
+                user.password == user.passwordRepeat &&
+                user.password.length >= minPasswordLength &&
+                Patterns.EMAIL_ADDRESS.matcher(user.email).matches()
     }
 }

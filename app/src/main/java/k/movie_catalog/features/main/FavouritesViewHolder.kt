@@ -13,6 +13,7 @@ import k.movie_catalog.repositories.models.MovieElement
 class FavouritesViewHolder(
     view: View,
     private val onFavouriteClick: (MovieElement) -> Unit,
+    private val onDeleteCLick: (MovieElement) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemFavouritesBinding.bind(view)
@@ -25,6 +26,10 @@ class FavouritesViewHolder(
             crossfade(true)
             placeholder(R.drawable.icon_movie_catalog)
             error(R.drawable.icon_movie_catalog)
+        }
+        favouritePoster.setOnLongClickListener {
+            onDeleteCLick(movie)
+            true
         }
     }
 }

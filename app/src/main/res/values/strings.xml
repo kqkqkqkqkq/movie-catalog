@@ -38,4 +38,21 @@
     <string name="watch">Watch</string>
     <string name="gallery">Gallery</string>
     <string name="text_separator">•</string>
+
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="about_movie">About movie</string>
+    <string name="genres">Genres</string>
+    <string name="reviews">Reviews</string>
+
+    <string name="year">Year</string>
+    <string name="country">Country</string>
+    <string name="time">Time</string>
+    <string name="slogan">Slogan</string>
+    <string name="director">Director</string>
+    <string name="budget">Budget</string>
+    <string name="world">Budget</string>
+    <string name="age_limit">Age limit</string>
+
+    <string name="unknown_movie">Unknown movie</string>
+    <string name="anonymous_user">Anonymous user</string>
 </resources>
