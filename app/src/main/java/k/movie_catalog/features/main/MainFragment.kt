@@ -12,6 +12,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil3.load
+import coil3.request.crossfade
+import coil3.request.error
+import coil3.request.placeholder
 import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentMainBinding
@@ -48,7 +52,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupButtons()
         setupRecyclerView()
         observeViewModel()
     }
@@ -61,6 +64,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         moviesAdapter.submitList(movies.movies)
                     }
                     favouritesAdapter.submitList(state.favourites)
+                    val mainMovie = state.movies?.movies?.first()
+                    if (mainMovie != null) {
+                        setupImages(mainMovie)
+                        setupButtons(mainMovie)
+                    }
                 }
             }
         }
@@ -74,8 +82,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             onMovieClicked(movie)
         }
 
-        val movieLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
-        val favouriteLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)
+        val movieLayoutManager =
+            LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
+        val favouriteLayoutManager =
+            LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.movieRecycler.layoutManager = movieLayoutManager
         binding.movieRecycler.adapter = moviesAdapter
@@ -97,8 +107,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
-    private fun setupButtons() {
+    private fun setupButtons(mainMovie: MovieElement) {
+        binding.watchButton.setOnClickListener {
+            onMovieClicked(mainMovie)
+        }
+    }
 
+    private fun setupImages(mainMovie: MovieElement) {
+        binding.moviePoster.load(mainMovie.poster) {
+            crossfade(true)
+            placeholder(R.drawable.icon_movie_catalog)
+            error(R.drawable.icon_movie_catalog)
+        }
     }
 
     private fun onMovieClicked(movie: MovieElement) {
