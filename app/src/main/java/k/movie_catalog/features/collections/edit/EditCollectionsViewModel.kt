@@ -28,6 +28,7 @@ class EditCollectionsViewModel(
             try {
                 _collectionsState.update { it.copy(isLoading = true) }
                 val collection = _collectionsState.value.collection
+                println(collection)
                 collectionsRepository.updateCollection(collectionName, collection)
                 _collectionsState.update { it.copy(isLoading = false) }
                 withContext(dispatcherProvider.main) {

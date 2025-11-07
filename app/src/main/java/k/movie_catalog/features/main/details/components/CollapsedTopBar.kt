@@ -23,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import k.movie_catalog.R
-import k.movie_catalog.features.main.details.COLLAPSED_TOP_BAR_HEIGHT
+import k.movie_catalog.features.main.details.state.COLLAPSED_TOP_BAR_HEIGHT
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -56,7 +56,7 @@ fun CollapsedTopBar(
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = name,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.titleMedium,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,

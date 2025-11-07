@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import k.movie_catalog.features.main.details.state.MovieDetailsContent
+import k.movie_catalog.features.main.details.state.MovieDetailsError
+import k.movie_catalog.features.main.details.state.MovieDetailsLoading
 
 @Composable
 fun MovieDetailsScreen(
@@ -32,11 +35,14 @@ fun MovieDetailsScreen(
                 currentState.isLoading -> MovieDetailsLoading()
                 currentState.error != null -> MovieDetailsError(currentState.error)
                 currentState.movie != null -> MovieDetailsContent(
-                    currentState.movie,
-                    onNavigateBack
+                    state = currentState,
+                    onNavigateBack = onNavigateBack,
+                    onCollectionAdd = { collection ->
+                        viewModel.addToCollection(collection)
+                    }
                 )
 
-                else -> MovieDetailsError("Unexpected state")
+                else -> MovieDetailsLoading()
             }
         }
     }

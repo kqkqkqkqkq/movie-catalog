@@ -22,6 +22,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
             MovieDetailsViewModel(
                 moviesRepository = App.instance.moviesRepository,
                 favouritesRepository = App.instance.favouritesRepository,
+                collectionsRepository = App.instance.collectionsRepository,
                 dispatcherProvider = App.instance.dispatcherProvider,
             )
         }

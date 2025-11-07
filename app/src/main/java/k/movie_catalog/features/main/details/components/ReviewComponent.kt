@@ -137,6 +137,7 @@ fun ReviewComponent(review: Review) {
                         },
                     tint = MaterialTheme.colorScheme.onBackground,
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Icon(
                     painter = painterResource(R.drawable.icon_add),
                     contentDescription = null,

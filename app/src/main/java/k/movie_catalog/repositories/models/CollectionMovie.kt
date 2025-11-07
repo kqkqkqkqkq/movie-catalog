@@ -6,5 +6,6 @@ import java.util.UUID
 data class CollectionMovie(
     val title: String? = null,
     val description: String? = null,
+    val posterUrl: String? = null,
     val movieId: UUID? = null,
 ) : Serializable

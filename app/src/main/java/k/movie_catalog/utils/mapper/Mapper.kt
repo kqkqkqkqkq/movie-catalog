@@ -110,6 +110,7 @@ fun CollectionPreferences.toCollection() = Collection(
 fun MoviePreferences.toCollectionMovie() = CollectionMovie(
     title = this.title,
     description = this.description,
+    posterUrl = this.posterUrl,
     movieId = this.movieId,
 )
 
@@ -122,6 +123,7 @@ fun Collection.toCollectionPreferences() = CollectionPreferences(
 fun CollectionMovie.toMoviePreferences() = MoviePreferences(
     title = this.title,
     description = this.description,
+    posterUrl = this.posterUrl,
     movieId = this.movieId,
 )
 
@@ -249,4 +251,11 @@ fun UserShort.toUserShortDto() = UserShortDto(
     userId = this.userId,
     nickName = this.nickName,
     avatar = this.avatar
+)
+
+fun MovieDetails.toCollectionMovie() = CollectionMovie(
+    title = this.name,
+    posterUrl = this.poster,
+    description = this.description,
+    movieId = this.id,
 )

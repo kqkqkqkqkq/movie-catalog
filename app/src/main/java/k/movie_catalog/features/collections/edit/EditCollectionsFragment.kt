@@ -37,6 +37,7 @@ class EditCollectionsFragment : Fragment(R.layout.fragment_collections_edit) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCollectionsEditBinding.bind(view)
+        viewModel.updateCollection(args.collection)
         observeViewModel()
         setupTextFields()
         setupButtons()

@@ -1,26 +1,30 @@
 package k.movie_catalog.features.main.details.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import k.movie_catalog.R
-import k.movie_catalog.features.main.details.COLLAPSED_TOP_BAR_HEIGHT
-import k.movie_catalog.features.main.details.EXPANDED_TOP_BAR_HEIGHT
+import k.movie_catalog.features.main.details.state.COLLAPSED_TOP_BAR_HEIGHT
+import k.movie_catalog.features.main.details.state.EXPANDED_TOP_BAR_HEIGHT
 
 @Composable
 fun ExpandedTopBar(
@@ -51,29 +55,55 @@ fun ExpandedTopBar(
             maxLines = 2,
             modifier = Modifier.padding(16.dp),
         )
-        IconButton(
-            onClick = onFavouriteClick,
+        Box(
             modifier = Modifier
-                .size(24.dp),
+                .align(Alignment.TopEnd)
+                .padding(
+                    top = 16.dp,
+                    end = 16.dp,
+                )
+                .size(32.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.background.copy(0.5f)),
         ) {
-            Icon(
-                painter = painterResource(R.drawable.icon_heart),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.fillMaxSize(),
-            )
+            IconButton(
+                onClick = onFavouriteClick,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(24.dp),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.icon_heart),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
-        IconButton(
-            onClick = onBackClick,
+        Box(
             modifier = Modifier
-                .size(24.dp),
+                .align(Alignment.TopStart)
+                .padding(
+                    top = 16.dp,
+                    start = 16.dp,
+                )
+                .size(32.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.background.copy(0.5f)),
         ) {
-            Icon(
-                painter = painterResource(R.drawable.icon_back),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.fillMaxSize(),
-            )
+            IconButton(
+                onClick = onBackClick,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(24.dp),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.icon_back),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import java.util.UUID
 data class MoviePreferences(
     val title: String? = null,
     val description: String? = null,
+    val posterUrl: String? = null,
     @Serializable(with = UUIDSerializer::class)
     val movieId: UUID? = null,
 )
