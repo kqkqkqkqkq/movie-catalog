@@ -24,7 +24,7 @@
     <string name="description_poster">Poster</string>
     <string name="description_navigate_to_collection_detail">Navigate to collection detail</string>
     <string name="description_collection_icon">Icon collection</string>
-    
+
     <string name="navigation_main">Main</string>
     <string name="navigation_collections">Collections</string>
     <string name="navigation_profile">Profile</string>

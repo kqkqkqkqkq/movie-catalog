@@ -78,6 +78,9 @@
             android:name="collection"
             app:argType="k.movie_catalog.repositories.models.Collection" />
         <action
+            android:id="@+id/action_collections_details_to_movie_details"
+            app:destination="@id/navigation_movie_details" />
+        <action
             android:id="@+id/action_back_details"
             app:destination="@id/navigation_collections"
             app:popUpTo="@id/navigation_collections"

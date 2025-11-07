@@ -47,7 +47,11 @@ class DetailsCollectionsViewModel(
         viewModelScope.launch(dispatcherProvider.io) {
             try {
                 _detailsCollectionsState.update { it.copy(isLoading = true) }
-                collectionsRepository.removeMovieFromCollection(requireNotNull(_detailsCollectionsState.value.collection), movie)
+                collectionsRepository.removeMovieFromCollection(
+                    requireNotNull(
+                        _detailsCollectionsState.value.collection
+                    ), movie
+                )
                 _detailsCollectionsState.update {
                     it.copy(
                         collection = _detailsCollectionsState.value.collection?.copy(

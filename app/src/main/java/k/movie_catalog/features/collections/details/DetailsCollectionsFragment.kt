@@ -16,6 +16,7 @@ import k.movie_catalog.App
 import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentCollectionsDetailsBinding
 import k.movie_catalog.di.AppComponentImpl
+import k.movie_catalog.repositories.models.CollectionMovie
 import kotlinx.coroutines.launch
 
 class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_details) {
@@ -59,8 +60,8 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
     }
 
     private fun setupRecyclerView() {
-        adapter = DetailsCollectionAdapter { collection ->
-            // TODO("navigate to movie detail screen")
+        adapter = DetailsCollectionAdapter { movie ->
+            onCollectionMovieClick(movie)
         }
 
         binding.movieRecycler.layoutManager = LinearLayoutManager(
@@ -89,7 +90,7 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
         binding.title.text = args.collection.title
     }
 
-    fun swipeToDelete(
+    private fun swipeToDelete(
         recyclerView: RecyclerView,
         onItemSwiped: (position: Int) -> Unit
     ) {
@@ -113,6 +114,12 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
 
         val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun onCollectionMovieClick(movie: CollectionMovie) {
+        val action = DetailsCollectionsFragmentDirections
+            .actionCollectionsDetailsToMovieDetails(movie.movieId.toString())
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
