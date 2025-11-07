@@ -20,6 +20,7 @@ class MoviesAdapter(
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
     private companion object {
         val DIFF = object : DiffUtil.ItemCallback<MovieElement>() {
             override fun areItemsTheSame(oldItem: MovieElement, newItem: MovieElement) =

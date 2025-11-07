@@ -6,8 +6,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import coil3.request.crossfade
-import coil3.request.placeholder
 import coil3.request.error
+import coil3.request.placeholder
 import k.movie_catalog.R
 import k.movie_catalog.databinding.ItemMovieBinding
 import k.movie_catalog.repositories.models.MovieElement

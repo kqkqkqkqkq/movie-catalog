@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back_btn"
@@ -40,10 +40,10 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingTop="24dp"
-        app:boxCornerRadiusTopStart="@dimen/medium"
-        app:boxCornerRadiusTopEnd="@dimen/medium"
-        app:boxCornerRadiusBottomStart="@dimen/medium"
         app:boxCornerRadiusBottomEnd="@dimen/medium"
+        app:boxCornerRadiusBottomStart="@dimen/medium"
+        app:boxCornerRadiusTopEnd="@dimen/medium"
+        app:boxCornerRadiusTopStart="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_collection">
@@ -53,10 +53,9 @@
             style="@style/DefaultEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            app:boxStrokeColor="?attr/colorOnSurface"
             android:hint="@string/hint_title"
-            />
+            android:textColor="?attr/colorOnSurface"
+            app:boxStrokeColor="?attr/colorOnSurface" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,8 +63,8 @@
         android:id="@+id/icon_container"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="36dp"
         app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,27 +87,25 @@
         style="@style/OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/choose_icon"
         app:layout_constraintBottom_toBottomOf="@+id/icon_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon_container"
-        app:layout_constraintTop_toBottomOf="@+id/title_til"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/title_til" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_btn"
         style="@style/FilledButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="44dp"
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon_container"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/icon_container" />
 
     <ProgressBar
         android:id="@+id/progress"

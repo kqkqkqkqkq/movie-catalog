@@ -31,7 +31,11 @@ fun MovieDetailsScreen(
             when {
                 currentState.isLoading -> MovieDetailsLoading()
                 currentState.error != null -> MovieDetailsError(currentState.error)
-                currentState.movie != null -> MovieDetailsContent(currentState.movie, onNavigateBack)
+                currentState.movie != null -> MovieDetailsContent(
+                    currentState.movie,
+                    onNavigateBack
+                )
+
                 else -> MovieDetailsError("Unexpected state")
             }
         }
