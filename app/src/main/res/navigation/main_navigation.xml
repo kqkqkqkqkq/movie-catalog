@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/navigation_main">
+
+    <fragment
+        android:id="@+id/navigation_main"
+        android:name="k.movie_catalog.features.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_movie_details"
+            app:destination="@id/navigation_movie_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_movie_details"
+        android:name="k.movie_catalog.features.main.details.MovieDetailsFragment"
+        tools:layout="@layout/fragment_main">
+        <argument
+            android:name="movie_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_movie_details_to_main"
+            app:destination="@id/navigation_main"
+            app:popUpTo="@id/navigation_main"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="k.movie_catalog.features.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_collections"
+        android:name="k.movie_catalog.features.collections.CollectionsFragment"
+        tools:layout="@layout/fragment_collections">
+        <action
+            android:id="@+id/action_collections_to_details"
+            app:destination="@id/navigation_collections_details" />
+        <action
+            android:id="@+id/action_collections_to_create"
+            app:destination="@id/navigation_collections_create" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_collections_create"
+        android:name="k.movie_catalog.features.collections.create.CreateCollectionsFragment"
+        tools:layout="@layout/fragment_collections_create">
+        <action
+            android:id="@+id/action_back_create"
+            app:destination="@id/navigation_collections"
+            app:popUpTo="@id/navigation_collections"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_collections_edit"
+        android:name="k.movie_catalog.features.collections.edit.EditCollectionsFragment"
+        tools:layout="@layout/fragment_collections_edit">
+        <argument
+            android:name="collection"
+            app:argType="k.movie_catalog.repositories.models.Collection" />
+        <action
+            android:id="@+id/action_back_edit"
+            app:destination="@id/navigation_collections_details"
+            app:popUpTo="@id/navigation_collections_details"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_collections_details"
+        android:name="k.movie_catalog.features.collections.details.DetailsCollectionsFragment"
+        tools:layout="@layout/fragment_collections_details">
+        <argument
+            android:name="collection"
+            app:argType="k.movie_catalog.repositories.models.Collection" />
+        <action
+            android:id="@+id/action_collections_details_to_movie_details"
+            app:destination="@id/navigation_movie_details" />
+        <action
+            android:id="@+id/action_back_details"
+            app:destination="@id/navigation_collections"
+            app:popUpTo="@id/navigation_collections"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_collections_details_to_edit"
+            app:destination="@id/navigation_collections_edit"
+            app:popUpTo="@id/navigation_collections"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+</navigation>

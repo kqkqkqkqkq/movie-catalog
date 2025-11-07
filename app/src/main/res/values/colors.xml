@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primaryDark">#EF3A01</color>
+    <color name="onPrimaryDark">#FFFFFF</color>
+    <color name="backgroundDark">#150D0B</color>
+    <color name="onBackgroundDark">#FFFFFF</color>
+    <color name="surfaceDark">#1C1A19</color>
+    <color name="onSurfaceDark">#B7B7B7</color>
+    <color name="errorDark">#E91E47</color>
+    <color name="onErrorDark">#292828</color>
+
+    <color name="primaryLight">#EF3A01</color>
+    <color name="onPrimaryLight">#FFFFFF</color>
+    <color name="backgroundLight">#FFFFFF</color>
+    <color name="onBackgroundLight">#150D0B</color>
+    <color name="surfaceLight">#B7B7B7</color>
+    <color name="onSurfaceLight">#1C1A19</color>
+    <color name="errorLight">#EA0F0F</color>
+    <color name="onErrorLight">#EDE1E1</color>
+
+    <color name="ratingHigh">#02AA1F</color>
+    <color name="ratingMedium">#FF7A00</color>
+    <color name="ratingLow">#DF2800</color>
+
+    <color name="bottom_nav_icon_color">@color/bottom_nav_colors</color>
+    <color name="bottom_nav_text_color">@color/bottom_nav_colors</color>
+</resources>
