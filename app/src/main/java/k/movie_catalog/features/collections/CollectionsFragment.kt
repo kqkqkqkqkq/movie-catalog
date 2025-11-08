@@ -14,6 +14,7 @@ import k.movie_catalog.R
 import k.movie_catalog.databinding.FragmentCollectionsBinding
 import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.repositories.models.Collection
+import k.movie_catalog.repositories.models.CollectionMovie
 import kotlinx.coroutines.launch
 
 class CollectionsFragment : Fragment(R.layout.fragment_collections) {
@@ -22,6 +23,7 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
         AppComponentImpl.viewModelFactory {
             CollectionsViewModel(
                 collectionsRepository = App.instance.collectionsRepository,
+                favouritesRepository = App.instance.favouritesRepository,
                 dispatcherProvider = App.instance.dispatcherProvider,
             )
         }
@@ -53,9 +55,22 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
     }
 
     private fun setupRecyclerView() {
-        adapter = CollectionsAdapter { collection ->
-            onCollectionClicked(collection)
-        }
+        adapter = CollectionsAdapter(
+            favouriteMovies = viewModel.collectionsState.value.favourites.map { m ->
+                CollectionMovie(
+                    title = m.name,
+                    description = m.name,
+                    posterUrl = m.poster,
+                    movieId = m.id,
+                )
+            },
+            onFavouriteClick = { collection ->
+                onCollectionClicked(collection)
+            },
+            onCollectionClick = { collection ->
+                onCollectionClicked(collection)
+            }
+        )
 
         binding.collectionsRecycler.layoutManager = LinearLayoutManager(
             view?.context, LinearLayoutManager.VERTICAL, false,

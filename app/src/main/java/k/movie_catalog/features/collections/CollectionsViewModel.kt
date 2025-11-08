@@ -3,6 +3,7 @@ package k.movie_catalog.features.collections
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import k.movie_catalog.repositories.collections.CollectionsRepository
+import k.movie_catalog.repositories.favourites.FavouritesRepository
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class CollectionsViewModel(
     private val collectionsRepository: CollectionsRepository,
+    private val favouritesRepository: FavouritesRepository,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
@@ -20,6 +22,7 @@ class CollectionsViewModel(
     init {
         loadCollections()
         observeCollections()
+        observeFavourites()
     }
 
     private fun observeCollections() {
@@ -28,6 +31,19 @@ class CollectionsViewModel(
                 _collectionsState.update {
                     it.copy(
                         collections = collections ?: emptyList(),
+                        isLoading = false,
+                    )
+                }
+            }
+        }
+    }
+
+    private fun observeFavourites() {
+        viewModelScope.launch(dispatcherProvider.io) {
+            favouritesRepository.getFavouritesFlow().collect { favourites ->
+                _collectionsState.update {
+                    it.copy(
+                        favourites = favourites,
                         isLoading = false,
                     )
                 }

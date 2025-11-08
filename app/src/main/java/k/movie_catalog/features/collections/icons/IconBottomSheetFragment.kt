@@ -30,7 +30,8 @@ class IconBottomSheetFragment : BottomSheetDialogFragment(R.layout.fragment_icon
         }
         adapter.submitList(CollectionIcon.icons)
         // TODO("make grid prettier then now")
-        binding.iconsRecyclerView.layoutManager = GridLayoutManager(requireContext(), UiConstants.GRID_CELLS)
+        binding.iconsRecyclerView.layoutManager =
+            GridLayoutManager(requireContext(), UiConstants.GRID_CELLS)
         binding.iconsRecyclerView.adapter = adapter
     }
 

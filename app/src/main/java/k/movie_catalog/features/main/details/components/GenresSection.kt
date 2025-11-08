@@ -19,10 +19,10 @@ fun GenresSection(
     genres: List<Genre>
 ) {
     FlowRow(
-    modifier = Modifier
-    .padding(horizontal = 16.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp),
-    horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         genres.forEach { genre ->
             if (genre.name != null) {

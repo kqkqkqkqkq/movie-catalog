@@ -48,7 +48,7 @@ fun CollapsedTopBar(
                 .size(24.dp),
         ) {
             Icon(
-                painter = painterResource(icon),
+                painter = painterResource(R.drawable.icon_back),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.fillMaxSize(),
@@ -71,7 +71,7 @@ fun CollapsedTopBar(
                 .size(24.dp),
         ) {
             Icon(
-                painter = painterResource(R.drawable.icon_heart),
+                painter = painterResource(icon),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.fillMaxSize(),
