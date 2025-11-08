@@ -19,7 +19,6 @@ class DetailsCollectionsViewModel(
     private val _detailsCollectionsState = MutableStateFlow(DetailsCollectionsUiState())
     val detailsCollectionsState = _detailsCollectionsState.asStateFlow()
 
-
     fun loadCollection(collection: Collection) {
         viewModelScope.launch(dispatcherProvider.io) {
             try {

@@ -26,6 +26,7 @@ import k.movie_catalog.features.main.details.state.EXPANDED_TOP_BAR_HEIGHT
 
 @Composable
 fun ExpandedTopBar(
+    icon: Int,
     name: String,
     imageUrl: String,
     onBackClick: () -> Unit,
@@ -71,7 +72,7 @@ fun ExpandedTopBar(
                     .size(24.dp),
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.icon_heart),
+                    painter = painterResource(icon),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.fillMaxSize(),

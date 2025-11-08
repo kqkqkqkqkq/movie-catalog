@@ -14,6 +14,7 @@ val LightOnError = Color(0xFFEDE1E1)
 val RatingHigh = Color(0xFF02AA1F)
 val RatingMedium = Color(0xFFFF7A00)
 val RatingLow = Color(0xFFDF2800)
+val RatingUnknown = Color(0xFF444444)
 
 val DarkPrimary = Color(0xFFEF3A01)
 val DarkOnPrimary = Color(0xFFFFFFFF)

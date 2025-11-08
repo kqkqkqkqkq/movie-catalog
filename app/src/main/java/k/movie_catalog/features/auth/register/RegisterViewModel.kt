@@ -3,6 +3,7 @@ package k.movie_catalog.features.auth.register
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import k.movie_catalog.constants.UiConstants
 import k.movie_catalog.repositories.auth.AuthRepository
 import k.movie_catalog.repositories.models.Gender
 import k.movie_catalog.repositories.token.TokenRepository
@@ -64,7 +65,6 @@ class RegisterViewModel(
 
     fun validateRegisterForm(): Boolean {
         val user = _registerState.value.user
-        val minPasswordLength = 6
         return user.name.isNotBlank() &&
                 user.username.isNotBlank() &&
                 user.email.isNotBlank() &&
@@ -73,7 +73,7 @@ class RegisterViewModel(
                 user.birthDate != null &&
                 user.gender != Gender.UNKNOW &&
                 user.password == user.passwordRepeat &&
-                user.password.length >= minPasswordLength &&
+                user.password.length >= UiConstants.MIN_PASSWORD_LENGTH &&
                 Patterns.EMAIL_ADDRESS.matcher(user.email).matches()
     }
 }

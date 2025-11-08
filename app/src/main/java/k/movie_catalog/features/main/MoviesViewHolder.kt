@@ -1,5 +1,6 @@
 package k.movie_catalog.features.main
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -9,8 +10,10 @@ import coil3.request.crossfade
 import coil3.request.error
 import coil3.request.placeholder
 import k.movie_catalog.R
+import k.movie_catalog.constants.UiConstants
 import k.movie_catalog.databinding.ItemMovieBinding
 import k.movie_catalog.repositories.models.MovieElement
+import k.movie_catalog.repositories.models.ReviewShort
 
 class MoviesViewHolder(
     view: View,
@@ -22,22 +25,14 @@ class MoviesViewHolder(
         binding.itemMovie.setOnClickListener {
             onMovieClick(movie)
         }
-        val rating = if (movie.reviews.isNotEmpty()) {
-            movie.reviews.sumOf { it.rating } / movie.reviews.size
-        } else {
-            0
-        }
-        val ratingColor = when {
-            rating >= 7 -> R.color.ratingHigh
-            rating > 4 && rating < 7 -> R.color.ratingMedium
-            else -> R.color.ratingLow
-        }
-        val colorState = ColorStateList.valueOf(
-            ContextCompat.getColor(binding.root.context, ratingColor)
+
+        val ratingValue = calculateRating(movie.reviews)
+
+        binding.title.text = movie.name ?: "*****"
+        binding.rating.text = ratingValue.toString()
+        binding.rating.chipBackgroundColor = getColorByRating(
+            binding.root.context, ratingValue
         )
-        binding.title.text = movie.name ?: "***"
-        binding.rating.text = rating.toString()
-        binding.rating.chipBackgroundColor = colorState
         binding.genres.text = movie.genres.joinToString { it.name ?: "" }
         binding.year.text = movie.year.toString()
         binding.country.text = movie.country.toString()
@@ -46,5 +41,23 @@ class MoviesViewHolder(
             placeholder(R.drawable.icon_movie_catalog)
             error(R.drawable.icon_movie_catalog)
         }
+    }
+
+    private fun calculateRating(reviews: List<ReviewShort>): Double {
+        if (reviews.isEmpty()) return 0.0
+
+        val sum = reviews.sumOf { it.rating.toDouble() }
+        val average = sum / reviews.size
+        return "%.1f".format(average).toDouble()
+    }
+
+    private fun getColorByRating(context: Context, rating: Double): ColorStateList {
+        val colorRes = when {
+            rating >= UiConstants.HIGH_RATING -> R.color.ratingHigh
+            rating > UiConstants.MEDIUM_RATING -> R.color.ratingMedium
+            rating > UiConstants.LOW_RATING -> R.color.ratingLow
+            else -> R.color.ratingUnknown
+        }
+        return ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
     }
 }

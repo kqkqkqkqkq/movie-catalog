@@ -22,7 +22,24 @@ class MainViewModel(
 
     init {
         loadMovies()
-        loadFavourites()
+        observeFavourites()
+        loadInitialFavourites()
+    }
+
+    private fun loadInitialFavourites() {
+        viewModelScope.launch(dispatcherProvider.io) {
+            favouritesRepository.getFavourites()
+        }
+    }
+
+    private fun observeFavourites() {
+        viewModelScope.launch(dispatcherProvider.io) {
+            favouritesRepository.getFavouritesFlow().collect { favourites ->
+                _mainState.update {
+                    it.copy(favourites = favourites, isLoading = false)
+                }
+            }
+        }
     }
 
     fun loadNextPage() {
@@ -57,34 +74,9 @@ class MainViewModel(
         }
     }
 
-    private fun loadFavourites() {
-        viewModelScope.launch(dispatcherProvider.io) {
-            _mainState.update { it.copy(isLoading = true) }
-            favouritesRepository.getFavourites().onSuccess { favourites ->
-                _mainState.update {
-                    it.copy(
-                        favourites = favourites,
-                    )
-                }
-            }.onFailure { e ->
-                _mainState.update { it.copy(error = e.message) }
-            }
-            _mainState.update { it.copy(isLoading = false) }
-        }
-    }
-
     fun deleteFavourite(movie: MovieElement) {
         viewModelScope.launch(dispatcherProvider.io) {
-            _mainState.update { it.copy(isLoading = true) }
-            favouritesRepository.deleteFavourite(movie.id)
-            _mainState.update {
-                it.copy(
-                    favourites = _mainState.value.favourites.filterNot { m ->
-                        m.id == movie.id
-                    }
-                )
-            }
-            _mainState.update { it.copy(isLoading = false) }
+            favouritesRepository.deleteFavourite(movie)
         }
     }
 }

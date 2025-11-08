@@ -16,6 +16,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.transition.MaterialContainerTransform
 import k.movie_catalog.App
 import k.movie_catalog.R
+import k.movie_catalog.constants.UiConstants
 import k.movie_catalog.databinding.FragmentRegisterBinding
 import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.repositories.models.Gender
@@ -44,13 +45,13 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host_fragment_activity_main
-            duration = 500
+            duration = UiConstants.DURATION
             scrimColor = Color.TRANSPARENT
             fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
         }
         sharedElementReturnTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host_fragment_activity_main
-            duration = 500
+            duration = UiConstants.DURATION
             scrimColor = Color.TRANSPARENT
             fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
         }
