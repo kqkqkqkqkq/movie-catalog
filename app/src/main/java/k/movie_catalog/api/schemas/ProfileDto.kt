@@ -1,7 +1,8 @@
 package k.movie_catalog.api.schemas
 
-import k.movie_catalog.utils.serializer.LocalDateTimeSerializer
-import k.movie_catalog.utils.serializer.UUIDSerializer
+import k.movie_catalog.api.serializer.GenderDtoSerializer
+import k.movie_catalog.api.serializer.LocalDateTimeSerializer
+import k.movie_catalog.api.serializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 import java.util.UUID
@@ -16,5 +17,6 @@ data class ProfileDto(
     val name: String,
     @Serializable(with = LocalDateTimeSerializer::class)
     val birthDate: LocalDateTime,
-    val genderDto: GenderDto,
+    @Serializable(with = GenderDtoSerializer::class)
+    val gender: GenderDto?,
 )

@@ -1,14 +1,17 @@
 package k.movie_catalog.di
 
-import com.github.terrakok.cicerone.Router
-import k.movie_catalog.api.RetrofitClient
-import k.movie_catalog.api.api.AuthApi
+import k.movie_catalog.repositories.auth.AuthRepository
+import k.movie_catalog.repositories.collections.CollectionsRepository
+import k.movie_catalog.repositories.favourites.FavouritesRepository
+import k.movie_catalog.repositories.movie.MoviesRepository
+import k.movie_catalog.repositories.token.TokenRepository
+import k.movie_catalog.utils.dispatcher.DispatcherProvider
 
-fun AppComponent(
-    router: Router,
-): IAppComponent = object : IAppComponent {
-    override val authApi: AuthApi
-        get() = RetrofitClient.authApi
-    override val router: Router
-        get() = router
+interface AppComponent {
+    val authRepository: AuthRepository
+    val tokenRepository: TokenRepository
+    val moviesRepository: MoviesRepository
+    val favouritesRepository: FavouritesRepository
+    val collectionsRepository: CollectionsRepository
+    val dispatcherProvider: DispatcherProvider
 }

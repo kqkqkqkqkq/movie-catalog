@@ -1,7 +1,7 @@
 package k.movie_catalog.api.schemas
 
-import k.movie_catalog.utils.serializer.LocalDateTimeSerializer
-import k.movie_catalog.utils.serializer.UUIDSerializer
+import k.movie_catalog.api.serializer.LocalDateTimeSerializer
+import k.movie_catalog.api.serializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 import java.util.UUID

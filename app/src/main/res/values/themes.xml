@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Base.Theme.Moviecatalog" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primaryLight</item>
         <item name="colorOnPrimary">@color/onPrimaryLight</item>
@@ -8,8 +9,11 @@
         <item name="colorSurface">@color/surfaceLight</item>
         <item name="colorOnSurface">@color/onSurfaceLight</item>
 
-        <item name="android:statusBarColor" >@color/primaryLight</item>
-        <item name="android:windowLightStatusBar" >true</item>
+        <item name="colorError">@color/errorLight</item>
+        <item name="colorOnError">@color/onErrorLight</item>
+
+        <item name="android:statusBarColor">@color/primaryLight</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.Moviecatalog" parent="Base.Theme.Moviecatalog" />

@@ -3,7 +3,7 @@ package k.movie_catalog.repositories.models
 import java.time.LocalDateTime
 
 data class UserRegister(
-    val userName: String,
+    val username: String,
     val name: String,
     val password: String,
     val email: String,

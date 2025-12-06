@@ -4,16 +4,16 @@ object Routes {
     const val BASE_URL = "https://react-midterm.kreosoft.space/"
     const val API_VERSION = "api/"
 
-    private const val AUTH_ROUTE = "account/"
-    private const val FAVOURITE_ROUTE = "favourites/"
-    private const val MOVIES_ROUTE = "movies/"
-    private const val MOVIE_ROUTE = "movie/"
-    private const val REVIEW_ROUTE = "review/"
+    private const val AUTH_ROUTE = "account"
+    private const val FAVOURITE_ROUTE = "favorites"
+    private const val MOVIES_ROUTE = "movies"
+    private const val MOVIE_ROUTE = "movie"
+    private const val REVIEW_ROUTE = "review"
 
-    const val REGISTER = "${AUTH_ROUTE}register/"
-    const val LOGIN = "${AUTH_ROUTE}login/"
-    const val LOGOUT = "${AUTH_ROUTE}logout/"
-    const val PROFILE = "${AUTH_ROUTE}profile/"
+    const val REGISTER = "$AUTH_ROUTE/register/"
+    const val LOGIN = "$AUTH_ROUTE/login/"
+    const val LOGOUT = "$AUTH_ROUTE/logout/"
+    const val PROFILE = "$AUTH_ROUTE/profile/"
     const val UPDATE_PROFILE = "${AUTH_ROUTE}profile/"
 
     const val FAVOURITES = FAVOURITE_ROUTE

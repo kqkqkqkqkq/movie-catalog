@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.Moviecatalog" parent="Theme.Material3.DayNight.NoActionBar">
+<resources>
+
+    <style name="Theme.Moviecatalog" parent="Base.Theme.Moviecatalog">
         <item name="colorPrimary">@color/primaryDark</item>
         <item name="colorOnPrimary">@color/onPrimaryDark</item>
         <item name="android:colorBackground">@color/backgroundDark</item>
@@ -8,7 +9,10 @@
         <item name="colorSurface">@color/surfaceDark</item>
         <item name="colorOnSurface">@color/onSurfaceDark</item>
 
-        <item name="android:statusBarColor" >@color/primaryDark</item>
-        <item name="android:windowLightStatusBar" >true</item>
+        <item name="colorError">@color/errorDark</item>
+        <item name="colorOnError">@color/onErrorDark</item>
+
+        <item name="android:statusBarColor">@color/primaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
