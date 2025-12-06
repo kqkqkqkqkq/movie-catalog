@@ -8,6 +8,7 @@ import k.movie_catalog.repositories.models.Collection
 import k.movie_catalog.repositories.movie.MoviesRepository
 import k.movie_catalog.utils.dispatcher.DispatcherProvider
 import k.movie_catalog.utils.mapper.toCollectionMovie
+import k.movie_catalog.utils.mapper.toMovieElement
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -26,6 +27,31 @@ class MovieDetailsViewModel(
 
     init {
         getAvailableCollections()
+    }
+
+    fun onFavourite() {
+        val movie = _movieDetailState.value.movie?.toMovieElement() ?: return
+        viewModelScope.launch(dispatcherProvider.io) {
+            val currentlyFavourite = _movieDetailState.value.inFavourites
+            try {
+                if (currentlyFavourite) {
+                    favouritesRepository.deleteFavourite(movie)
+                } else {
+                    favouritesRepository.addFavourite(movie)
+                }
+                _movieDetailState.update {
+                    it.copy(
+                        inFavourites = !currentlyFavourite,
+                    )
+                }
+            } catch (e: Exception) {
+                _movieDetailState.update {
+                    it.copy(
+                        error = e.message ?: "Favourite update failed",
+                    )
+                }
+            }
+        }
     }
 
     fun loadMovieDetails(id: UUID) {
@@ -54,7 +80,6 @@ class MovieDetailsViewModel(
             _movieDetailState.update { it.copy(isLoading = true) }
             val movie = _movieDetailState.value.movie
             if (movie != null) {
-                println(movie)
                 collectionsRepository.addMovieToCollection(collection, movie.toCollectionMovie())
             } else {
                 _movieDetailState.update {
@@ -77,7 +102,6 @@ class MovieDetailsViewModel(
                     isLoading = false,
                 )
             }
-            println(collectionsRepository.getCollections())
         }
     }
 }

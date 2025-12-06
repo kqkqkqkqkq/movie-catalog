@@ -259,3 +259,18 @@ fun MovieDetails.toCollectionMovie() = CollectionMovie(
     description = this.description,
     movieId = this.id,
 )
+
+fun MovieDetails.toMovieElement() = MovieElement(
+    id = this.id,
+    name = this.name,
+    poster = this.poster,
+    year = this.year,
+    country = this.country,
+    genres = this.genres,
+    reviews = this.reviews.map { it.toReviewShort() },
+)
+
+fun Review.toReviewShort() = ReviewShort(
+    id = this.id,
+    rating = this.rating,
+)

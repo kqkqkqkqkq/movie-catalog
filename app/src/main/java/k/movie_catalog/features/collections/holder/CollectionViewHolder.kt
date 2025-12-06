@@ -1,18 +1,17 @@
-package k.movie_catalog.features.collections
+package k.movie_catalog.features.collections.holder
 
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import k.movie_catalog.R
 import k.movie_catalog.databinding.ItemCollectionBinding
 import k.movie_catalog.repositories.models.Collection
 
-class CollectionsViewHolder(
+class CollectionViewHolder(
     view: View,
     private val onCollectionClick: (Collection) -> Unit,
-) : RecyclerView.ViewHolder(view) {
+) : CollectionsViewHolder(view) {
     private val binding = ItemCollectionBinding.bind(view)
 
-    fun bind(collection: Collection) = with(binding) {
+    override fun bind(collection: Collection) = with(binding) {
         binding.itemCollectionsCard.setOnClickListener {
             onCollectionClick(collection)
         }

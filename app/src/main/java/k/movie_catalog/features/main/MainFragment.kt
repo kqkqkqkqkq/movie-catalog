@@ -19,6 +19,7 @@ import coil3.request.error
 import coil3.request.placeholder
 import k.movie_catalog.App
 import k.movie_catalog.R
+import k.movie_catalog.constants.UiConstants
 import k.movie_catalog.databinding.FragmentMainBinding
 import k.movie_catalog.di.AppComponentImpl
 import k.movie_catalog.repositories.models.MovieElement
@@ -108,7 +109,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 val totalItemCount = movieLayoutManager.itemCount
                 val lastVisibleItem = movieLayoutManager.findLastVisibleItemPosition()
 
-                if (lastVisibleItem >= totalItemCount - 5) {
+                if (lastVisibleItem >= totalItemCount - UiConstants.OFFSET) {
                     viewModel.loadNextPage()
                 }
             }

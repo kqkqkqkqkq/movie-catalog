@@ -2,6 +2,7 @@ package k.movie_catalog.features.collections.details
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -41,9 +42,11 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCollectionsDetailsBinding.bind(view)
         viewModel.loadCollection(args.collection)
+        println(viewModel.detailsCollectionsState.value.collection)
         setupRecyclerView()
         setupButtons()
         setupText()
+        setupEditIcon()
         observeViewModel()
     }
 
@@ -88,6 +91,11 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
 
     private fun setupText() {
         binding.title.text = args.collection.title
+    }
+
+    private fun setupEditIcon() {
+        binding.editBtn.isVisible =
+            viewModel.detailsCollectionsState.value.collection?.isFavourite ?: false
     }
 
     private fun swipeToDelete(

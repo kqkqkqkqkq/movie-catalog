@@ -21,7 +21,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,14 +36,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import k.movie_catalog.R
+import k.movie_catalog.constants.UiConstants
 import k.movie_catalog.repositories.models.Review
 import k.movie_catalog.themes.RatingHigh
 import k.movie_catalog.themes.RatingLow
 import k.movie_catalog.themes.RatingMedium
+import k.movie_catalog.themes.RatingUnknown
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun ReviewComponent(review: Review) {
+    //
+    var showDialog by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -133,7 +141,7 @@ fun ReviewComponent(review: Review) {
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null,
                         ) {
-                            TODO("open edit dialog")
+                            showDialog = true
                         },
                     tint = MaterialTheme.colorScheme.onBackground,
                 )
@@ -157,12 +165,21 @@ fun ReviewComponent(review: Review) {
             }
         }
     }
+    if (showDialog) {
+        ReviewDialog(
+            review = review,
+            onSaveReview = { review ->
+            },
+            onDismissRequest = { showDialog = false }
+        )
+    }
 }
 
 private fun getColor(rating: Int): Color {
     return when {
-        rating >= 7 -> RatingHigh
-        rating > 4 && rating < 7 -> RatingMedium
-        else -> RatingLow
+        rating >= UiConstants.HIGH_RATING -> RatingHigh
+        rating > UiConstants.MEDIUM_RATING -> RatingMedium
+        rating > UiConstants.LOW_RATING -> RatingLow
+        else -> RatingUnknown
     }
 }

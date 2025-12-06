@@ -28,6 +28,7 @@ import k.movie_catalog.features.main.details.state.COLLAPSED_TOP_BAR_HEIGHT
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CollapsedTopBar(
+    icon: Int,
     name: String,
     onBackClick: () -> Unit,
     onFavouriteClick: () -> Unit,
@@ -70,7 +71,7 @@ fun CollapsedTopBar(
                 .size(24.dp),
         ) {
             Icon(
-                painter = painterResource(R.drawable.icon_heart),
+                painter = painterResource(icon),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.fillMaxSize(),

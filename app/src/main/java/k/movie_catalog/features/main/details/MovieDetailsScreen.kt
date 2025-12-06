@@ -39,6 +39,9 @@ fun MovieDetailsScreen(
                     onNavigateBack = onNavigateBack,
                     onCollectionAdd = { collection ->
                         viewModel.addToCollection(collection)
+                    },
+                    onFavourite = {
+                        viewModel.onFavourite()
                     }
                 )
 

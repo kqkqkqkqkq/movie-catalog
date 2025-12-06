@@ -37,110 +37,130 @@
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar" />
 
-    <TextView
-        android:id="@+id/email_tv"
-        style="@style/ProfileCaption"
+    <ScrollView
+        android:id="@+id/input_section"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_email"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:paddingTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/logout_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar" />
+        app:layout_constraintTop_toBottomOf="@+id/avatar">
 
-    <TextView
-        android:id="@+id/email"
-        style="@style/ProfileInfoText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_tv" />
-
-    <TextView
-        android:id="@+id/name_tv"
-        style="@style/ProfileCaption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
-
-    <TextView
-        android:id="@+id/name"
-        style="@style/ProfileInfoText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_tv" />
-
-    <TextView
-        android:id="@+id/birth_date_tv"
-        style="@style/ProfileCaption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_date_of_birth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <TextView
-        android:id="@+id/birth_date"
-        style="@style/ProfileInfoText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birth_date_tv" />
-
-    <TextView
-        android:id="@+id/gender_tv"
-        style="@style/ProfileCaption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_gender"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birth_date" />
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/gender_toggle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_tv"
-        app:selectionRequired="true"
-        app:singleSelection="true">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/male_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/toggle_gender"
-            android:text="@string/male"
-            android:textColor="@color/toggle_gender_text"
-            app:cornerRadius="@dimen/medium"
-            app:strokeColor="?attr/colorOnSurface"
-            app:strokeWidth="1dp" />
+            android:divider="@drawable/divider_register"
+            android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/female_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/toggle_gender"
-            android:text="@string/female"
-            android:textColor="@color/toggle_gender_text"
-            app:cornerRadius="@dimen/medium"
-            app:strokeColor="?attr/colorOnSurface"
-            app:strokeWidth="1dp" />
+            <TextView
+                android:id="@+id/email_tv"
+                style="@style/ProfileCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            <TextView
+                android:id="@+id/email"
+                style="@style/ProfileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_tv" />
+
+            <TextView
+                android:id="@+id/name_tv"
+                style="@style/ProfileCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/ProfileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+            <TextView
+                android:id="@+id/birth_date_tv"
+                style="@style/ProfileCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_date_of_birth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/birth_date"
+                style="@style/ProfileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth_date_tv" />
+
+            <TextView
+                android:id="@+id/gender_tv"
+                style="@style/ProfileCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_gender"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth_date" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/gender_toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:enabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender_tv"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/male_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/toggle_gender"
+                    android:text="@string/male"
+                    android:textColor="@color/toggle_gender_text"
+                    app:cornerRadius="@dimen/medium"
+                    app:strokeColor="?attr/colorOnSurface"
+                    app:strokeWidth="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/female_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/toggle_gender"
+                    android:text="@string/female"
+                    android:textColor="@color/toggle_gender_text"
+                    app:cornerRadius="@dimen/medium"
+                    app:strokeColor="?attr/colorOnSurface"
+                    app:strokeWidth="1dp" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progress"
@@ -148,7 +168,7 @@
         app:layout_constraintBottom_toTopOf="@+id/logout_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_toggle" />
+        app:layout_constraintTop_toBottomOf="@+id/input_section" />
 
     <Space
         android:id="@+id/space"
@@ -157,7 +177,7 @@
         app:layout_constraintBottom_toTopOf="@+id/error"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_toggle" />
+        app:layout_constraintTop_toBottomOf="@+id/input_section" />
 
     <TextView
         android:id="@+id/error"

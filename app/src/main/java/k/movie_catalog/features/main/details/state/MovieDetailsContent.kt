@@ -10,8 +10,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,16 +38,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import k.movie_catalog.R
 import k.movie_catalog.features.main.details.MovieDetailsUiState
 import k.movie_catalog.features.main.details.components.CollapsedTopBar
 import k.movie_catalog.features.main.details.components.ExpandedTopBar
+import k.movie_catalog.features.main.details.components.GenresSection
+import k.movie_catalog.features.main.details.components.PropertiesSection
 import k.movie_catalog.features.main.details.components.ReviewComponent
+import k.movie_catalog.features.main.details.components.ReviewDialog
 import k.movie_catalog.repositories.models.Collection
 
 val COLLAPSED_TOP_BAR_HEIGHT = 56.dp
@@ -61,12 +60,16 @@ fun MovieDetailsContent(
     state: MovieDetailsUiState,
     onNavigateBack: () -> Unit,
     onCollectionAdd: (Collection) -> Unit,
+    onFavourite: () -> Unit,
 ) {
+    var showDialog by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val isCollapsed: Boolean by remember {
         derivedStateOf { listState.firstVisibleItemIndex > 0 }
     }
     var expanded by remember { mutableStateOf(false) }
+    val collections = state.availableCollections ?: emptyList()
+    val icon = if (state.inFavourites) R.drawable.icon_heart_filled else R.drawable.icon_heart
 
     val properties = mapOf(
         stringResource(R.string.year) to state.movie?.year.toString(),
@@ -82,23 +85,21 @@ fun MovieDetailsContent(
     Scaffold(
         topBar = {
             AnimatedVisibility(
-                visible = isCollapsed,
-                enter = fadeIn(
+                visible = isCollapsed, enter = fadeIn(
                     animationSpec = tween(durationMillis = 300)
-                ) + slideInVertically(),
-                exit = fadeOut(
+                ) + slideInVertically(), exit = fadeOut(
                     animationSpec = tween(durationMillis = 300)
                 ) + slideOutVertically()
             ) {
                 CollapsedTopBar(
+                    icon = icon,
                     name = state.movie?.name ?: stringResource(R.string.unknown_movie),
                     onBackClick = onNavigateBack,
-                    onFavouriteClick = {},
+                    onFavouriteClick = onFavourite,
                 )
             }
         },
-        modifier = Modifier
-            .padding(top = 32.dp),
+        modifier = Modifier.padding(top = 32.dp),
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
     ) { padding ->
         LazyColumn(
@@ -109,10 +110,11 @@ fun MovieDetailsContent(
         ) {
             item {
                 ExpandedTopBar(
+                    icon = icon,
                     name = state.movie?.name ?: stringResource(R.string.unknown_movie),
                     imageUrl = state.movie?.poster ?: "",
                     onBackClick = onNavigateBack,
-                    onFavouriteClick = {},
+                    onFavouriteClick = onFavourite,
                 )
             }
             item {
@@ -120,8 +122,7 @@ fun MovieDetailsContent(
                     text = state.movie?.description ?: "No description",
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                 )
             }
             item {
@@ -133,11 +134,9 @@ fun MovieDetailsContent(
                             .background(MaterialTheme.colorScheme.background)
                             .fillMaxWidth()
                     ) {
-                        val collections = state.availableCollections ?: emptyList()
-
                         if (collections.isEmpty()) {
                             DropdownMenuItem(
-                                text = { Text("No collections yet") },
+                                text = { Text(text = "No collections yet") },
                                 onClick = { expanded = false },
                                 colors = MenuDefaults.itemColors(
                                     textColor = MaterialTheme.colorScheme.onBackground,
@@ -146,7 +145,7 @@ fun MovieDetailsContent(
                         } else {
                             collections.forEach { collection ->
                                 DropdownMenuItem(
-                                    text = { Text(collection.title) },
+                                    text = { Text(text = collection.title) },
                                     onClick = {
                                         expanded = false
                                         onCollectionAdd(collection)
@@ -182,47 +181,13 @@ fun MovieDetailsContent(
                     text = stringResource(R.string.about_movie),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                 )
             }
             item {
                 properties.forEach { (name, property) ->
                     if (!property.isNullOrBlank()) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    horizontal = 16.dp,
-                                    vertical = 4.dp,
-                                ),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.3f),
-                                verticalArrangement = Arrangement.spacedBy(4.dp),
-                                horizontalAlignment = Alignment.Start,
-                            ) {
-                                Text(
-                                    text = name,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onBackground.copy(0.5f),
-                                )
-                            }
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                verticalArrangement = Arrangement.spacedBy(4.dp),
-                                horizontalAlignment = Alignment.Start,
-                            ) {
-                                Text(
-                                    text = property,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onBackground,
-                                )
-                            }
-                        }
+                        PropertiesSection(name, property)
                     }
                 }
             }
@@ -231,37 +196,11 @@ fun MovieDetailsContent(
                     text = stringResource(R.string.genres),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                 )
             }
             item {
-                FlowRow(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    state.movie?.genres?.forEach { genre ->
-                        if (genre.name != null) {
-                            Box(
-                                modifier = Modifier
-                                    .clip(MaterialTheme.shapes.medium)
-                                    .background(MaterialTheme.colorScheme.primary),
-                            ) {
-                                Text(
-                                    text = genre.name,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    modifier = Modifier
-                                        .padding(horizontal = 16.dp, vertical = 4.dp),
-                                )
-                            }
-                        }
-                    }
-                }
+                GenresSection(state.movie?.genres ?: emptyList())
             }
             item {
                 Row(
@@ -279,10 +218,9 @@ fun MovieDetailsContent(
                     )
                     IconButton(
                         onClick = {
-                            TODO("Add review")
+                            showDialog = true
                         },
-                        modifier = Modifier
-                            .size(24.dp),
+                        modifier = Modifier.size(24.dp),
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.icon_add),
@@ -296,6 +234,13 @@ fun MovieDetailsContent(
             items(state.movie?.reviews ?: emptyList()) { review ->
                 ReviewComponent(review)
             }
+        }
+        if (showDialog) {
+            ReviewDialog(
+                onSaveReview = { review ->
+                },
+                onDismissRequest = { showDialog = false }
+            )
         }
     }
 }

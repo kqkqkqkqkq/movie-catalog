@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import k.movie_catalog.R
+import k.movie_catalog.constants.UiConstants
 import k.movie_catalog.databinding.FragmentIconBottomSheetBinding
 
 class IconBottomSheetFragment : BottomSheetDialogFragment(R.layout.fragment_icon_bottom_sheet) {
@@ -29,7 +30,8 @@ class IconBottomSheetFragment : BottomSheetDialogFragment(R.layout.fragment_icon
         }
         adapter.submitList(CollectionIcon.icons)
         // TODO("make grid prettier then now")
-        binding.iconsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.iconsRecyclerView.layoutManager =
+            GridLayoutManager(requireContext(), UiConstants.GRID_CELLS)
         binding.iconsRecyclerView.adapter = adapter
     }
 
