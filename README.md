@@ -4,7 +4,7 @@
 - [X] Retrofit
 - [X] Jetpack Navigation
 - [X] Manual DI
-- [ ] DataStore Preferences
-- [ ] Compose + Fragments
-- [ ] Detekt
-- [ ] JUnit 6 + Mockito
+- [X] DataStore Preferences
+- [X] Compose + Fragments
+- [X] Detekt
+- [X] JUnit 6 + Mockito
