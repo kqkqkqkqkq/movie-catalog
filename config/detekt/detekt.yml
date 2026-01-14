@@ -282,7 +282,7 @@ formatting:
     active: true
     autoCorrect: true
   PackageName:
-    active: false
+    active: true
     autoCorrect: true
   ParameterListWrapping:
     active: true
@@ -370,7 +370,7 @@ naming:
   PackageNaming:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
-    packagePattern: '[a-z]+(\.[a-z_][A-Za-z0-9_]*)*'
+    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9]*)*'
   TopLevelPropertyNaming:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]

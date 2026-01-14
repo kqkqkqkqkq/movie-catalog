@@ -1,0 +1,10 @@
+package k.moviecatalog.data.collections.models
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class CollectionPreferences(
+    val icon: Int? = null,
+    val title: String? = null,
+    val movies: List<MoviePreferences>? = null,
+)

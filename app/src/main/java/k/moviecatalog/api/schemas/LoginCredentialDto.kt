@@ -1,0 +1,11 @@
+package k.moviecatalog.api.schemas
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class LoginCredentialDto(
+    @SerialName("username")
+    val userName: String?,
+    val password: String?,
+)

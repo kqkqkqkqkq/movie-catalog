@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "k.movie_catalog"
+    namespace = "k.moviecatalog"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "k.movie_catalog"
+        applicationId = "k.moviecatalog"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
