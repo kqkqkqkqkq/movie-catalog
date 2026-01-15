@@ -97,12 +97,12 @@ class MovieDetailsViewModel(
     private fun getAvailableCollections() {
         viewModelScope.launch(dispatcherProvider.io) {
             _movieDetailState.update { it.copy(isLoading = true) }
-            _movieDetailState.update {
-                it.copy(
-                    availableCollections = collectionsRepository.getCollections(),
-                    isLoading = false,
-                )
+            collectionsRepository.getCollections().onSuccess { collections ->
+                _movieDetailState.update { it.copy(availableCollections = collections) }
+            }.onFailure {
+                _movieDetailState.update { it.copy(error = "Cannot pull avaliable collections") }
             }
+            _movieDetailState.update { it.copy(isLoading = false) }
         }
     }
 }

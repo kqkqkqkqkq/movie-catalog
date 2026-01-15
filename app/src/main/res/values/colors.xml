@@ -28,4 +28,8 @@
 
     <color name="bottom_nav_icon_color">@color/bottom_nav_colors</color>
     <color name="bottom_nav_text_color">@color/bottom_nav_colors</color>
+
+    <color name="favouritesRemoveButtonBackground">#D6DDE3</color>
+    <color name="favouritesRemoveButtonIcon">#656A6D</color>
+
 </resources>

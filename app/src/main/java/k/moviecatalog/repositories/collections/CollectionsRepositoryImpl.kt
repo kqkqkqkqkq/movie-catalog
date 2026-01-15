@@ -18,10 +18,8 @@ class CollectionsRepositoryImpl(
     override val collections: Flow<List<Collection>?> =
         collectionsStore.data.map { collections -> collections.collections?.map { it.toCollection() } }
 
-    override suspend fun getCollections(): List<Collection>? {
-        return collectionsStore.data.first()
-            .collections
-            ?.map { it.toCollection() }
+    override suspend fun getCollections(): Result<List<Collection>?> = runCatching {
+        collectionsStore.data.first().collections?.map { it.toCollection() }
     }
 
     override suspend fun createCollection(collection: Collection) {

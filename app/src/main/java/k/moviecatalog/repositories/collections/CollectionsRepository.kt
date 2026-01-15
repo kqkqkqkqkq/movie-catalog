@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface CollectionsRepository {
     val collections: Flow<List<Collection>?>
 
-    suspend fun getCollections(): List<Collection>?
+    suspend fun getCollections(): Result<List<Collection>?>
     suspend fun createCollection(collection: Collection)
     suspend fun removeCollection(collection: Collection)
     suspend fun addMovieToCollection(collection: Collection, movie: CollectionMovie)

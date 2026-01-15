@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_favourite"
     android:layout_width="100dp"
     android:layout_height="144dp"
-    android:layout_marginEnd="16dp"
-    android:clickable="true"
-    app:cardCornerRadius="@dimen/large"
-    app:strokeWidth="0dp">
+    android:layout_marginEnd="16dp">
 
     <ImageView
         android:id="@+id/favourite_poster"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/description_poster"
         android:scaleType="centerCrop"
+        android:clickable="true"
+        android:background="@drawable/rounded_background"
+        android:clipToOutline="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/remove_button"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:text=""
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/icon_close"
+        app:iconSize="4dp"
+        app:backgroundTint="@color/favouritesRemoveButtonBackground"
+        app:iconTint="@color/favouritesRemoveButtonIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

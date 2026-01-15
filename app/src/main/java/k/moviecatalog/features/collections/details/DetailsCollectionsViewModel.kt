@@ -22,23 +22,17 @@ class DetailsCollectionsViewModel(
 
     fun loadCollection(collection: Collection) {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _detailsCollectionsState.update { it.copy(isLoading = true) }
+            _detailsCollectionsState.update { it.copy(isLoading = true) }
+            collectionsRepository.getCollections().onSuccess { collections ->
                 _detailsCollectionsState.update {
                     it.copy(
-                        collection = collectionsRepository.getCollections()?.first { c ->
+                        collection = collections?.first { c ->
                             c.title == collection.title
                         },
                         isLoading = false,
                     )
                 }
-            } catch (e: Exception) {
-                _detailsCollectionsState.update {
-                    it.copy(
-                        error = e.message,
-                        isLoading = false,
-                    )
-                }
+                _detailsCollectionsState.update { it.copy(isLoading = false) }
             }
         }
     }

@@ -1,9 +1,7 @@
 package k.moviecatalog.features.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,8 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
-import coil3.request.crossfade
-import coil3.request.placeholder
 import k.moviecatalog.R
 import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.databinding.FragmentMainBinding
@@ -37,17 +33,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var favouritesAdapter: FavouritesAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentMainBinding.bind(view)
         setupRecyclerView()
         observeViewModel()
     }
@@ -118,9 +106,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun setupImages(mainMovie: MovieElement) {
         binding.moviePoster.load(mainMovie.poster) {
-            crossfade(true)
-            placeholder(R.drawable.icon_movie_catalog)
-            error(R.drawable.icon_movie_catalog)
+            // TODO("fix: application crash when call placeholder or crossfade or error")
+//            crossfade(true)
+//            placeholder(R.drawable.icon_movie_catalog)
+//            error(R.drawable.icon_movie_catalog)
         }
     }
 

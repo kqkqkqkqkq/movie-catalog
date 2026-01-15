@@ -28,28 +28,12 @@ class LoginViewModel(
                 _loginState.update { it.copy(error = null) }
                 authRepository.login(_loginState.value.loginCredential).onSuccess { token ->
                     tokenRepository.setToken(token.token)
-                    _loginState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = null,
-                        )
-                    }
+//                    _loginState.update { it.copy(error = null) }
                 }.onFailure { e ->
-                    _loginState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = e.message,
-                        )
-                    }
-                }
-            } else {
-                _loginState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = "Password is incorrect",
-                    )
+                    _loginState.update { it.copy(error = e.message) }
                 }
             }
+            _loginState.update { it.copy(isLoading = false) }
         }
     }
 
@@ -62,7 +46,7 @@ class LoginViewModel(
     }
 
     fun validateForm(): Boolean {
-        val state = _loginState.value.loginCredential
-        return state.username.isNotBlank() && state.password.isNotBlank()
+        val loginCredential = _loginState.value.loginCredential
+        return loginCredential.username.isNotBlank() && loginCredential.password.isNotBlank()
     }
 }

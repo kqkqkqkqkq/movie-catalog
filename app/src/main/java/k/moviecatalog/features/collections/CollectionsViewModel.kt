@@ -54,23 +54,13 @@ class CollectionsViewModel(
 
     private fun loadCollections() {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _collectionsState.update { it.copy(isLoading = true) }
-                val collections = collectionsRepository.getCollections()
-                _collectionsState.update {
-                    it.copy(
-                        collections = collections,
-                        isLoading = false,
-                    )
-                }
-            } catch (e: Exception) {
-                _collectionsState.update {
-                    it.copy(
-                        error = e.message,
-                        isLoading = false,
-                    )
-                }
+            _collectionsState.update { it.copy(isLoading = true) }
+            collectionsRepository.getCollections().onSuccess { collections ->
+                _collectionsState.update { it.copy(collections = collections) }
+            }.onFailure {
+                _collectionsState.update { it.copy(error = "Error during get collections request") }
             }
+            _collectionsState.update { it.copy(isLoading = false) }
         }
     }
 }

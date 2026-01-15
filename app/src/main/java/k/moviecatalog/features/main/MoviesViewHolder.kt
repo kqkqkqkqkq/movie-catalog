@@ -6,8 +6,6 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
-import coil3.request.crossfade
-import coil3.request.placeholder
 import k.moviecatalog.R
 import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.databinding.ItemMovieBinding
@@ -32,18 +30,21 @@ class MoviesViewHolder(
         binding.rating.chipBackgroundColor = getColorByRating(
             binding.root.context, ratingValue
         )
-        binding.genres.text = movie.genres.joinToString { it.name ?: "" }
+        binding.genres.text = movie.genres.joinToString { it.name.orEmpty() }
         binding.year.text = movie.year.toString()
         binding.country.text = movie.country.toString()
         moviePoster.load(movie.poster) {
-            crossfade(true)
-            placeholder(R.drawable.icon_movie_catalog)
-            error(R.drawable.icon_movie_catalog)
+            // TODO("fix: application crash when call placeholder or crossfade or error")
+//            crossfade(true)
+//            placeholder(R.drawable.icon_movie_catalog)
+//            error(R.drawable.icon_movie_catalog)
         }
     }
 
     private fun calculateRating(reviews: List<ReviewShort>): Double {
-        if (reviews.isEmpty()) return 0.0
+        if (reviews.isEmpty()) {
+            return 0.0
+        }
 
         val sum = reviews.sumOf { it.rating.toDouble() }
         val average = sum / reviews.size
