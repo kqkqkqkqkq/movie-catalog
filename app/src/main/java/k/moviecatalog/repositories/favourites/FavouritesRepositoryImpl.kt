@@ -3,7 +3,7 @@ package k.moviecatalog.repositories.favourites
 import k.moviecatalog.api.routes.FavouritesApi
 import k.moviecatalog.api.utils.handleApiCall
 import k.moviecatalog.repositories.models.MovieElement
-import k.moviecatalog.utils.mapper.toMovieElement
+import k.moviecatalog.utils.mapper.movie.toMovieElement
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 

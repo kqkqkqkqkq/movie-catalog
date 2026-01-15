@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import k.moviecatalog.App
 import k.moviecatalog.R
 import k.moviecatalog.databinding.FragmentCollectionsBinding
 import k.moviecatalog.di.AppComponentImpl

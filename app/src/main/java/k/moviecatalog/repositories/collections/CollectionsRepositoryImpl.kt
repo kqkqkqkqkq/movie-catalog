@@ -4,9 +4,9 @@ import androidx.datastore.core.DataStore
 import k.moviecatalog.data.collections.models.CollectionsPreferences
 import k.moviecatalog.repositories.models.Collection
 import k.moviecatalog.repositories.models.CollectionMovie
-import k.moviecatalog.utils.mapper.toCollection
-import k.moviecatalog.utils.mapper.toCollectionPreferences
-import k.moviecatalog.utils.mapper.toMoviePreferences
+import k.moviecatalog.utils.mapper.collection.toCollection
+import k.moviecatalog.utils.mapper.collection.toCollectionPreferences
+import k.moviecatalog.utils.mapper.collection.toMoviePreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

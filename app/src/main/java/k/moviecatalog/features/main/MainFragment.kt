@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import coil3.request.crossfade
 import coil3.request.placeholder
-import k.moviecatalog.App
 import k.moviecatalog.R
 import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.databinding.FragmentMainBinding

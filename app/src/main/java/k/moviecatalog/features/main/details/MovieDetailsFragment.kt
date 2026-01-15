@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import k.moviecatalog.App
 import k.moviecatalog.R
 import k.moviecatalog.databinding.FragmentMovieDetailsBinding
 import k.moviecatalog.di.AppComponentImpl

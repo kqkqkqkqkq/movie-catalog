@@ -8,8 +8,8 @@ import k.moviecatalog.repositories.favourites.FavouritesRepository
 import k.moviecatalog.repositories.models.Collection
 import k.moviecatalog.repositories.movie.MoviesRepository
 import k.moviecatalog.utils.dispatcher.DispatcherProvider
-import k.moviecatalog.utils.mapper.toCollectionMovie
-import k.moviecatalog.utils.mapper.toMovieElement
+import k.moviecatalog.utils.mapper.movie.toCollectionMovie
+import k.moviecatalog.utils.mapper.movie.toMovieElement
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

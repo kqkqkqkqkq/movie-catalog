@@ -4,10 +4,10 @@ import k.moviecatalog.api.routes.AuthApi
 import k.moviecatalog.api.utils.handleApiCall
 import k.moviecatalog.repositories.models.LoginCredential
 import k.moviecatalog.repositories.models.UserRegister
-import k.moviecatalog.utils.mapper.toAuth
-import k.moviecatalog.utils.mapper.toLoginCredentialDto
-import k.moviecatalog.utils.mapper.toProfile
-import k.moviecatalog.utils.mapper.toUserRegisterDto
+import k.moviecatalog.utils.mapper.auth.toAuth
+import k.moviecatalog.utils.mapper.profile.toProfile
+import k.moviecatalog.utils.mapper.user.toLoginCredentialDto
+import k.moviecatalog.utils.mapper.user.toUserRegisterDto
 
 class AuthRepositoryImpl(
     private val authApi: AuthApi,

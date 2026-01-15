@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import k.moviecatalog.App
 import k.moviecatalog.R
 import k.moviecatalog.databinding.FragmentCollectionsDetailsBinding
 import k.moviecatalog.di.AppComponentImpl

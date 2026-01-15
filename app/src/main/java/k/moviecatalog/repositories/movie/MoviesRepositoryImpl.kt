@@ -2,8 +2,8 @@ package k.moviecatalog.repositories.movie
 
 import k.moviecatalog.api.routes.MovieApi
 import k.moviecatalog.api.utils.handleApiCall
-import k.moviecatalog.utils.mapper.toMovieDetails
-import k.moviecatalog.utils.mapper.toMoviesPagedList
+import k.moviecatalog.utils.mapper.movie.toMovieDetails
+import k.moviecatalog.utils.mapper.movie.toMoviesPagedList
 import java.util.UUID
 
 class MoviesRepositoryImpl(

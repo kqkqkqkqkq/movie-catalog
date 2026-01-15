@@ -14,7 +14,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.transition.MaterialContainerTransform
-import k.moviecatalog.App
 import k.moviecatalog.R
 import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.databinding.FragmentRegisterBinding

@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import k.moviecatalog.App
 import k.moviecatalog.R
 import k.moviecatalog.databinding.FragmentProfileBinding
 import k.moviecatalog.di.AppComponentImpl
