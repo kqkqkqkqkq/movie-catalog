@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginHorizontal="92dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="32dp"
                 android:text="@string/watch" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -55,13 +55,13 @@
         android:layout_marginHorizontal="16dp"
         android:fillViewport="true"
         android:orientation="vertical"
-        android:paddingTop="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/favourites_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="@string/favourites"
             android:textColor="?attr/colorPrimary"
             android:textSize="24sp"
@@ -72,7 +72,7 @@
             android:id="@+id/favourite_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:visibility="gone"
@@ -83,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gallery"
+            android:layout_marginTop="32dp"
             android:textColor="?attr/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />

@@ -73,10 +73,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         )
 
+        val favouriteLayoutManager =
+            StartZoomLayoutManager(requireNotNull(view?.context), LinearLayoutManager.HORIZONTAL)
         val movieLayoutManager =
             LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
-        val favouriteLayoutManager =
-            LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.movieRecycler.layoutManager = movieLayoutManager
         binding.movieRecycler.adapter = moviesAdapter
