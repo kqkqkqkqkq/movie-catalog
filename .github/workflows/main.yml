@@ -1,0 +1,47 @@
+name: Mobile Catalog pipeline
+
+on:
+  push:
+    branches: ["master", "dev"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      JAVA_VERSION: '11'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Cache Gradle wrapper and caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.gradle/native
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run Detekt
+        run: ./gradlew detekt --no-daemon
+
+      - name: Run unit tests
+        run: ./gradlew test --no-daemo
