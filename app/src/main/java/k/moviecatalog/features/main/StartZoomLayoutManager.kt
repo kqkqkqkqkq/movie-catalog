@@ -4,15 +4,12 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.abs
-import kotlin.math.min
 
 class StartZoomLayoutManager(
     context: Context,
     orientation: Int,
     reverseLayout: Boolean = false,
     private val shrinkAmount: Float = 0.17f,
-    private val shrinkDistance: Float = 0.5f,
 ) : LinearLayoutManager(context, orientation, reverseLayout) {
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
@@ -29,7 +26,6 @@ class StartZoomLayoutManager(
         applyScaleToChildren()
         return scrolled
     }
-
 
     private fun applyScaleToChildren() {
         if (childCount == 0) return
