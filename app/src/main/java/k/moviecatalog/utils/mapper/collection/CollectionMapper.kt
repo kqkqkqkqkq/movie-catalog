@@ -12,6 +12,13 @@ fun MoviePreferences.toCollectionMovie() = CollectionMovie(
     movieId = this.movieId,
 )
 
+fun CollectionMovie.toMoviePreferences() = MoviePreferences(
+    title = this.title,
+    description = this.description,
+    posterUrl = this.posterUrl,
+    movieId = this.movieId,
+)
+
 fun CollectionPreferences.toCollection() = k.moviecatalog.repositories.models.Collection(
     icon = this.icon,
     title = this.title ?: "",
@@ -22,11 +29,4 @@ fun Collection.toCollectionPreferences() = CollectionPreferences(
     icon = this.icon,
     title = this.title,
     movies = this.movies?.map { it.toMoviePreferences() }
-)
-
-fun CollectionMovie.toMoviePreferences() = MoviePreferences(
-    title = this.title,
-    description = this.description,
-    posterUrl = this.posterUrl,
-    movieId = this.movieId,
 )
