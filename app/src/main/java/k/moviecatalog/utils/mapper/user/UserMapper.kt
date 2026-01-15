@@ -19,8 +19,8 @@ fun UserRegisterDto.toUserRegister() = UserRegister(
 )
 
 fun LoginCredentialDto.toLoginCredential() = LoginCredential(
-    username = this.userName ?: "",
-    password = this.password ?: "",
+    username = this.userName.orEmpty(),
+    password = this.password.orEmpty(),
 )
 
 fun UserRegister.toUserRegisterDto() = UserRegisterDto(

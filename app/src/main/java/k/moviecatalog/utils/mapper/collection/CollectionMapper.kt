@@ -19,9 +19,9 @@ fun CollectionMovie.toMoviePreferences() = MoviePreferences(
     movieId = this.movieId,
 )
 
-fun CollectionPreferences.toCollection() = k.moviecatalog.repositories.models.Collection(
+fun CollectionPreferences.toCollection() = Collection(
     icon = this.icon,
-    title = this.title ?: "",
+    title = this.title.orEmpty(),
     movies = this.movies?.map { it.toCollectionMovie() }
 )
 
