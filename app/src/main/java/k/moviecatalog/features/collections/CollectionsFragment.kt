@@ -10,10 +10,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import k.moviecatalog.R
+import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.databinding.FragmentCollectionsBinding
 import k.moviecatalog.di.AppComponentImpl
 import k.moviecatalog.repositories.models.Collection
-import k.moviecatalog.repositories.models.CollectionMovie
+import k.moviecatalog.utils.mapper.movie.toCollectionMovie
 import kotlinx.coroutines.launch
 
 class CollectionsFragment : Fragment(R.layout.fragment_collections) {
@@ -41,6 +42,7 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.collectionsState.collect { state ->
+                    movieCatalogLogger().e("[CollectionsFragment-observeViewModel]", state.favourites.toString())
                     state.collections?.let { collections ->
                         adapter.submitList(collections)
                     }
@@ -51,14 +53,7 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
 
     private fun setupRecyclerView() {
         adapter = CollectionsAdapter(
-            favouriteMovies = viewModel.collectionsState.value.favourites.map { m ->
-                CollectionMovie(
-                    title = m.name,
-                    description = m.name,
-                    posterUrl = m.poster,
-                    movieId = m.id,
-                )
-            },
+            favouriteMovies = viewModel.collectionsState.value.favourites.map { it.toCollectionMovie() },
             onFavouriteClick = { collection ->
                 onCollectionClicked(collection)
             },

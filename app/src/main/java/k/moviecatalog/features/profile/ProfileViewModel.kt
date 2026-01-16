@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import k.moviecatalog.App
 import k.moviecatalog.repositories.auth.AuthRepository
 import k.moviecatalog.repositories.token.TokenRepository
-import k.moviecatalog.utils.dispatcher.DispatcherProvider
+import k.moviecatalog.common.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

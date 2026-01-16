@@ -8,7 +8,7 @@ import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.repositories.auth.AuthRepository
 import k.moviecatalog.repositories.models.Gender
 import k.moviecatalog.repositories.token.TokenRepository
-import k.moviecatalog.utils.dispatcher.DispatcherProvider
+import k.moviecatalog.common.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

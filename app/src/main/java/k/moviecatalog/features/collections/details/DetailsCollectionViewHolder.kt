@@ -3,9 +3,6 @@ package k.moviecatalog.features.collections.details
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
-import coil3.request.crossfade
-import coil3.request.placeholder
-import k.moviecatalog.R
 import k.moviecatalog.databinding.ItemCollectionMovieBinding
 import k.moviecatalog.repositories.models.CollectionMovie
 
@@ -22,9 +19,10 @@ class DetailsCollectionViewHolder(
         binding.title.text = collectionMovie.title
         binding.description.text = collectionMovie.description
         binding.collectionMoviePoster.load(collectionMovie.posterUrl) {
-            crossfade(true)
-            placeholder(R.drawable.icon_movie_catalog)
-            error(R.drawable.icon_movie_catalog)
+            // TODO("fix: application crash when call placeholder or crossfade or error")
+//            crossfade(true)
+//            placeholder(R.drawable.icon_movie_catalog)
+//            error(R.drawable.icon_movie_catalog)
         }
     }
 }

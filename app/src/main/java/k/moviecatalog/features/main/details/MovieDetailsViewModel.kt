@@ -7,7 +7,7 @@ import k.moviecatalog.repositories.collections.CollectionsRepository
 import k.moviecatalog.repositories.favourites.FavouritesRepository
 import k.moviecatalog.repositories.models.Collection
 import k.moviecatalog.repositories.movie.MoviesRepository
-import k.moviecatalog.utils.dispatcher.DispatcherProvider
+import k.moviecatalog.common.dispatcher.DispatcherProvider
 import k.moviecatalog.utils.mapper.movie.toCollectionMovie
 import k.moviecatalog.utils.mapper.movie.toMovieElement
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,11 +40,7 @@ class MovieDetailsViewModel(
                 } else {
                     favouritesRepository.addFavourite(movie)
                 }
-                _movieDetailState.update {
-                    it.copy(
-                        inFavourites = !currentlyFavourite,
-                    )
-                }
+                _movieDetailState.update { it.copy(inFavourites = !currentlyFavourite) }
             } catch (e: Exception) {
                 _movieDetailState.update {
                     it.copy(
@@ -62,17 +58,15 @@ class MovieDetailsViewModel(
                 _movieDetailState.update { it.copy(movie = movieDetails, isLoading = false) }
                 favouritesRepository.getFavourites().onSuccess { favourites ->
                     _movieDetailState.update {
-                        it.copy(
-                            inFavourites = id in favourites.map { fav -> fav.id },
-                            isLoading = false,
-                        )
+                        it.copy(inFavourites = id in favourites.map { fav -> fav.id })
                     }
                 }.onFailure { e ->
-                    _movieDetailState.update { it.copy(error = e.message, isLoading = false) }
+                    _movieDetailState.update { it.copy(error = e.message) }
                 }
             }.onFailure { e ->
-                _movieDetailState.update { it.copy(error = e.message, isLoading = false) }
+                _movieDetailState.update { it.copy(error = e.message) }
             }
+            _movieDetailState.update { it.copy(isLoading = false) }
         }
     }
 
@@ -84,10 +78,7 @@ class MovieDetailsViewModel(
                 collectionsRepository.addMovieToCollection(collection, movie.toCollectionMovie())
             } else {
                 _movieDetailState.update {
-                    it.copy(
-                        error = "Movie is null",
-                        isLoading = false,
-                    )
+                    it.copy(error = "Movie is null")
                 }
             }
             _movieDetailState.update { it.copy(isLoading = false) }
@@ -100,7 +91,7 @@ class MovieDetailsViewModel(
             collectionsRepository.getCollections().onSuccess { collections ->
                 _movieDetailState.update { it.copy(availableCollections = collections) }
             }.onFailure {
-                _movieDetailState.update { it.copy(error = "Cannot pull avaliable collections") }
+                _movieDetailState.update { it.copy(error = "Cannot pull available collections") }
             }
             _movieDetailState.update { it.copy(isLoading = false) }
         }

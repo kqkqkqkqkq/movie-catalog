@@ -6,7 +6,7 @@ import k.moviecatalog.App
 import k.moviecatalog.repositories.favourites.FavouritesRepository
 import k.moviecatalog.repositories.models.MovieElement
 import k.moviecatalog.repositories.movie.MoviesRepository
-import k.moviecatalog.utils.dispatcher.DispatcherProvider
+import k.moviecatalog.common.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

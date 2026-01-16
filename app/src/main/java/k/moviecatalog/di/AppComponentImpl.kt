@@ -15,7 +15,7 @@ import k.moviecatalog.repositories.collections.CollectionsRepositoryImpl
 import k.moviecatalog.repositories.favourites.FavouritesRepositoryImpl
 import k.moviecatalog.repositories.movie.MoviesRepositoryImpl
 import k.moviecatalog.repositories.token.TokenRepositoryImpl
-import k.moviecatalog.utils.dispatcher.MovieCatalogDispatcherProvider
+import k.moviecatalog.common.dispatcher.MovieCatalogDispatcherProvider
 
 class AppComponentImpl(
     private val context: Context,

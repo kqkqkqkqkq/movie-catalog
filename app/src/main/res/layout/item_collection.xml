@@ -37,6 +37,8 @@
         android:textColor="?attr/colorOnBackground"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/details_btn"
         app:layout_constraintStart_toEndOf="@+id/icon_container"

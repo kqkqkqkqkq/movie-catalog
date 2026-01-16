@@ -82,6 +82,13 @@ fun MovieElement.toMovieElementDto() = MovieElementDto(
     reviews = this.reviews.map { it.toReviewShortDto() },
 )
 
+fun MovieElement.toCollectionMovie() = CollectionMovie(
+    title = this.name,
+    description = this.name,
+    posterUrl = this.poster,
+    movieId = this.id,
+)
+
 fun MovieDetails.toMovieDetailsDto() = MovieDetailsDto(
     id = this.id,
     name = this.name,

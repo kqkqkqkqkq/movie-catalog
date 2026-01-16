@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import k.moviecatalog.R
+import k.moviecatalog.common.logger.movieCatalogLogger
+import k.moviecatalog.common.ui.swipe.SwipeHelper
+import k.moviecatalog.common.ui.swipe.UnderlayButton
 import k.moviecatalog.databinding.FragmentCollectionsDetailsBinding
 import k.moviecatalog.di.AppComponentImpl
 import k.moviecatalog.repositories.models.CollectionMovie
@@ -38,7 +40,10 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCollectionsDetailsBinding.bind(view)
         viewModel.loadCollection(args.collection)
-        println(viewModel.detailsCollectionsState.value.collection)
+        movieCatalogLogger().e(
+            "[DetailsCollectionsFragment-onViewCreated]",
+            viewModel.detailsCollectionsState.value.collection.toString()
+        )
         setupRecyclerView()
         setupButtons()
         setupText()
@@ -62,16 +67,31 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
         adapter = DetailsCollectionAdapter { movie ->
             onCollectionMovieClick(movie)
         }
-
         binding.movieRecycler.layoutManager = LinearLayoutManager(
             view?.context, LinearLayoutManager.VERTICAL, false,
         )
         binding.movieRecycler.adapter = adapter
-        swipeToDelete(binding.movieRecycler) { position ->
-            val movie = adapter.currentList[position]
-            viewModel.removeMovieFromCollection(movie)
-            adapter.notifyItemRemoved(position)
+
+        val recyclerView = binding.movieRecycler
+        val swipeHelper = object : SwipeHelper(recyclerView) {
+            override fun instantiateButton(position: Int): List<UnderlayButton> {
+                return listOf(
+                    UnderlayButton(
+                        context = recyclerView.context,
+                        title = getString(R.string.delete),
+                        colorRes = R.color.errorDark,
+                        iconRes = R.drawable.icon_trash,
+                        clickListener = {
+                            val movie = adapter.currentList[position]
+                            viewModel.removeMovieFromCollection(movie)
+                            adapter.notifyItemRemoved(position)
+                        }
+                    )
+                )
+            }
         }
+        val itemTouchHelper = ItemTouchHelper(swipeHelper)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     private fun setupButtons() {
@@ -91,33 +111,7 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
 
     private fun setupEditIcon() {
         binding.editBtn.isVisible =
-            viewModel.detailsCollectionsState.value.collection?.isFavourite ?: false
-    }
-
-    private fun swipeToDelete(
-        recyclerView: RecyclerView,
-        onItemSwiped: (position: Int) -> Unit
-    ) {
-        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-            0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                onItemSwiped(position)
-            }
-        }
-
-        val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+            viewModel.detailsCollectionsState.value.collection?.isFavourite?.not() ?: true
     }
 
     private fun onCollectionMovieClick(movie: CollectionMovie) {

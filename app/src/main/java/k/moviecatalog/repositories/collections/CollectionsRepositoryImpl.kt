@@ -24,12 +24,11 @@ class CollectionsRepositoryImpl(
 
     override suspend fun createCollection(collection: Collection) {
         collectionsStore.updateData { currentPreferences ->
-            val currentCollections =
-                currentPreferences.collections?.toMutableList() ?: mutableListOf()
+            val currentCollections = currentPreferences.collections?.toMutableList() ?: mutableListOf()
             val index = currentCollections.indexOfFirst { it.title == collection.title }
-            if (index == -1) {
-                currentCollections.add(collection.toCollectionPreferences())
-            }
+            require(index == 1) { "Collection already exists" }
+
+            currentCollections.add(collection.toCollectionPreferences())
             currentPreferences.copy(collections = currentCollections)
         }
     }
