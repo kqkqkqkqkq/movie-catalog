@@ -18,7 +18,7 @@ fun Review.toReviewDto() = ReviewDto(
     reviewText = this.reviewText,
     isAnonymous = this.isAnonymous,
     createDateTime = this.createDateTime,
-    author = this.author.toUserShortDto()
+    author = this.author?.toUserShortDto()
 )
 
 fun ReviewShort.toReviewShortDto() = ReviewShortDto(
@@ -32,5 +32,5 @@ fun ReviewDto.toReview() = Review(
     reviewText = this.reviewText,
     isAnonymous = this.isAnonymous,
     createDateTime = this.createDateTime,
-    author = this.author.toUserShort(),
+    author = this.author?.toUserShort(),
 )

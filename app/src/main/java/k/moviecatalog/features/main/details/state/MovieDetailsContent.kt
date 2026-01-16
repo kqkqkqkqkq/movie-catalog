@@ -74,7 +74,7 @@ fun MovieDetailsContent(
     val properties = mapOf(
         stringResource(R.string.year) to state.movie?.year.toString(),
         stringResource(R.string.country) to state.movie?.country,
-        stringResource(R.string.time) to "${state.movie?.time} m.",
+        stringResource(R.string.time) to "${state.movie?.time} ${stringResource(R.string.time_unit)}",
         stringResource(R.string.slogan) to state.movie?.tagline,
         stringResource(R.string.director) to state.movie?.director,
         stringResource(R.string.budget) to "$${state.movie?.budget}",
@@ -112,14 +112,14 @@ fun MovieDetailsContent(
                 ExpandedTopBar(
                     icon = icon,
                     name = state.movie?.name ?: stringResource(R.string.unknown_movie),
-                    imageUrl = state.movie?.poster ?: "",
+                    imageUrl = state.movie?.poster.orEmpty(),
                     onBackClick = onNavigateBack,
                     onFavouriteClick = onFavourite,
                 )
             }
             item {
                 Text(
-                    text = state.movie?.description ?: "No description",
+                    text = state.movie?.description.orEmpty(),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(horizontal = 16.dp),
@@ -136,23 +136,37 @@ fun MovieDetailsContent(
                     ) {
                         if (collections.isEmpty()) {
                             DropdownMenuItem(
-                                text = { Text(text = "No collections yet") },
+                                text = {
+                                    Text(
+                                        text = stringResource(R.string.empty_collections)
+                                    )
+                                },
                                 onClick = { expanded = false },
                                 colors = MenuDefaults.itemColors(
                                     textColor = MaterialTheme.colorScheme.onBackground,
-                                )
+                                ),
                             )
                         } else {
                             collections.forEach { collection ->
                                 DropdownMenuItem(
-                                    text = { Text(text = collection.title) },
+                                    text = {
+                                        Text(
+                                            text = collection.title,
+                                        )
+                                    },
                                     onClick = {
                                         expanded = false
                                         onCollectionAdd(collection)
                                     },
                                     colors = MenuDefaults.itemColors(
                                         textColor = MaterialTheme.colorScheme.onBackground,
-                                    )
+                                    ),
+//                                    trailingIcon = { // TODO("show if the film is in the collection")
+//                                        Icon(
+//                                            painter = painterResource(R.drawable.icon_add),
+//                                            contentDescription = "The film is already in this collection",
+//                                        )
+//                                    }
                                 )
                             }
                         }

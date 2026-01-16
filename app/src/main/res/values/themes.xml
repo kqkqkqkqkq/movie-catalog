@@ -14,6 +14,8 @@
 
         <item name="android:statusBarColor">@color/primaryLight</item>
         <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:fontFamily">@font/ibm_plex_sans</item>
     </style>
 
     <style name="Theme.Moviecatalog" parent="Base.Theme.Moviecatalog" />

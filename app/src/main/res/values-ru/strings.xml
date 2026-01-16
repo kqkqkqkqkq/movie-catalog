@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Catalog</string>
+    <string name="hint_login">Логин</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_password_repeat">Повторите пароль</string>
+    <string name="hint_email">Электронная почта</string>
+    <string name="hint_name">Имя</string>
+    <string name="hint_date_of_birth">Дата рождения</string>
+    <string name="hint_gender">Пол</string>
+    <string name="hint_title">Название</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="login">Войти</string>
+    <string name="register">Регистрация</string>
+    <string name="logout">Выйти</string>
+    <string name="loading">Загрузка...</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="unknown_username">*Неизвестное имя пользователя*</string>
+    <string name="already_have_account">У меня уже есть аккаунт</string>
+
+    <string name="description_movie_catalog_logo">Логотип каталога фильмов</string>
+    <string name="description_add_icon">Иконка добавления</string>
+    <string name="description_poster">Постер</string>
+    <string name="description_navigate_to_collection_detail">Перейти к деталям коллекции</string>
+    <string name="description_collection_icon">Иконка коллекции</string>
+
+    <string name="navigation_main">Главная</string>
+    <string name="navigation_collections">Коллекции</string>
+    <string name="navigation_profile">Профиль</string>
+
+    <string name="favourites">Избранное</string>
+    <string name="collections">Коллекции</string>
+    <string name="create_collection">Создать коллекцию</string>
+    <string name="edit_collection">Редактировать коллекцию</string>
+    <string name="choose_icon">Выбрать иконку</string>
+
+    <string name="watch">Смотреть</string>
+    <string name="gallery">Галерея</string>
+    <string name="text_separator">•</string>
+    <string name="empty_collections">У вас пока нет коллекций</string>
+
+    <string name="add_to_favourites">Сохранить в коллекцию</string>
+    <string name="about_movie">О фильме</string>
+    <string name="genres">Жанры</string>
+    <string name="reviews">Отзывы</string>
+
+    <string name="year">Год</string>
+    <string name="country">Страна</string>
+    <string name="time">Длительность</string>
+    <string name="slogan">Слоган</string>
+    <string name="director">Режиссёр</string>
+    <string name="budget">Бюджет</string>
+    <string name="world">Бюджет</string>
+    <string name="age_limit">Возрастное ограничение</string>
+    <string name="time_unit">мин.</string>
+
+    <string name="unknown_movie">Неизвестный фильм</string>
+    <string name="anonymous_user">Анонимный пользователь</string>
+    <string name="anonymous_review">Анонимный отзыв</string>
+    <string name="make_review">Оставить отзыв</string>
+    <string name="write_review">Отзыв</string>
+</resources>

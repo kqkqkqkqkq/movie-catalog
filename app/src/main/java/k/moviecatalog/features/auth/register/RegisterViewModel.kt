@@ -4,11 +4,12 @@ import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import k.moviecatalog.App
+import k.moviecatalog.common.dispatcher.DispatcherProvider
+import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.repositories.auth.AuthRepository
 import k.moviecatalog.repositories.models.Gender
 import k.moviecatalog.repositories.token.TokenRepository
-import k.moviecatalog.common.dispatcher.DispatcherProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,32 +36,19 @@ class RegisterViewModel(
         viewModelScope.launch(dispatcherProvider.io) {
             _registerState.update { it.copy(isLoading = true) }
             if (validateRegisterForm()) {
-                authRepository.register(
-                    _registerState.value.user.toUserRegister()
-                ).onSuccess { token ->
-                    tokenRepository.setToken(token.token)
-                    _registerState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = null,
-                        )
+                val user = _registerState.value.user.toUserRegister()
+                movieCatalogLogger().e("[User to register]", user.toString())
+                authRepository.register(user)
+                    .onSuccess { token ->
+                        tokenRepository.setToken(token.token)
+                        _registerState.update { it.copy(error = null) }
+                    }.onFailure { e ->
+                        _registerState.update { it.copy(error = e.message) }
                     }
-                }.onFailure { e ->
-                    _registerState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = e.message,
-                        )
-                    }
-                }
             } else {
-                _registerState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = "Form doesn't valid",
-                    )
-                }
+                _registerState.update { it.copy(error = "Form doesn't valid") }
             }
+            _registerState.update { it.copy(isLoading = false) }
         }
     }
 

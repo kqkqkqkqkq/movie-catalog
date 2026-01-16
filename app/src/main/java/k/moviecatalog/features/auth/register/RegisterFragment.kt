@@ -19,12 +19,10 @@ import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.databinding.FragmentRegisterBinding
 import k.moviecatalog.di.AppComponentImpl
 import k.moviecatalog.repositories.models.Gender
+import k.moviecatalog.utils.ui.DateFormatter
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
-import java.util.Date
-import java.util.Locale
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
@@ -77,8 +75,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun updateRegisterButton(state: RegisterUiState) {
-        val isEnabledButton = !state.isLoading && viewModel.validateRegisterForm()
-        binding.registerBtn.isEnabled = isEnabledButton
+        binding.registerBtn.isEnabled = !state.isLoading && viewModel.validateRegisterForm()
     }
 
     private fun updateErrorState(state: RegisterUiState) {
@@ -172,7 +169,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .build()
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            binding.birthDateEt.setText(formatDate(selection))
             val localDate = Instant.ofEpochMilli(selection)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
@@ -181,18 +177,17 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     birthDate = localDate
                 )
             )
+            binding.birthDateEt.setText(DateFormatter.dateToString(localDate))
         }
-
-        datePicker.show(childFragmentManager, "DATE_PICKER")
-    }
-
-    private fun formatDate(timestamp: Long): String {
-        val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        return dateFormatter.format(Date(timestamp))
+        datePicker.show(childFragmentManager, DATE_PICKER_TAG)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val DATE_PICKER_TAG = "DATE PICKER"
     }
 }

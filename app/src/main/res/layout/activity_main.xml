@@ -24,6 +24,7 @@
         android:backgroundTint="?attr/colorSurface"
         android:visibility="gone"
         app:itemGravity="center"
+        android:elevation="4dp"
         app:itemIconTint="@color/bottom_nav_icon_color"
         app:itemRippleColor="@android:color/transparent"
         app:itemTextColor="@color/bottom_nav_text_color"

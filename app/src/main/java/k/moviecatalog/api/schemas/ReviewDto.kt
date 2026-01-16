@@ -15,5 +15,5 @@ data class ReviewDto(
     val isAnonymous: Boolean,
     @Serializable(with = LocalDateTimeSerializer::class)
     val createDateTime: LocalDateTime,
-    val author: UserShortDto,
+    val author: UserShortDto?,
 )

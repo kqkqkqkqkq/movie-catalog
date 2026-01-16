@@ -30,24 +30,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import k.moviecatalog.R
-import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.repositories.models.Review
-import k.moviecatalog.themes.RatingHigh
-import k.moviecatalog.themes.RatingLow
-import k.moviecatalog.themes.RatingMedium
-import k.moviecatalog.themes.RatingUnknown
-import java.time.format.DateTimeFormatter
+import k.moviecatalog.utils.ui.ColorConverter
+import k.moviecatalog.utils.ui.DateFormatter
 
 @Composable
 fun ReviewComponent(review: Review) {
-    //
     var showDialog by remember { mutableStateOf(false) }
+    val lowColor = colorResource(R.color.ratingLow)
+    val highColor = colorResource(R.color.ratingHigh)
+    val midColor = colorResource(R.color.ratingMedium)
+    val blended = ColorConverter.calculateColor(
+        rating = review.rating.toDouble(),
+        lowColor = lowColor.toArgb(),
+        midColor = midColor.toArgb(),
+        highColor = highColor.toArgb()
+    )
+    val ratingColor = Color(blended)
 
     Card(
         modifier = Modifier
@@ -84,7 +91,7 @@ fun ReviewComponent(review: Review) {
                     )
                 }
                 Text(
-                    text = review.author.nickName ?: stringResource(R.string.anonymous_user),
+                    text = review.author?.nickName ?: stringResource(R.string.anonymous_user),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onBackground,
                     maxLines = 1,
@@ -96,7 +103,7 @@ fun ReviewComponent(review: Review) {
                         .width(42.dp)
                         .height(28.dp)
                         .clip(CircleShape)
-                        .background(getColor(review.rating)),
+                        .background(ratingColor),
                 ) {
                     Text(
                         text = review.rating.toString(),
@@ -122,10 +129,8 @@ fun ReviewComponent(review: Review) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
             ) {
-                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
-                val dateTimeString = review.createDateTime.format(formatter)
                 Text(
-                    text = dateTimeString,
+                    text = DateFormatter.dateToString(review.createDateTime),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(0.5f),
                 )
@@ -169,17 +174,9 @@ fun ReviewComponent(review: Review) {
         ReviewDialog(
             review = review,
             onSaveReview = { review ->
+                // TODO("save review")
             },
             onDismissRequest = { showDialog = false }
         )
-    }
-}
-
-private fun getColor(rating: Int): Color {
-    return when {
-        rating >= UiConstants.HIGH_RATING -> RatingHigh
-        rating > UiConstants.MEDIUM_RATING -> RatingMedium
-        rating > UiConstants.LOW_RATING -> RatingLow
-        else -> RatingUnknown
     }
 }

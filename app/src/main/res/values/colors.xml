@@ -21,9 +21,9 @@
     <color name="errorLight">#EA0F0F</color>
     <color name="onErrorLight">#EDE1E1</color>
 
-    <color name="ratingHigh">#02AA1F</color>
+    <color name="ratingHigh">#00FF00</color>
     <color name="ratingMedium">#FF7A00</color>
-    <color name="ratingLow">#DF2800</color>
+    <color name="ratingLow">#FF0000</color>
     <color name="ratingUnknown">#B7B7B7</color>
 
     <color name="bottom_nav_icon_color">@color/bottom_nav_colors</color>

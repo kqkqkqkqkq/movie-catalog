@@ -1,16 +1,16 @@
 package k.moviecatalog.features.main
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import k.moviecatalog.R
-import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.databinding.ItemMovieBinding
 import k.moviecatalog.repositories.models.MovieElement
 import k.moviecatalog.repositories.models.ReviewShort
+import k.moviecatalog.utils.ui.ColorConverter
+import kotlin.math.round
 
 class MoviesViewHolder(
     view: View,
@@ -24,12 +24,16 @@ class MoviesViewHolder(
         }
 
         val ratingValue = calculateRating(movie.reviews)
-
-        binding.title.text = movie.name ?: "*****"
-        binding.rating.text = ratingValue.toString()
-        binding.rating.chipBackgroundColor = getColorByRating(
-            binding.root.context, ratingValue
+        val ratingColor = ColorConverter.calculateColor(
+            rating = ratingValue,
+            lowColor = ContextCompat.getColor(binding.root.context, R.color.ratingLow),
+            midColor = ContextCompat.getColor(binding.root.context, R.color.ratingMedium),
+            highColor = ContextCompat.getColor(binding.root.context, R.color.ratingHigh),
         )
+
+        binding.title.text = movie.name.orEmpty()
+        binding.rating.text = ratingValue.toString()
+        binding.rating.chipBackgroundColor = ColorStateList.valueOf(ratingColor)
         binding.genres.text = movie.genres.joinToString { it.name.orEmpty() }
         binding.year.text = movie.year.toString()
         binding.country.text = movie.country.toString()
@@ -41,23 +45,9 @@ class MoviesViewHolder(
         }
     }
 
-    private fun calculateRating(reviews: List<ReviewShort>): Double {
-        if (reviews.isEmpty()) {
-            return 0.0
-        }
-
-        val sum = reviews.sumOf { it.rating.toDouble() }
-        val average = sum / reviews.size
-        return "%.1f".format(average).toDouble()
-    }
-
-    private fun getColorByRating(context: Context, rating: Double): ColorStateList {
-        val colorRes = when {
-            rating >= UiConstants.HIGH_RATING -> R.color.ratingHigh
-            rating > UiConstants.MEDIUM_RATING -> R.color.ratingMedium
-            rating > UiConstants.LOW_RATING -> R.color.ratingLow
-            else -> R.color.ratingUnknown
-        }
-        return ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
+    private fun calculateRating(reviews: List<ReviewShort>, format: Int = 10): Double {
+        if (reviews.isEmpty()) return 0.0
+        val average = reviews.sumOf { it.rating.toDouble() } / reviews.size
+        return round(average * format) / format
     }
 }

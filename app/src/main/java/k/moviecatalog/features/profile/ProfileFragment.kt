@@ -12,8 +12,8 @@ import k.moviecatalog.R
 import k.moviecatalog.databinding.FragmentProfileBinding
 import k.moviecatalog.di.AppComponentImpl
 import k.moviecatalog.repositories.models.Gender
+import k.moviecatalog.utils.ui.DateFormatter
 import kotlinx.coroutines.launch
-import java.time.format.DateTimeFormatter
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -49,8 +49,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             binding.usernameTv.text = profile.nickName ?: getString(R.string.unknown_username)
             binding.email.text = profile.email
             binding.name.text = profile.name
-            binding.birthDate.text =
-                profile.birthDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            binding.birthDate.text = DateFormatter.dateToString(profile.birthDate)
             when (profile.gender) {
                 Gender.MALE -> binding.genderToggle.check(R.id.male_btn)
                 Gender.FEMALE -> binding.genderToggle.check(R.id.female_btn)
