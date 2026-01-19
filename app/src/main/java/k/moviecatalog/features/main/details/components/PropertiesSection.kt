@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import k.moviecatalog.themes.GrayBackground
+import k.moviecatalog.themes.GreyLabelProperty
 
 @Composable
 fun PropertiesSection(
@@ -24,31 +26,19 @@ fun PropertiesSection(
                 horizontal = 16.dp,
                 vertical = 4.dp,
             ),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Top,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(0.3f),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalAlignment = Alignment.Start,
-        ) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground.copy(0.5f),
-            )
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalAlignment = Alignment.Start,
-        ) {
-            Text(
-                text = property,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        }
+        Text(
+            text = name,
+            style = MaterialTheme.typography.labelMedium,
+            color = GreyLabelProperty,
+            modifier = Modifier.fillMaxWidth(0.3f),
+        )
+        Text(
+            text = property,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.weight(1f),
+        )
     }
 }

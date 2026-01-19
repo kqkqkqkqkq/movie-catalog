@@ -6,43 +6,16 @@ data class CollectionIcon(
     val icon: Int,
 ) {
     companion object {
-        val icons = listOf(
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
-
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
-            CollectionIcon(R.drawable.icon_heart),
-            CollectionIcon(R.drawable.icon_star),
-            CollectionIcon(R.drawable.icon_clock),
-            CollectionIcon(R.drawable.icon_book),
-            CollectionIcon(R.drawable.icon_moon),
+        private val resources = listOf(
+            R.drawable.icon_heart,
+            R.drawable.icon_star,
+            R.drawable.icon_clock,
+            R.drawable.icon_book,
+            R.drawable.icon_moon,
         )
+
+        val icons = List(50) { index ->
+            CollectionIcon(resources[index % resources.size])
+        }
     }
 }

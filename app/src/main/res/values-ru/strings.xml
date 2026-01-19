@@ -4,7 +4,7 @@
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
     <string name="hint_password_repeat">Повторите пароль</string>
-    <string name="hint_email">Электронная почта</string>
+    <string name="hint_email">E-mail</string>
     <string name="hint_name">Имя</string>
     <string name="hint_date_of_birth">Дата рождения</string>
     <string name="hint_gender">Пол</string>
@@ -13,13 +13,14 @@
     <string name="female">Женский</string>
     <string name="login">Войти</string>
     <string name="register">Регистрация</string>
-    <string name="logout">Выйти</string>
+    <string name="logout">Выйти из аккаунта</string>
     <string name="loading">Загрузка...</string>
     <string name="save">Сохранить</string>
     <string name="delete">Удалить</string>
     <string name="cancel">Отмена</string>
     <string name="unknown_username">*Неизвестное имя пользователя*</string>
     <string name="already_have_account">У меня уже есть аккаунт</string>
+    <string name="back">Назад</string>
 
     <string name="description_movie_catalog_logo">Логотип каталога фильмов</string>
     <string name="description_add_icon">Иконка добавления</string>
@@ -49,13 +50,14 @@
 
     <string name="year">Год</string>
     <string name="country">Страна</string>
-    <string name="time">Длительность</string>
+    <string name="time">Время</string>
     <string name="slogan">Слоган</string>
     <string name="director">Режиссёр</string>
     <string name="budget">Бюджет</string>
-    <string name="world">Бюджет</string>
-    <string name="age_limit">Возрастное ограничение</string>
+    <string name="world">Сборы в мире</string>
+    <string name="age_limit">Возраст</string>
     <string name="time_unit">мин.</string>
+    <string name="my_review">Мой отзыв</string>
 
     <string name="unknown_movie">Неизвестный фильм</string>
     <string name="anonymous_user">Анонимный пользователь</string>

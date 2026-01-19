@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import k.moviecatalog.R
 import k.moviecatalog.features.main.details.state.COLLAPSED_TOP_BAR_HEIGHT
+import k.moviecatalog.features.main.details.state.STATUS_BAR_HEIGHT
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -38,7 +39,11 @@ fun CollapsedTopBar(
             .fillMaxWidth()
             .background(Color.Transparent)
             .height(COLLAPSED_TOP_BAR_HEIGHT)
-            .padding(horizontal = 16.dp),
+            .padding(
+                top = STATUS_BAR_HEIGHT,
+                start = 16.dp,
+                end = 16.dp,
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
     ) {

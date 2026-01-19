@@ -23,7 +23,7 @@ object Routes {
     const val MOVIES = "$MOVIES_ROUTE/{page}"
     const val MOVIE_DETAILS = "$MOVIES_ROUTE/details/{id}"
 
-    const val ADD_REVIEW = "$MOVIE_ROUTE/{movieId}$REVIEW_ROUTE/add"
-    const val UPDATE_REVIEW = "$MOVIE_ROUTE/{movieId}$REVIEW_ROUTE/{id}/edit"
-    const val DELETE_REVIEW = "$MOVIE_ROUTE/{movieId}$REVIEW_ROUTE/{id}/delete"
+    const val ADD_REVIEW = "$MOVIE_ROUTE/{movieId}/$REVIEW_ROUTE/add"
+    const val UPDATE_REVIEW = "$MOVIE_ROUTE/{movieId}/$REVIEW_ROUTE/{id}/edit"
+    const val DELETE_REVIEW = "$MOVIE_ROUTE/{movieId}/$REVIEW_ROUTE/{id}/delete"
 }

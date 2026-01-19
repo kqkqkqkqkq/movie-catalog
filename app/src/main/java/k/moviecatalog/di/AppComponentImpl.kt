@@ -16,6 +16,7 @@ import k.moviecatalog.repositories.favourites.FavouritesRepositoryImpl
 import k.moviecatalog.repositories.movie.MoviesRepositoryImpl
 import k.moviecatalog.repositories.token.TokenRepositoryImpl
 import k.moviecatalog.common.dispatcher.MovieCatalogDispatcherProvider
+import k.moviecatalog.repositories.review.ReviewRepositoryImpl
 
 class AppComponentImpl(
     private val context: Context,
@@ -25,6 +26,7 @@ class AppComponentImpl(
     private val authApi by lazy { retrofitClient.authApi }
     private val movieApi by lazy { retrofitClient.movieApi }
     private val favouritesApi by lazy { retrofitClient.favouritesApi }
+    private val reviewApi by lazy { retrofitClient.reviewApi }
     private val authTokenInterceptor by lazy { AuthTokenInterceptor(tokenRepository) }
     private val unauthorizedInterceptor by lazy { UnauthorizedInterceptor(tokenRepository) }
     private val retrofitConfig by lazy {
@@ -35,9 +37,9 @@ class AppComponentImpl(
     }
     private val retrofitClient by lazy {
         RetrofitClient(
-            baseUrl = Routes.BASE_URL + Routes.API_VERSION,
-            okHttpClient = retrofitConfig.buildOkHttpClient(),
             json = retrofitConfig.buildJson(),
+            okHttpClient = retrofitConfig.buildOkHttpClient(),
+            baseUrl = Routes.BASE_URL + Routes.API_VERSION,
         )
     }
 
@@ -48,6 +50,7 @@ class AppComponentImpl(
     override val collectionsRepository by lazy {
         CollectionsRepositoryImpl(collectionsStore.getCollectionsStore())
     }
+    override val reviewRepository by lazy { ReviewRepositoryImpl(reviewApi) }
 
     override val dispatcherProvider by lazy { MovieCatalogDispatcherProvider() }
 

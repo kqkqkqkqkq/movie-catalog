@@ -11,9 +11,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -42,17 +44,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import k.moviecatalog.R
+import k.moviecatalog.common.extensions.formatMoney
 import k.moviecatalog.features.main.details.MovieDetailsUiState
 import k.moviecatalog.features.main.details.components.CollapsedTopBar
+import k.moviecatalog.features.main.details.components.CollectionMenuItem
 import k.moviecatalog.features.main.details.components.ExpandedTopBar
 import k.moviecatalog.features.main.details.components.GenresSection
 import k.moviecatalog.features.main.details.components.PropertiesSection
 import k.moviecatalog.features.main.details.components.ReviewComponent
 import k.moviecatalog.features.main.details.components.ReviewDialog
 import k.moviecatalog.repositories.models.Collection
+import k.moviecatalog.repositories.models.Review
 
-val COLLAPSED_TOP_BAR_HEIGHT = 56.dp
-val EXPANDED_TOP_BAR_HEIGHT = 256.dp
+val STATUS_BAR_HEIGHT = 32.dp
+val COLLAPSED_TOP_BAR_HEIGHT = 56.dp + STATUS_BAR_HEIGHT
+val EXPANDED_TOP_BAR_HEIGHT = 256.dp + STATUS_BAR_HEIGHT
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -61,15 +67,17 @@ fun MovieDetailsContent(
     onNavigateBack: () -> Unit,
     onCollectionAdd: (Collection) -> Unit,
     onFavourite: () -> Unit,
+    onCreateReview: (Review) -> Unit,
+    onUpdateReview: (Review) -> Unit,
+    onDeleteReview: (Review) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
-    val isCollapsed: Boolean by remember {
-        derivedStateOf { listState.firstVisibleItemIndex > 0 }
-    }
+    val isCollapsed by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
     var expanded by remember { mutableStateOf(false) }
     val collections = state.availableCollections ?: emptyList()
-    val icon = if (state.inFavourites) R.drawable.icon_heart_filled else R.drawable.icon_heart
+    val favouritesIcon =
+        if (state.inFavourites) R.drawable.icon_heart_filled else R.drawable.icon_heart
 
     val properties = mapOf(
         stringResource(R.string.year) to state.movie?.year.toString(),
@@ -77,29 +85,27 @@ fun MovieDetailsContent(
         stringResource(R.string.time) to "${state.movie?.time} ${stringResource(R.string.time_unit)}",
         stringResource(R.string.slogan) to state.movie?.tagline,
         stringResource(R.string.director) to state.movie?.director,
-        stringResource(R.string.budget) to "$${state.movie?.budget}",
-        stringResource(R.string.world) to "$${state.movie?.fees}",
+        stringResource(R.string.budget) to "$${state.movie?.budget.formatMoney()}",
+        stringResource(R.string.world) to "$${state.movie?.fees.formatMoney()}",
         stringResource(R.string.age_limit) to "${state.movie?.ageLimit}+",
     )
 
     Scaffold(
         topBar = {
             AnimatedVisibility(
-                visible = isCollapsed, enter = fadeIn(
-                    animationSpec = tween(durationMillis = 300)
-                ) + slideInVertically(), exit = fadeOut(
-                    animationSpec = tween(durationMillis = 300)
-                ) + slideOutVertically()
+                visible = isCollapsed,
+                enter = fadeIn(animationSpec = tween(durationMillis = 300)) + slideInVertically(),
+                exit = fadeOut(animationSpec = tween(durationMillis = 300)) + slideOutVertically(),
             ) {
                 CollapsedTopBar(
-                    icon = icon,
+                    icon = favouritesIcon,
                     name = state.movie?.name ?: stringResource(R.string.unknown_movie),
                     onBackClick = onNavigateBack,
                     onFavouriteClick = onFavourite,
                 )
             }
         },
-        modifier = Modifier.padding(top = 32.dp),
+//        modifier = Modifier.padding(top = 32.dp),
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
     ) { padding ->
         LazyColumn(
@@ -110,7 +116,7 @@ fun MovieDetailsContent(
         ) {
             item {
                 ExpandedTopBar(
-                    icon = icon,
+                    icon = favouritesIcon,
                     name = state.movie?.name ?: stringResource(R.string.unknown_movie),
                     imageUrl = state.movie?.poster.orEmpty(),
                     onBackClick = onNavigateBack,
@@ -135,38 +141,19 @@ fun MovieDetailsContent(
                             .fillMaxWidth()
                     ) {
                         if (collections.isEmpty()) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(
-                                        text = stringResource(R.string.empty_collections)
-                                    )
-                                },
+                            CollectionMenuItem(
+                                title = stringResource(R.string.empty_collections),
                                 onClick = { expanded = false },
-                                colors = MenuDefaults.itemColors(
-                                    textColor = MaterialTheme.colorScheme.onBackground,
-                                ),
                             )
                         } else {
                             collections.forEach { collection ->
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(
-                                            text = collection.title,
-                                        )
-                                    },
+                                CollectionMenuItem(
+                                    title = collection.title,
                                     onClick = {
                                         expanded = false
                                         onCollectionAdd(collection)
                                     },
-                                    colors = MenuDefaults.itemColors(
-                                        textColor = MaterialTheme.colorScheme.onBackground,
-                                    ),
-//                                    trailingIcon = { // TODO("show if the film is in the collection")
-//                                        Icon(
-//                                            painter = painterResource(R.drawable.icon_add),
-//                                            contentDescription = "The film is already in this collection",
-//                                        )
-//                                    }
+                                    trailingIcon = null, // TODO("Icon shows if movie in collection")
                                 )
                             }
                         }
@@ -197,8 +184,7 @@ fun MovieDetailsContent(
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
-            }
-            item {
+                Spacer(modifier = Modifier.height(8.dp))
                 properties.forEach { (name, property) ->
                     if (!property.isNullOrBlank()) {
                         PropertiesSection(name, property)
@@ -212,8 +198,7 @@ fun MovieDetailsContent(
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
-            }
-            item {
+                Spacer(modifier = Modifier.height(8.dp))
                 GenresSection(state.movie?.genres ?: emptyList())
             }
             item {
@@ -246,13 +231,22 @@ fun MovieDetailsContent(
                 }
             }
             items(state.movie?.reviews ?: emptyList()) { review ->
-                ReviewComponent(review)
+                ReviewComponent(
+                    review = review,
+                    currentUserProfile = requireNotNull(state.currentUserProfile),
+                    onUpdateReview = onUpdateReview,
+                    onDeleteReview = onDeleteReview,
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
+
         if (showDialog) {
             ReviewDialog(
-                onSaveReview = { review ->
-                },
+                currentUserProfile = state.currentUserProfile,
+                onSaveReview = onCreateReview,
                 onDismissRequest = { showDialog = false }
             )
         }

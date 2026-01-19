@@ -11,114 +11,114 @@ import k.moviecatalog.repositories.models.MovieElement
 import k.moviecatalog.repositories.models.MoviesPagedList
 import k.moviecatalog.repositories.models.PageInfo
 import k.moviecatalog.repositories.models.ReviewShort
-import k.moviecatalog.utils.mapper.gender.toGenre
-import k.moviecatalog.utils.mapper.gender.toGenreDto
+import k.moviecatalog.utils.mapper.genre.toGenre
+import k.moviecatalog.utils.mapper.genre.toGenreDto
 import k.moviecatalog.utils.mapper.review.toReview
 import k.moviecatalog.utils.mapper.review.toReviewDto
 import k.moviecatalog.utils.mapper.review.toReviewShort
 import k.moviecatalog.utils.mapper.review.toReviewShortDto
 
 fun MoviesPagedListDto.toMoviesPagedList() = MoviesPagedList(
-    movies = this.movies.map { it.toMovieElement() },
-    pageInfo = this.pageInfo.toPageInfo(),
+    movies = movies.map { it.toMovieElement() },
+    pageInfo = pageInfo.toPageInfo(),
 )
 
 fun PageInfoDto.toPageInfo() = PageInfo(
-    pageSize = this.pageSize,
-    pageCount = this.pageCount,
-    currentPage = this.currentPage,
+    pageSize = pageSize,
+    pageCount = pageCount,
+    currentPage = currentPage,
 )
 
 fun MovieElementDto.toMovieElement() = MovieElement(
-    id = this.id,
-    name = this.name,
-    poster = this.poster,
-    year = this.year,
-    country = this.country,
-    genres = this.genres.map { it.toGenre() },
-    reviews = this.reviews.map { it.toReviewShort() }
+    id = id,
+    name = name,
+    poster = poster,
+    year = year,
+    country = country,
+    genres = genres.map { it.toGenre() },
+    reviews = reviews.map { it.toReviewShort() }
 )
 
 fun ReviewShortDto.toReviewShort() = ReviewShort(
-    id = this.id,
-    rating = this.rating,
+    id = id,
+    rating = rating,
 )
 
 fun MovieDetailsDto.toMovieDetails() = MovieDetails(
-    id = this.id,
-    name = this.name,
-    poster = this.poster,
-    year = this.year,
-    country = this.country,
-    genres = this.genres.map { it.toGenre() },
-    reviews = this.reviews.map { it.toReview() },
-    time = this.time,
-    tagline = this.tagline,
-    description = this.description,
-    director = this.director,
-    budget = this.budget,
-    fees = this.fees,
-    ageLimit = this.ageLimit,
+    id = id,
+    name = name,
+    poster = poster,
+    year = year,
+    country = country,
+    genres = genres.map { it.toGenre() },
+    reviews = reviews.map { it.toReview() },
+    time = time,
+    tagline = tagline,
+    description = description,
+    director = director,
+    budget = budget,
+    fees = fees,
+    ageLimit = ageLimit,
 )
 
 fun MoviesPagedList.toMoviesPagedListDto() = MoviesPagedListDto(
-    movies = this.movies.map { it.toMovieElementDto() },
-    pageInfo = this.pageInfo.toPageInfoDto(),
+    movies = movies.map { it.toMovieElementDto() },
+    pageInfo = pageInfo.toPageInfoDto(),
 )
 
 fun PageInfo.toPageInfoDto() = PageInfoDto(
-    pageSize = this.pageSize,
-    pageCount = this.pageCount,
-    currentPage = this.currentPage,
+    pageSize = pageSize,
+    pageCount = pageCount,
+    currentPage = currentPage,
 )
 
 fun MovieElement.toMovieElementDto() = MovieElementDto(
-    id = this.id,
-    name = this.name,
-    poster = this.poster,
-    year = this.year,
-    country = this.country,
-    genres = this.genres.map { it.toGenreDto() },
-    reviews = this.reviews.map { it.toReviewShortDto() },
+    id = id,
+    name = name,
+    poster = poster,
+    year = year,
+    country = country,
+    genres = genres.map { it.toGenreDto() },
+    reviews = reviews.map { it.toReviewShortDto() },
 )
 
 fun MovieElement.toCollectionMovie() = CollectionMovie(
-    title = this.name,
-    description = this.name,
-    posterUrl = this.poster,
-    movieId = this.id,
+    title = name,
+    description = name,
+    posterUrl = poster,
+    movieId = id,
 )
 
 fun MovieDetails.toMovieDetailsDto() = MovieDetailsDto(
-    id = this.id,
-    name = this.name,
-    poster = this.poster,
-    year = this.year,
-    country = this.country,
-    genres = this.genres.map { it.toGenreDto() },
-    reviews = this.reviews.map { it.toReviewDto() },
-    time = this.time,
-    tagline = this.tagline,
-    description = this.description,
-    director = this.director,
-    budget = this.budget,
-    fees = this.fees,
-    ageLimit = this.ageLimit
+    id = id,
+    name = name,
+    poster = poster,
+    year = year,
+    country = country,
+    genres = genres.map { it.toGenreDto() },
+    reviews = reviews.map { it.toReviewDto() },
+    time = time,
+    tagline = tagline,
+    description = description,
+    director = director,
+    budget = budget,
+    fees = fees,
+    ageLimit = ageLimit
 )
 
 fun MovieDetails.toCollectionMovie() = CollectionMovie(
-    title = this.name,
-    posterUrl = this.poster,
-    description = this.description,
-    movieId = this.id,
+    title = name,
+    posterUrl = poster,
+    description = description,
+    movieId = id,
 )
 
 fun MovieDetails.toMovieElement() = MovieElement(
-    id = this.id,
-    name = this.name,
-    poster = this.poster,
-    year = this.year,
-    country = this.country,
-    genres = this.genres,
-    reviews = this.reviews.map { it.toReviewShort() },
+    id = id,
+    name = name,
+    poster = poster,
+    year = year,
+    country = country,
+    genres = genres,
+    reviews = reviews.map { it.toReviewShort() },
 )

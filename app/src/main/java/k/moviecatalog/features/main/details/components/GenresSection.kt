@@ -15,9 +15,7 @@ import androidx.compose.ui.unit.dp
 import k.moviecatalog.repositories.models.Genre
 
 @Composable
-fun GenresSection(
-    genres: List<Genre>
-) {
+fun GenresSection(genres: List<Genre>) {
     FlowRow(
         modifier = Modifier
             .padding(horizontal = 16.dp),
@@ -33,7 +31,7 @@ fun GenresSection(
                 ) {
                     Text(
                         text = genre.name,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onPrimary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,

@@ -4,9 +4,9 @@ import k.moviecatalog.api.schemas.AuthResponseDto
 import k.moviecatalog.repositories.models.Auth
 
 fun AuthResponseDto.toAuth() = Auth(
-    token = this.token,
+    token = token,
 )
 
 fun Auth.toAuthDto() = AuthResponseDto(
-    token = this.token,
+    token = token,
 )

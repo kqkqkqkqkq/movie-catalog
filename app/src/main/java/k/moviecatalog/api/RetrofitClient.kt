@@ -12,9 +12,9 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class RetrofitClient(
+    json: Json,
+    okHttpClient: OkHttpClient,
     private val baseUrl: String,
-    private val okHttpClient: OkHttpClient,
-    private val json: Json,
 ) {
     private val jsonConverterFactory = json.asConverterFactory("application/json".toMediaType())
     private val retrofit = Retrofit.Builder()
@@ -23,19 +23,11 @@ class RetrofitClient(
         .addConverterFactory(jsonConverterFactory)
         .build()
 
-    val authApi: AuthApi by lazy {
-        retrofit.create<AuthApi>()
-    }
+    val authApi by lazy { retrofit.create<AuthApi>() }
 
-    val favouritesApi: FavouritesApi by lazy {
-        retrofit.create<FavouritesApi>()
-    }
+    val favouritesApi by lazy { retrofit.create<FavouritesApi>() }
 
-    val movieApi: MovieApi by lazy {
-        retrofit.create<MovieApi>()
-    }
+    val movieApi by lazy { retrofit.create<MovieApi>() }
 
-    val reviewApi: ReviewApi by lazy {
-        retrofit.create<ReviewApi>()
-    }
+    val reviewApi by lazy { retrofit.create<ReviewApi>() }
 }

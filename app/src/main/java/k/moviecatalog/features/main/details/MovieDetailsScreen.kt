@@ -33,16 +33,17 @@ fun MovieDetailsScreen(
             val currentState = state
             when {
                 currentState.isLoading -> MovieDetailsLoading()
-                currentState.error != null -> MovieDetailsError(currentState.error)
+                currentState.error != null -> MovieDetailsError(currentState.error) {
+                    viewModel.back()
+                }
                 currentState.movie != null -> MovieDetailsContent(
                     state = currentState,
                     onNavigateBack = onNavigateBack,
-                    onCollectionAdd = { collection ->
-                        viewModel.addToCollection(collection)
-                    },
-                    onFavourite = {
-                        viewModel.onFavourite()
-                    }
+                    onCollectionAdd = { viewModel.addToCollection(it) },
+                    onFavourite = { viewModel.onFavourite() },
+                    onCreateReview = { viewModel.createReview(it) },
+                    onUpdateReview = { viewModel.updateReview(it) },
+                    onDeleteReview = { viewModel.deleteReview(it) },
                 )
 
                 else -> MovieDetailsLoading()

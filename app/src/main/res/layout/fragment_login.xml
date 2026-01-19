@@ -21,14 +21,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_til"
+        style="@style/DefaultTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingTop="48dp"
-        app:boxCornerRadiusBottomEnd="@dimen/medium"
-        app:boxCornerRadiusBottomStart="@dimen/medium"
-        app:boxCornerRadiusTopEnd="@dimen/medium"
-        app:boxCornerRadiusTopStart="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_image">
@@ -47,14 +44,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_til"
+        style="@style/DefaultTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingTop="14dp"
-        app:boxCornerRadiusBottomEnd="@dimen/medium"
-        app:boxCornerRadiusBottomStart="@dimen/medium"
-        app:boxCornerRadiusTopEnd="@dimen/medium"
-        app:boxCornerRadiusTopStart="@dimen/medium"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

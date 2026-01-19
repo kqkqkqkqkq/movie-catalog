@@ -18,11 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import k.moviecatalog.R
 import k.moviecatalog.features.main.details.state.COLLAPSED_TOP_BAR_HEIGHT
 import k.moviecatalog.features.main.details.state.EXPANDED_TOP_BAR_HEIGHT
+import k.moviecatalog.features.main.details.state.STATUS_BAR_HEIGHT
 
 @Composable
 fun ExpandedTopBar(
@@ -52,13 +54,14 @@ fun ExpandedTopBar(
             color = MaterialTheme.colorScheme.onPrimary,
             style = MaterialTheme.typography.titleLarge,
             maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(16.dp),
         )
         Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(
-                    top = 16.dp,
+                    top = 16.dp + STATUS_BAR_HEIGHT,
                     end = 16.dp,
                 )
                 .size(32.dp)
@@ -83,7 +86,7 @@ fun ExpandedTopBar(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(
-                    top = 16.dp,
+                    top = 16.dp + STATUS_BAR_HEIGHT,
                     start = 16.dp,
                 )
                 .size(32.dp)

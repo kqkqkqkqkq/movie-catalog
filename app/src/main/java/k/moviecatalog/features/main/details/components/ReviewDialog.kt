@@ -1,6 +1,5 @@
 package k.moviecatalog.features.main.details.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,14 +7,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -25,20 +25,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import k.moviecatalog.R
+import k.moviecatalog.repositories.models.Profile
 import k.moviecatalog.repositories.models.Review
 import k.moviecatalog.repositories.models.UserShort
 import java.time.LocalDateTime
-import java.util.UUID
 
 @Composable
 fun ReviewDialog(
     review: Review? = null,
+    currentUserProfile: Profile? = null,
     onSaveReview: (Review) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
@@ -48,9 +48,7 @@ fun ReviewDialog(
 
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false
-        ),
+        properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
         Surface(
             modifier = Modifier
@@ -60,39 +58,18 @@ fun ReviewDialog(
             color = MaterialTheme.colorScheme.surface,
         ) {
             Column(
-                modifier = Modifier
-                    .padding(16.dp),
+                modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Text(
                     text = stringResource(R.string.make_review),
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    repeat(10) { index ->
-                        val starIndex = index + 1
-                        val icon = if (starIndex <= rating) {
-                            R.drawable.icon_favorite_filled
-                        } else {
-                            R.drawable.icon_star
-                        }
-                        Icon(
-                            painter = painterResource(icon),
-                            contentDescription = "Star $starIndex",
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier
-                                .size(32.dp)
-                                .clickable { rating = starIndex }
-                        )
-                    }
-                }
+                RatingStars(rating) { rating = it }
 
                 TextField(
                     value = reviewText,
@@ -100,73 +77,103 @@ fun ReviewDialog(
                     modifier = Modifier
                         .height(128.dp)
                         .fillMaxWidth(),
-                    placeholder = { Text(stringResource(R.string.write_review)) }
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.write_review),
+                            style = MaterialTheme.typography.labelLarge,
+                        )
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.onBackground,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.onBackground,
+                        focusedIndicatorColor = MaterialTheme.colorScheme.onBackground,
+                        unfocusedIndicatorColor = MaterialTheme.colorScheme.onBackground,
+                        focusedPlaceholderColor = MaterialTheme.colorScheme.background.copy(0.5f),
+                        unfocusedPlaceholderColor = MaterialTheme.colorScheme.background.copy(0.5f),
+                        focusedTextColor = MaterialTheme.colorScheme.background,
+                    ),
+                    shape = RoundedCornerShape(6.dp),
                 )
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = stringResource(R.string.anonymous_review),
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                     Checkbox(
                         checked = isAnonymous,
-                        onCheckedChange = { isAnonymous = it }
+                        onCheckedChange = { isAnonymous = it },
+                        modifier = Modifier.size(24.dp),
                     )
                 }
 
-                Button(
-                    onClick = {
-                        onSaveReview(
-                            Review(
-                                id = UUID.randomUUID(),
-                                rating = rating,
-                                reviewText = reviewText,
-                                isAnonymous = isAnonymous,
-                                createDateTime = LocalDateTime.now(),
-                                author = UserShort(
-                                    userId = UUID.randomUUID(),
-                                    nickName = "",
-                                    avatar = "",
-                                ),
-                            )
-                        )
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary,
-                    ),
-                    shape = MaterialTheme.shapes.small,
-                    modifier = Modifier
-                        .fillMaxWidth()
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Text(
-                        text = stringResource(R.string.save),
-                        style = MaterialTheme.typography.titleSmall,
+                    Button(
+                        onClick = {
+                            currentUserProfile?.let { profile ->
+                                val newReview =
+                                    createReview(profile, rating, reviewText, isAnonymous)
+                                onSaveReview(newReview)
+                            }
+                            onDismissRequest()
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                        ),
+                        shape = MaterialTheme.shapes.small,
                         modifier = Modifier
-                    )
-                }
-                Button(
-                    onClick = onDismissRequest,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                    shape = MaterialTheme.shapes.small,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.cancel),
-                        style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier,
-                    )
+                            .fillMaxWidth()
+                            .height(48.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.save),
+                            style = MaterialTheme.typography.titleSmall,
+                        )
+                    }
+                    Button(
+                        onClick = onDismissRequest,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Transparent,
+                            contentColor = MaterialTheme.colorScheme.primary,
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(32.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.cancel),
+                            style = MaterialTheme.typography.titleSmall,
+                        )
+                    }
                 }
             }
         }
     }
 }
+
+private fun createReview(
+    profile: Profile,
+    rating: Int,
+    reviewText: String,
+    isAnonymous: Boolean,
+) = Review(
+    id = profile.id,
+    rating = rating,
+    reviewText = reviewText,
+    isAnonymous = isAnonymous,
+    createDateTime = LocalDateTime.now(),
+    author = UserShort(
+        userId = profile.id,
+        nickName = profile.nickName,
+        avatar = profile.avatarLink,
+    ),
+)

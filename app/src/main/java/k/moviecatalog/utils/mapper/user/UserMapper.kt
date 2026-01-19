@@ -10,41 +10,41 @@ import k.moviecatalog.utils.mapper.gender.genderMapper
 import k.moviecatalog.utils.mapper.gender.genderMapperDto
 
 fun UserRegisterDto.toUserRegister() = UserRegister(
-    username = this.userName,
-    name = this.name,
-    password = this.password,
-    email = this.email,
-    birthDate = this.birthDate,
-    gender = genderMapperDto(this.gender),
+    username = userName,
+    name = name,
+    password = password,
+    email = email,
+    birthDate = birthDate,
+    gender = genderMapperDto(gender),
 )
 
 fun LoginCredentialDto.toLoginCredential() = LoginCredential(
-    username = this.userName.orEmpty(),
-    password = this.password.orEmpty(),
+    username = userName.orEmpty(),
+    password = password.orEmpty(),
 )
 
 fun UserRegister.toUserRegisterDto() = UserRegisterDto(
-    userName = this.username,
-    name = this.name,
-    password = this.password,
-    email = this.email,
-    birthDate = this.birthDate,
-    gender = genderMapper(this.gender),
+    userName = username,
+    name = name,
+    password = password,
+    email = email,
+    birthDate = birthDate,
+    gender = genderMapper(gender),
 )
 
 fun LoginCredential.toLoginCredentialDto() = LoginCredentialDto(
-    userName = this.username,
-    password = this.password,
+    userName = username,
+    password = password,
 )
 
 fun UserShortDto.toUserShort() = UserShort(
-    userId = this.userId,
-    nickName = this.nickName,
-    avatar = this.avatar,
+    userId = userId,
+    nickName = nickName,
+    avatar = avatar,
 )
 
 fun UserShort.toUserShortDto() = UserShortDto(
-    userId = this.userId,
-    nickName = this.nickName,
-    avatar = this.avatar,
+    userId = userId,
+    nickName = nickName,
+    avatar = avatar,
 )

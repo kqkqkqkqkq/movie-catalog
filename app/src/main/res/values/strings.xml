@@ -19,6 +19,7 @@
     <string name="cancel">Cancel</string>
     <string name="unknown_username">*Unknown username*</string>
     <string name="already_have_account">I already have an account</string>
+    <string name="back">Go back</string>
 
     <string name="description_movie_catalog_logo">Movie Catalog Logo</string>
     <string name="description_add_icon">Add icon</string>
@@ -55,6 +56,7 @@
     <string name="world">Budget</string>
     <string name="age_limit">Age limit</string>
     <string name="time_unit">m.</string>
+    <string name="my_review">My review</string>
 
     <string name="unknown_movie">Unknown movie</string>
     <string name="anonymous_user">Anonymous user</string>
