@@ -34,7 +34,7 @@ class IconBottomSheetFragment : BottomSheetDialogFragment(R.layout.fragment_icon
     private fun setupGrid() {
         val icons = CollectionIcon.icons
         val span = UiConstants.GRID_CELLS
-        val spacing = dpToPx(16)
+        val spacing = dpToPx(UiConstants.GRID_SPACING)
 
         binding.iconsGrid.columnCount = span
         binding.iconsGrid.post {
