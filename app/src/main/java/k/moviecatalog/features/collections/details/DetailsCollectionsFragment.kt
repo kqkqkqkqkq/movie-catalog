@@ -42,8 +42,8 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
         setupRecyclerView()
         setupButtons()
         setupText()
-        setupEditIcon()
         observeViewModel()
+        setupEditIcon()
     }
 
     private fun observeViewModel() {
@@ -105,8 +105,7 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
     }
 
     private fun setupEditIcon() {
-        binding.editBtn.isVisible =
-            viewModel.detailsCollectionsState.value.collection?.isFavourite?.not() ?: true
+        binding.editBtn.isVisible = !args.collection.isFavourite
     }
 
     private fun onCollectionMovieClick(movie: CollectionMovie) {

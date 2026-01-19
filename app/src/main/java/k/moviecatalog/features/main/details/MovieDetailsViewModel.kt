@@ -49,7 +49,7 @@ class MovieDetailsViewModel(
             try {
                 val isFavourite = _movieDetailState.value.inFavourites
                 if (isFavourite) {
-                    favouritesRepository.deleteFavourite(movie)
+                    favouritesRepository.deleteFavourite(movie.id)
                 } else {
                     favouritesRepository.addFavourite(movie)
                 }

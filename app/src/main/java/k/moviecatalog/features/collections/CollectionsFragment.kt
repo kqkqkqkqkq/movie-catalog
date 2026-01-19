@@ -13,7 +13,6 @@ import k.moviecatalog.R
 import k.moviecatalog.databinding.FragmentCollectionsBinding
 import k.moviecatalog.di.AppComponentImpl
 import k.moviecatalog.repositories.models.Collection
-import k.moviecatalog.utils.mapper.movie.toCollectionMovie
 import kotlinx.coroutines.launch
 
 class CollectionsFragment : Fragment(R.layout.fragment_collections) {
@@ -51,7 +50,6 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
 
     private fun setupRecyclerView() {
         adapter = CollectionsAdapter(
-            favouriteMovies = viewModel.collectionsState.value.favourites.map { it.toCollectionMovie() },
             onFavouriteClick = { collection ->
                 onCollectionClicked(collection)
             },

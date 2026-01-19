@@ -26,7 +26,7 @@ class CollectionsRepositoryImpl(
         collectionsStore.updateData { currentPreferences ->
             val currentCollections = currentPreferences.collections?.toMutableList() ?: mutableListOf()
             val index = currentCollections.indexOfFirst { it.title == collection.title }
-            require(index == 1) { "Collection already exists" }
+            require(index == -1) { "Collection already exists" }
 
             currentCollections.add(collection.toCollectionPreferences())
             currentPreferences.copy(collections = currentCollections)

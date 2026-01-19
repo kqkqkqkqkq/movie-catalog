@@ -9,10 +9,8 @@ import k.moviecatalog.features.collections.holder.CollectionViewHolder
 import k.moviecatalog.features.collections.holder.CollectionsViewHolder
 import k.moviecatalog.features.collections.holder.FavoritesViewHolder
 import k.moviecatalog.repositories.models.Collection
-import k.moviecatalog.repositories.models.CollectionMovie
 
 class CollectionsAdapter(
-    private val favouriteMovies: List<CollectionMovie>,
     private val onCollectionClick: (Collection) -> Unit,
     private val onFavouriteClick: (Collection) -> Unit,
 ) : ListAdapter<Collection, CollectionsViewHolder>(DIFF) {
@@ -47,7 +45,7 @@ class CollectionsAdapter(
                 val favoritesCollection = Collection(
                     title = holder.itemView.context.getString(R.string.favourites),
                     icon = R.drawable.icon_heart_filled,
-                    movies = favouriteMovies,
+                    movies = null,
                     isFavourite = true,
                 )
                 holder.bind(favoritesCollection)

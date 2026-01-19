@@ -6,6 +6,7 @@ import k.moviecatalog.repositories.models.MovieElement
 import k.moviecatalog.utils.mapper.movie.toMovieElement
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.UUID
 
 class FavouritesRepositoryImpl(
     private val favouritesApi: FavouritesApi,
@@ -27,8 +28,8 @@ class FavouritesRepositoryImpl(
         favouritesFlow.value = updatedFavourites
     }
 
-    override suspend fun deleteFavourite(movie: MovieElement) = handleApiCall {
-        favouritesApi.deleteFavourite(movie.id)
+    override suspend fun deleteFavourite(id: UUID) = handleApiCall {
+        favouritesApi.deleteFavourite(id)
         val updatedFavourites = favouritesApi.getFavourites().movies.map { it.toMovieElement() }
         favouritesFlow.value = updatedFavourites
     }

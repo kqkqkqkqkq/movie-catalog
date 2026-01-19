@@ -27,6 +27,21 @@ class MainViewModel(
         loadInitialFavourites()
     }
 
+    fun loadNextPage() {
+        val currentPage = _mainState.value.movies?.pageInfo?.currentPage ?: 1
+        val totalPages = _mainState.value.movies?.pageInfo?.pageCount ?: 1
+
+        if (currentPage < totalPages) {
+            loadMovies(currentPage + 1)
+        }
+    }
+
+    fun deleteFavourite(movie: MovieElement) {
+        viewModelScope.launch(dispatcherProvider.io) {
+            favouritesRepository.deleteFavourite(movie.id)
+        }
+    }
+
     private fun loadInitialFavourites() {
         viewModelScope.launch(dispatcherProvider.io) {
             favouritesRepository.getFavourites()
@@ -40,15 +55,6 @@ class MainViewModel(
                     it.copy(favourites = favourites, isLoading = false)
                 }
             }
-        }
-    }
-
-    fun loadNextPage() {
-        val currentPage = _mainState.value.movies?.pageInfo?.currentPage ?: 1
-        val totalPages = _mainState.value.movies?.pageInfo?.pageCount ?: 1
-
-        if (currentPage < totalPages) {
-            loadMovies(currentPage + 1)
         }
     }
 
@@ -72,12 +78,6 @@ class MainViewModel(
                 _mainState.update { it.copy(error = e.message) }
             }
             _mainState.update { it.copy(isLoading = false) }
-        }
-    }
-
-    fun deleteFavourite(movie: MovieElement) {
-        viewModelScope.launch(dispatcherProvider.io) {
-            favouritesRepository.deleteFavourite(movie)
         }
     }
 }
