@@ -60,8 +60,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         state.error.let {
             binding.error.text = it
         }
-
-        println(state.profile)
     }
 
     private fun setupButtons() {

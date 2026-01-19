@@ -53,6 +53,7 @@ import k.moviecatalog.features.main.details.components.ReviewComponent
 import k.moviecatalog.features.main.details.components.ReviewDialog
 import k.moviecatalog.repositories.models.Collection
 import k.moviecatalog.repositories.models.Review
+import k.moviecatalog.utils.mapper.profile.toUserShort
 
 val STATUS_BAR_HEIGHT = 32.dp
 val COLLAPSED_TOP_BAR_HEIGHT = 56.dp + STATUS_BAR_HEIGHT
@@ -103,7 +104,6 @@ fun MovieDetailsContent(
                 )
             }
         },
-//        modifier = Modifier.padding(top = 32.dp),
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
     ) { padding ->
         LazyColumn(
@@ -243,7 +243,7 @@ fun MovieDetailsContent(
 
         if (showDialog) {
             ReviewDialog(
-                currentUserProfile = state.currentUserProfile,
+                currentUser = state.currentUserProfile?.toUserShort(),
                 onSaveReview = onCreateReview,
                 onDismissRequest = { showDialog = false }
             )

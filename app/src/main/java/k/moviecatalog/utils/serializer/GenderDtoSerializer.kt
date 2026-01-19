@@ -1,4 +1,4 @@
-package k.moviecatalog.api.serializer
+package k.moviecatalog.utils.serializer
 
 import k.moviecatalog.api.schemas.GenderDto
 import k.moviecatalog.api.schemas.GenderDto.FEMALE
@@ -28,7 +28,6 @@ object GenderDtoSerializer : KSerializer<GenderDto?> {
 
     override fun deserialize(decoder: Decoder): GenderDto? {
         val intValue = decoder.decodeInt()
-        println("DESERIALIZE: $intValue")
         return when (intValue) {
             0 -> MALE
             1 -> FEMALE

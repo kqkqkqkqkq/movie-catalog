@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import k.moviecatalog.R
-import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.features.collections.holder.CollectionViewHolder
 import k.moviecatalog.features.collections.holder.CollectionsViewHolder
 import k.moviecatalog.features.collections.holder.FavoritesViewHolder
@@ -27,7 +26,6 @@ class CollectionsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionsViewHolder {
-        movieCatalogLogger().e("[CollectionsAdapter-onCreateViewHolder]", viewType.toString())
         return when (viewType) {
             VIEW_TYPE_FAVORITES -> {
                 val view = LayoutInflater.from(parent.context)
@@ -44,7 +42,6 @@ class CollectionsAdapter(
     }
 
     override fun onBindViewHolder(holder: CollectionsViewHolder, position: Int) {
-        movieCatalogLogger().e("[CollectionsAdapter-onBindViewHolder]", holder.toString())
         when (holder) {
             is FavoritesViewHolder -> {
                 val favoritesCollection = Collection(

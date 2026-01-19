@@ -1,7 +1,7 @@
 package k.moviecatalog.api.schemas
 
-import k.moviecatalog.api.serializer.GenderDtoSerializer
-import k.moviecatalog.api.serializer.LocalDateTimeSerializer
+import k.moviecatalog.utils.serializer.GenderDtoSerializer
+import k.moviecatalog.utils.serializer.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 

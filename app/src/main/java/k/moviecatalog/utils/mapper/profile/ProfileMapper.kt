@@ -2,6 +2,7 @@ package k.moviecatalog.utils.mapper.profile
 
 import k.moviecatalog.api.schemas.ProfileDto
 import k.moviecatalog.repositories.models.Profile
+import k.moviecatalog.repositories.models.UserShort
 import k.moviecatalog.utils.mapper.gender.genderMapper
 import k.moviecatalog.utils.mapper.gender.genderMapperDto
 
@@ -23,4 +24,10 @@ fun Profile.toProfileDto() = ProfileDto(
     name = name,
     birthDate = birthDate,
     gender = genderMapper(gender),
+)
+
+fun Profile.toUserShort() = UserShort(
+    userId = id,
+    nickName = nickName,
+    avatar = avatarLink,
 )

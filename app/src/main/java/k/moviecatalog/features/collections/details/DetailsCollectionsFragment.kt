@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import k.moviecatalog.R
-import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.common.ui.swipe.SwipeHelper
 import k.moviecatalog.common.ui.swipe.UnderlayButton
 import k.moviecatalog.databinding.FragmentCollectionsDetailsBinding
@@ -40,10 +39,6 @@ class DetailsCollectionsFragment : Fragment(R.layout.fragment_collections_detail
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCollectionsDetailsBinding.bind(view)
         viewModel.loadCollection(args.collection)
-        movieCatalogLogger().e(
-            "[DetailsCollectionsFragment-onViewCreated]",
-            viewModel.detailsCollectionsState.value.collection.toString()
-        )
         setupRecyclerView()
         setupButtons()
         setupText()

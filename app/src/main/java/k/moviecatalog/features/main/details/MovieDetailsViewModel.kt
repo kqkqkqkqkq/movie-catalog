@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import k.moviecatalog.App
 import k.moviecatalog.common.dispatcher.DispatcherProvider
-import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.repositories.auth.AuthRepository
 import k.moviecatalog.repositories.collections.CollectionsRepository
 import k.moviecatalog.repositories.favourites.FavouritesRepository
@@ -100,16 +99,19 @@ class MovieDetailsViewModel(
     fun createReview(review: Review) {
         viewModelScope.launch(dispatcherProvider.io) {
             _movieDetailState.update { it.copy(isLoading = true) }
-            val movieId = requireNotNull(_movieDetailState.value.movie?.id)
-            reviewRepository.addReview(movieId = movieId, review = review.toReviewModify())
+            val currentUserProfileId = _movieDetailState.value.currentUserProfile?.id
+            val currentMovie = requireNotNull(_movieDetailState.value.movie)
+            reviewRepository.addReview(movieId = currentMovie.id, review = review.toReviewModify())
                 .onSuccess {
-                    val currentMovie = _movieDetailState.value.movie
-                    val currentReviews = requireNotNull(_movieDetailState.value.movie?.reviews)
-                    _movieDetailState.update { it.copy(movie = currentMovie?.copy(reviews = listOf(review) + currentReviews)) }
-                    movieCatalogLogger().d("[Create Review]", "Review created: $review")
+                    moviesRepository.getMovieDetails(currentMovie.id).onSuccess { newMovie ->
+                        val reorderedReviews =
+                            moveCurrentUserReviewTop(newMovie.reviews, currentUserProfileId)
+                        _movieDetailState.update { it.copy(movie = currentMovie.copy(reviews = reorderedReviews)) }
+                    }.onFailure { e ->
+                        _movieDetailState.update { it.copy(error = e.message) }
+                    }
                 }.onFailure { e ->
                     _movieDetailState.update { it.copy(error = e.message) }
-                    movieCatalogLogger().e("[Create Review]", e.message.toString())
                 }
             _movieDetailState.update { it.copy(isLoading = false) }
         }
@@ -123,10 +125,8 @@ class MovieDetailsViewModel(
                 val currentMovie = _movieDetailState.value.movie
                 val currentReviews = requireNotNull(_movieDetailState.value.movie?.reviews)
                 _movieDetailState.update { it.copy(movie = currentMovie?.copy(reviews = currentReviews - review)) }
-                movieCatalogLogger().d("[Delete Review]", "Review deleted")
             }.onFailure { e ->
                 _movieDetailState.update { it.copy(error = e.message) }
-                movieCatalogLogger().e("[Delete Review]", e.message.toString())
             }
             _movieDetailState.update { it.copy(isLoading = false) }
         }
@@ -135,14 +135,22 @@ class MovieDetailsViewModel(
     fun updateReview(review: Review) {
         viewModelScope.launch(dispatcherProvider.io) {
             _movieDetailState.update { it.copy(isLoading = true) }
-            val movieId = requireNotNull(_movieDetailState.value.movie?.id)
-            reviewRepository.updateReview(movieId = movieId, reviewId = review.id).onSuccess { r ->
-                // TODO("update local list with new data")
-                movieCatalogLogger().d("[Update Review]", r.toString())
-            }.onFailure { e ->
-                _movieDetailState.update { it.copy(error = e.message) }
-                movieCatalogLogger().e("[Update Review]", e.message.toString())
-            }
+            val currentUserProfileId = _movieDetailState.value.currentUserProfile?.id
+            val currentMovie = requireNotNull(_movieDetailState.value.movie)
+            val currentReview = _movieDetailState.value.movie?.reviews?.first { it.author?.userId == currentUserProfileId }
+            val currentReviewId = requireNotNull(currentReview?.id)
+            reviewRepository.updateReview(movieId = currentMovie.id, reviewId = currentReviewId, review = review.toReviewModify())
+                .onSuccess {
+                    moviesRepository.getMovieDetails(currentMovie.id).onSuccess { newMovie ->
+                        val reorderedReviews =
+                            moveCurrentUserReviewTop(newMovie.reviews, currentUserProfileId)
+                        _movieDetailState.update { it.copy(movie = currentMovie.copy(reviews = reorderedReviews)) }
+                    }.onFailure { e ->
+                        _movieDetailState.update { it.copy(error = e.message) }
+                    }
+                }.onFailure { e ->
+                    _movieDetailState.update { it.copy(error = e.message) }
+                }
             _movieDetailState.update { it.copy(isLoading = false) }
         }
     }
@@ -175,7 +183,10 @@ class MovieDetailsViewModel(
         }
     }
 
-    private fun moveCurrentUserReviewTop(reviews: List<Review>, currentUserId: UUID?): List<Review> {
+    private fun moveCurrentUserReviewTop(
+        reviews: List<Review>,
+        currentUserId: UUID?
+    ): List<Review> {
         if (currentUserId == null) return reviews
         val (mine, others) = reviews.partition { it.author?.userId == currentUserId }
         val sortedMine = mine.sortedByDescending { it.createDateTime }

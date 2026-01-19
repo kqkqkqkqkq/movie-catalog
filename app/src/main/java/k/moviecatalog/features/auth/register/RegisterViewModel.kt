@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import k.moviecatalog.App
 import k.moviecatalog.common.dispatcher.DispatcherProvider
-import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.constants.UiConstants
 import k.moviecatalog.repositories.auth.AuthRepository
 import k.moviecatalog.repositories.models.Gender
@@ -37,7 +36,6 @@ class RegisterViewModel(
             _registerState.update { it.copy(isLoading = true) }
             if (validateRegisterForm()) {
                 val user = _registerState.value.user.toUserRegister()
-                movieCatalogLogger().e("[User to register]", user.toString())
                 authRepository.register(user)
                     .onSuccess { token ->
                         tokenRepository.setToken(token.token)

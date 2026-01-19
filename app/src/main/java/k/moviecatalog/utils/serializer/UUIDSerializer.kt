@@ -1,4 +1,4 @@
-package k.moviecatalog.api.serializer
+package k.moviecatalog.utils.serializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

@@ -2,7 +2,7 @@ package k.moviecatalog.common.logger
 
 import android.util.Log
 
-fun movieCatalogLogger() = object : Logger {
+object MovieCatalogLogger : Logger {
     override fun d(tag: String, message: String) {
         Log.d(tag, message)
     }

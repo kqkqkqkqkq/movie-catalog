@@ -65,6 +65,10 @@ fun ReviewComponent(
         ?.nickName
         ?.takeUnless { review.isAnonymous }
         ?: stringResource(R.string.anonymous_user)
+    val imageUrl = review.author
+        ?.avatar
+        ?.takeUnless { review.isAnonymous }
+        .orEmpty()
 
     Card(
         modifier = Modifier
@@ -93,7 +97,7 @@ fun ReviewComponent(
                         .size(40.dp),
                 ) {
                     AsyncImage(
-                        model = review.author?.avatar,
+                        model = imageUrl,
                         contentDescription = null,
                         placeholder = painterResource(R.drawable.pic_profile),
                         error = painterResource(R.drawable.pic_profile),
@@ -157,7 +161,9 @@ fun ReviewComponent(
                 Spacer(modifier = Modifier.weight(1f))
                 if (review.author?.userId == currentUserProfile.id) {
                     IconButton(
-                        onClick = { showDialog = true },
+                        onClick = {
+                            showDialog = true
+                        },
                         modifier = Modifier
                             .size(24.dp),
                         shape = CircleShape,
@@ -197,6 +203,7 @@ fun ReviewComponent(
     }
     if (showDialog) {
         ReviewDialog(
+            currentUser = review.author,
             review = review,
             onSaveReview = onUpdateReview,
             onDismissRequest = { showDialog = false }

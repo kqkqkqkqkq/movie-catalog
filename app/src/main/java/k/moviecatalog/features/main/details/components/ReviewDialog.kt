@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import k.moviecatalog.R
-import k.moviecatalog.repositories.models.Profile
 import k.moviecatalog.repositories.models.Review
 import k.moviecatalog.repositories.models.UserShort
 import java.time.LocalDateTime
@@ -38,7 +37,7 @@ import java.time.LocalDateTime
 @Composable
 fun ReviewDialog(
     review: Review? = null,
-    currentUserProfile: Profile? = null,
+    currentUser: UserShort? = null,
     onSaveReview: (Review) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
@@ -91,6 +90,7 @@ fun ReviewDialog(
                         focusedPlaceholderColor = MaterialTheme.colorScheme.background.copy(0.5f),
                         unfocusedPlaceholderColor = MaterialTheme.colorScheme.background.copy(0.5f),
                         focusedTextColor = MaterialTheme.colorScheme.background,
+                        unfocusedTextColor = MaterialTheme.colorScheme.background,
                     ),
                     shape = RoundedCornerShape(6.dp),
                 )
@@ -118,7 +118,7 @@ fun ReviewDialog(
                 ) {
                     Button(
                         onClick = {
-                            currentUserProfile?.let { profile ->
+                            currentUser?.let { profile ->
                                 val newReview =
                                     createReview(profile, rating, reviewText, isAnonymous)
                                 onSaveReview(newReview)
@@ -161,19 +161,15 @@ fun ReviewDialog(
 }
 
 private fun createReview(
-    profile: Profile,
+    user: UserShort,
     rating: Int,
     reviewText: String,
     isAnonymous: Boolean,
 ) = Review(
-    id = profile.id,
+    id = user.userId,
     rating = rating,
     reviewText = reviewText,
     isAnonymous = isAnonymous,
     createDateTime = LocalDateTime.now(),
-    author = UserShort(
-        userId = profile.id,
-        nickName = profile.nickName,
-        avatar = profile.avatarLink,
-    ),
+    author = user,
 )

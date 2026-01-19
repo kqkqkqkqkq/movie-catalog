@@ -20,7 +20,8 @@ interface ReviewApi {
     suspend fun updateReview(
         @Path("movieId") movieId: UUID,
         @Path("id") id: UUID,
-    ): ReviewModifyDto
+        @Body review: ReviewModifyDto,
+    )
 
     @DELETE(Routes.DELETE_REVIEW)
     suspend fun deleteReview(

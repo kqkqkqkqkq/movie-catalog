@@ -1,6 +1,6 @@
 package k.moviecatalog.data.collections.models
 
-import k.moviecatalog.api.serializer.UUIDSerializer
+import k.moviecatalog.utils.serializer.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

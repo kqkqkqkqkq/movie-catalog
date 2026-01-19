@@ -10,7 +10,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import k.moviecatalog.R
-import k.moviecatalog.common.logger.movieCatalogLogger
 import k.moviecatalog.databinding.FragmentCollectionsBinding
 import k.moviecatalog.di.AppComponentImpl
 import k.moviecatalog.repositories.models.Collection
@@ -42,7 +41,6 @@ class CollectionsFragment : Fragment(R.layout.fragment_collections) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.collectionsState.collect { state ->
-                    movieCatalogLogger().e("[CollectionsFragment-observeViewModel]", state.favourites.toString())
                     state.collections?.let { collections ->
                         adapter.submitList(collections)
                     }
